@@ -1,0 +1,20 @@
+Package: nurserysurveyrap
+Title: nurserysurveyrap
+Version: 0.0.0.9000
+Authors@R: 
+    person("Dan", "Braby", , "daniel.braby@forestresearch.gov.uk", role = c("cre", "aut"))
+Description: Read, analyse and report for our Nursery Survey.
+License: MIT
+URL: http://github.com/forestresearch/nurserysurveyrap.com
+BugReports: http://github.com/forestresearch/nurseysurveyrap/issues.com
+Imports: 
+    lubridate,
+    magrittr,
+    purrr,
+    readr,
+    readxl,
+    tidyr,
+    dplyr,
+    fs
+Encoding: UTF-8
+RoxygenNote: 7.3.2
