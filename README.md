@@ -8,7 +8,7 @@
 
 **Under development**
 
-The nurserysurveyrap package will produce the report and accompanying
+The `nurserysurveyrap` package will produce the report and accompanying
 spreadsheet ready for publication. It processes the input data and
 prepares for presentation in publication format.
 
