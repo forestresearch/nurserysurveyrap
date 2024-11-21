@@ -8,13 +8,7 @@
 #' @param returns The raw returns.
 #'
 #' @importFrom magrittr %>%
-#' @importFrom dplyr filter
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
-#' @importFrom dplyr reframe
-#' @importFrom dplyr pick
-#' @importFrom dplyr everything
-#' @importFrom dplyr inner_join
+#' @importFrom dplyr filter mutate select reframe pick everything inner_join
 #'
 #'
 #' @export

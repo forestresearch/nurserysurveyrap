@@ -6,9 +6,7 @@
 #'
 #' @param date Date to get the planting year from.
 #'
-#' @importFrom lubridate year
-#' @importFrom lubridate interval
-#' @importFrom lubridate make_date
+#' @importFrom lubridate year interval make_date
 #'
 #' @return Planting year interval.
 #' @export

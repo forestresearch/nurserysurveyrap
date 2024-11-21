@@ -10,9 +10,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom purrr map_dfr
 #' @importFrom readxl read_xlsx
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
-#' @importFrom dplyr recode
+#' @importFrom dplyr mutate select recode
 #'
 #' @return Combined tibble of reports.
 #' @export
@@ -27,12 +25,10 @@ read_returns <- function(dir_path) {
 #'
 #' @return Tibble with disaggregated country and genetically improved stock variables.
 #'
-#' @importFrom magrittr %>%
+#' @importFrom magrittr "%>%"
 #' @importFrom purrr map_dfr
 #' @importFrom readxl read_xlsx
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
-#' @importFrom dplyr recode
+#' @importFrom dplyr mutate select recode
 #'
 #' @export
 #'
