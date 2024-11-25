@@ -8,8 +8,7 @@ output_pub_tab(
   in_data,
   latest_year,
   pub_date,
-  pub_name = NULL,
-  which_chap = NULL,
+  pub_name = "Nursery Survey",
   next_update,
   out_path,
   out_name_wb,
@@ -28,8 +27,6 @@ output_pub_tab(
 
 \item{pub_name}{Name of publication, which will determine the formatting. One of either "ukwpt" (UK Wood production and Trade) or "fs" (Forestry Statistics).}
 
-\item{which_chap}{Number of the chapter to run.}
-
 \item{next_update}{Next update date, string. Date format example: 6 October 2030.}
 
 \item{out_path}{Path to output folder.}
@@ -43,6 +40,8 @@ output_pub_tab(
 \item{cont_hyperlink}{Boolean. If TRUE, replaces sheet names in Contents sheet with hyperlinks to those sheets. Default is FALSE.}
 
 \item{a11y_obj}{Optional. Supply list of objects required to run a11ytables if not using Forestry Statistics or UKWPT specific function pub_a11y_prep. Default is NULL.}
+
+\item{which_chap}{Number of the chapter to run.}
 }
 \description{
 Output publication tables to publication ready Excel spreadsheet.
