@@ -24,8 +24,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
   nurserys <- read_nursery_names(nursery_names)
   backseries <- read_rds(hist_data)
 
-  returns <- bind_rows(returns, backseries) %>%
-    tibble::rownames_to_column("id")
+  returns <- bind_rows(returns, backseries)
 
   returns <- fix_returns(returns, nurserys)
 
