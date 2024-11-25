@@ -3,7 +3,7 @@
 #' @param pub_date Publication date, string. Date format example: 6 October 2030.
 #' @param next_update Next update date, string. Date format example: 6 October 2030.
 #'
-#' @importFrom lubidate year
+#' @importFrom lubridate year
 #'
 #' @return List of cover, contents and note sheets for input to a11ytables and other formatting info.
 #' @export
