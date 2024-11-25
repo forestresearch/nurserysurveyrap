@@ -140,6 +140,9 @@ pub_a11y_prep <- function(pub_date,
                 "Total" = "Total")
   )
 
+  blank_cells <- c(rep(NA_character_, 9))
+  )
+
   out_list <- list(cover_list = cover_list,
                    contents_df = contents_df,
                    notes_df = notes_df,
