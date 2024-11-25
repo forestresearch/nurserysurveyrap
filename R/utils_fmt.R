@@ -5,9 +5,11 @@
 #' @param next_update Next update date, string. Date format example: 6 October 2030.
 #'
 #'
+#'
 #' @return List of cover, contents and note sheets for input to a11ytables and other formatting info.
 #' @export
 
+reporting_year <- planting_year(lubridate::year(pub_date) - 2)
 
 pub_a11y_prep <- function(latest_name,
                           pub_date,
@@ -23,17 +25,17 @@ pub_a11y_prep <- function(latest_name,
 
   sheet_titles <- c(
     paste0("Nursery Survey, Great Britain, 2005/05 to ",
-           planting_year(pub_date)),
+           reporting_year),
     "Contents",
     "Notes",
     paste0("Table S1: Sales of nursery stock, Scotland, 2005/06 to ",
-           planting_year(pub_date)),
-    paste0("Table S2: Sales of improved nursery stock, Scotland, 2005/06 to ", planting_year(pub_date)),
-    paste0("Table S3: Percentage of nursery stock sold that is genetically improved, Scotland, 2005/05 to", planting_year(pub_date)),
+           reporting_year),
+    paste0("Table S2: Sales of improved nursery stock, Scotland, 2005/06 to ", reporting_year),
+    paste0("Table S3: Percentage of nursery stock sold that is genetically improved, Scotland, 2005/05 to", reporting_year),
     paste0("Table S4: Sales of nursery stock, Great Britain, 2005/06 to ",
-           planting_year(pub_date)),
-    paste0("Table S5: Sales of improved nursery stock, Great Britain, 2005/06 to ", planting_year(pub_date)),
-    paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/05 to", planting_year(pub_date))
+           reporting_year),
+    paste0("Table S5: Sales of improved nursery stock, Great Britain, 2005/06 to ", reporting_year),
+    paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/05 to", reporting_year)
   )
 
   custom_rows <- list(
@@ -82,13 +84,13 @@ pub_a11y_prep <- function(latest_name,
     "Sheet title" = c(
       "Notes used in this workbook",
       paste0("Table S1: Sales of nursery stock, Scotland, 2005/06 to ",
-             planting_year(pub_date)),
-      paste0("Table S2: Sales of improved nursery stock, Scotland, 2005/06 to ", planting_year(pub_date)),
-      paste0("Table S3: Percentage of nursery stock sold that is genetically improved, Scotland, 2005/05 to", planting_year(pub_date)),
+             reporting_year),
+      paste0("Table S2: Sales of improved nursery stock, Scotland, 2005/06 to ", reporting_year),
+      paste0("Table S3: Percentage of nursery stock sold that is genetically improved, Scotland, 2005/05 to", reporting_year),
       paste0("Table S4: Sales of nursery stock, Great Britain, 2005/06 to ",
-             planting_year(pub_date)),
-      paste0("Table S5: Sales of improved nursery stock, Great Britain, 2005/06 to ", planting_year(pub_date)),
-      paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/05 to", planting_year(pub_date)
+             reporting_year),
+      paste0("Table S5: Sales of improved nursery stock, Great Britain, 2005/06 to ", reporting_year),
+      paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/05 to", reporting_year
     ),
     check.names = FALSE
   ))
