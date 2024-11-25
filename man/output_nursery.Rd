@@ -9,6 +9,7 @@ output_nursery(
   hist_data,
   nursery_names,
   pub_year,
+  latest_year,
   out_path,
   pub_date,
   next_update
@@ -21,13 +22,13 @@ output_nursery(
 
 \item{nursery_names}{List of corrected nursery names}
 
+\item{latest_year}{String, year input data goes up to.}
+
 \item{out_path}{Path to output folder.}
 
 \item{pub_date}{Publication date, string. Date format example: 6 October 2030.}
 
 \item{next_update}{Next update date, string. Date format example: 6 October 2030.}
-
-\item{latest_year}{String, year input data goes up to.}
 }
 \value{
 tbd

@@ -8,11 +8,11 @@
 #' @return List of cover, contents and note sheets for input to a11ytables and other formatting info.
 #' @export
 
-reporting_year <- planting_year(year(pub_date) - 2)
 
-pub_a11y_prep <- function(latest_name,
-                          pub_date,
+pub_a11y_prep <- function(pub_date,
                           next_update) {
+
+  reporting_year <- planting_year(lubridate::year(pub_date) - 2)
 
   tab_titles <- c("Cover", "Contents", "Notes", "Table_S1",
                   "Table_S2", "Table_S3", "Table_S4",
