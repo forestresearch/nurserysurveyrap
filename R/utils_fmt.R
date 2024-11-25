@@ -63,7 +63,7 @@ pub_a11y_prep <- function(latest_name,
   cover_list <- list(
     "Publication information" = c(
       paste0("Publication date: ", pub_date),
-      paste0("Data period: Provisional data for ", latest_year),
+      paste0("Data period: Final data for ", reporting_year),
       paste0("Next update: ", next_update)),
     "Further information" = c(
       "[Forestry Statistics publication (opens in a new window)](https://www.forestresearch.gov.uk/tools-and-resources/statistics/statistics-by-topic/other-topics/nursery-survey/)",
