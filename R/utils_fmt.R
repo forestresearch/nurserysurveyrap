@@ -3,12 +3,12 @@
 #' @param pub_date Publication date, string. Date format example: 6 October 2030.
 #' @param next_update Next update date, string. Date format example: 6 October 2030.
 #'
-#'
+#' @importFrom lubidate year
 #'
 #' @return List of cover, contents and note sheets for input to a11ytables and other formatting info.
 #' @export
 
-reporting_year <- planting_year(lubridate::year(pub_date) - 2)
+reporting_year <- planting_year(year(pub_date) - 2)
 
 pub_a11y_prep <- function(latest_name,
                           pub_date,
