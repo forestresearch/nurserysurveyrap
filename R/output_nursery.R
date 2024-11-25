@@ -3,7 +3,6 @@
 #' @param dir_path Path to folder containing all chapter input data files.
 #' @param hist_data Name of previous historical time series of input data.
 #' @param nursery_names List of corrected nursery names
-#' @param latest_year String, year input data goes up to.
 #' @param out_path Path to output folder.
 #' @param pub_date Publication date, string. Date format example: 6 October 2030.
 #' @param next_update Next update date, string. Date format example: 6 October 2030.
