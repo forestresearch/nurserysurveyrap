@@ -12,6 +12,7 @@
 #' @export
 #'
 
+
 in_planting_year <- function(date) {
   ending_year <- year(date) + ifelse(month(date) >= 10, 1, 0)
   interval(make_date(ending_year - 1, 10, 1),
@@ -30,4 +31,22 @@ in_planting_year <- function(date) {
 
 to_planting_year <- function(year) {
   in_planting_year(make_date(year, 10, 1))
+}
+
+#' Get the planting year as text.
+#'
+#' @description The interval \strong{starts} in the year that is specified.
+#'
+#' @param year Year to convert to planting year interval.
+#'
+#' @return Planting year text.
+#' @export
+#'
+
+planting_year <- function(year) {
+  interval <- to_planting_year(year)
+  interval_f <- function(f) as.character(year(f(interval)))
+  start <- interval_f(int_start)
+  end <- interval_f(int_end)
+  paste(start, "/", stringr::str_sub(end, -2), sep = "")
 }
