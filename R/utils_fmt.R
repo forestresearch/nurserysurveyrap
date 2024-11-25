@@ -140,6 +140,19 @@ pub_a11y_prep <- function(pub_date,
                 "Total" = "Total")
   )
 
+  out_list <- list(cover_list = cover_list,
+                   contents_df = contents_df,
+                   notes_df = notes_df,
+                   tab_titles = tab_titles,
+                   sheet_types = sheet_types,
+                   sheet_titles = sheet_titles,
+                   custom_rows = custom_rows,
+                   sources = sources,
+                   table_colnames = table_colnames,
+                   blank_cells = blank_cells)
+
+  return(out_list)
+
 
 }
 
