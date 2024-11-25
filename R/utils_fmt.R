@@ -1,6 +1,5 @@
 #' Prepare content and formatting lists for use with a11ytables for a publication Excel spreadsheet
 #'
-#' @param latest_year Latest year of data.
 #' @param pub_date Publication date, string. Date format example: 6 October 2030.
 #' @param next_update Next update date, string. Date format example: 6 October 2030.
 #'
