@@ -153,7 +153,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
                  out_path = out_path,
                  out_name_wb = paste0(out_name_wb, "_", time_date),
                  replace_wb = TRUE,
-                 rnd_no_dec = c(rep(FALSE, 11)),
+                 rnd_no_dec = NULL,
                  a11y_obj = ns_a11y_obj)
 
 
