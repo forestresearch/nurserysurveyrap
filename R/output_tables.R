@@ -32,8 +32,7 @@
 output_pub_tab <- function(in_data,
                            latest_year,
                            pub_date,
-                           pub_name = NULL,
-                           which_chap = NULL,
+                           pub_name = "Nursery Survey",
                            next_update,
                            out_path,
                            out_name_wb,
@@ -66,8 +65,7 @@ output_pub_tab <- function(in_data,
     pub_a11y_other <- pub_a11y_prep(pub_name = pub_name,
                                     pub_date = pub_date,
                                     latest_year = latest_year,
-                                    next_update = next_update,
-                                    which_chap = which_chap)
+                                    next_update = next_update)
   } else {
     pub_a11y_other <- a11y_obj
   }
