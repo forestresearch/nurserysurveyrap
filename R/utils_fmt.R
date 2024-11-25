@@ -90,9 +90,9 @@ pub_a11y_prep <- function(pub_date,
              reporting_year),
       paste0("Table S5: Sales of improved nursery stock, Great Britain, 2005/06 to ", reporting_year),
       paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/05 to", reporting_year
-    ),
+    )),
     check.names = FALSE
-  ))
+  )
 
   notes_df <- data.frame(
     "Footnote number" = "[note 1]",
