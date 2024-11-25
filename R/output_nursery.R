@@ -139,6 +139,8 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
     tables6 = s6
   )
 
+  latest_year = planting_year(lubridate::year(pub_date) - 2)
+
   ns_a11y_obj <- pub_a11y_prep(pub_date = pub_date,
                               latest_year = latest_year,
                               next_update = next_update)

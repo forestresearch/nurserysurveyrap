@@ -22,8 +22,6 @@ output_nursery(
 
 \item{nursery_names}{List of corrected nursery names}
 
-\item{latest_year}{String, year input data goes up to.}
-
 \item{out_path}{Path to output folder.}
 
 \item{pub_date}{Publication date, string. Date format example: 6 October 2030.}
