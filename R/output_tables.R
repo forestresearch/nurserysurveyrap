@@ -63,9 +63,7 @@ output_pub_tab <- function(in_data,
   # prepare a11ytables contents and other formatting info
   if (is.null(a11y_obj) == TRUE) {
     pub_a11y_other <- pub_a11y_prep(pub_name = pub_name,
-                                    pub_date = pub_date,
-                                    latest_year = latest_year,
-                                    next_update = next_update)
+                                    pub_date = pub_date)
   } else {
     pub_a11y_other <- a11y_obj
   }
