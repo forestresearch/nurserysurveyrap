@@ -19,7 +19,8 @@
 
 
 output_nursery <- function(dir_path, hist_data, nursery_names,
-                           pub_year, out_path, pub_date, next_update) {
+                           pub_year, latest_year, out_path,
+                           pub_date, next_update) {
   returns <- read_returns(dir_path)
   nurserys <- read_nursery_names(nursery_names)
   backseries <- read_rds(hist_data)
