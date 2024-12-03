@@ -162,6 +162,12 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
                  rnd_no_dec = c(rep(FALSE, 6)),
                  a11y_obj = ns_a11y_obj)
 
+  # Word document for QA
+  rmarkdown::render("./inst/Rmd/report.Rmd", output_file = paste0(out_path, "/", out_name_doc, "_", time_date, ".docx"), quiet = TRUE)
+
+  print("Progress: ---------- TPI COMPLETE ----------")
+}
+
 
 
 }
