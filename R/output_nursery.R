@@ -4,6 +4,7 @@
 #' @param hist_data Name of previous historical time series of input data.
 #' @param nursery_names List of corrected nursery names
 #' @param out_path Path to output folder.
+#' @param out_doc doc file name
 #' @param pub_date Publication date, string. Date format example: 6 October 2030.
 #' @param next_update Next update date, string. Date format example: 6 October 2030.
 #'
@@ -163,7 +164,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
                  a11y_obj = ns_a11y_obj)
 
   # Word document for QA
-  rmarkdown::render("./inst/Rmd/report.Rmd", output_file = paste0(out_path, "/", out_name_doc, "_", time_date, ".docx"), quiet = TRUE)
+  rmarkdown::render("./inst/Rmd/report.Rmd", output_file = paste0(out_path, "/", out_name_doc, "_", pub_date, ".docx"), quiet = TRUE)
 
   print("Progress: ---------- TPI COMPLETE ----------")
 }

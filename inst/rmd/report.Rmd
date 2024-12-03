@@ -2,7 +2,7 @@
 title: 'Nursery Survey: Estimates of sales of improved nursery stock by forest nurseries
   in Great Britain'
 output:
-  reference_dox: rep_template_fs.docx
+  reference_docx: inst/rmd/fr_rep_template.docx
 ---
 
 ```{r setup, include=FALSE}
