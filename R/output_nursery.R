@@ -170,4 +170,3 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
 
 
 
-}
