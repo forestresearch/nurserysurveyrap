@@ -11,6 +11,7 @@
 #' @importFrom magrittr "%>%"
 #' @importFrom dplyr filter mutate group_by summarise bind_rows pivot_wider
 #' @importFrom readr read_rds write_rds
+#' @importFrom purrr map
 #'
 #' @return tbd
 #' @export
@@ -139,6 +140,11 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
     tables6 = s6
   )
 
+  pub_tables_rnd <- map(pub_tables, .f = ~ .x %>%
+                                 dplyr::mutate_if(is.numeric,
+                                                  round_safe,
+                                                  digits = 1))
+
   latest_year = planting_year(lubridate::year(pub_date) - 2)
 
   ns_a11y_obj <- pub_a11y_prep(pub_date = pub_date,
@@ -151,9 +157,9 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
                  pub_date = pub_date,
                  next_update = next_update,
                  out_path = out_path,
-                 out_name_wb = paste0(out_path, "_", pub_date),
+                 out_name_wb = paste0("nursery-survey_", pub_date),
                  replace_wb = TRUE,
-                 rnd_no_dec = NULL,
+                 rnd_no_dec = c(rep(FALSE, 6)),
                  a11y_obj = ns_a11y_obj)
 
 

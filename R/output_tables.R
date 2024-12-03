@@ -119,11 +119,11 @@ output_pub_tab <- function(in_data,
 
   # add branding/official statistics images
   openxlsx::insertImage(wb = out_wb, sheet = "Cover",
-                        file = "../forestry_statistics/inst/img/FRlogo_linear_colour_transparent.png",
+                        file = "../nurserysurveyrap/inst/img/FRlogo_linear_colour_transparent.png",
                         startRow = 1, startCol = 4, height = 161, width = 791, units = "px")
 
   openxlsx::insertImage(wb = out_wb, sheet = "Cover",
-                        file = "../forestry_statistics/inst/img/accredited_official_statistics_logo_english_hq.png",
+                        file = "../nurserysurveyrap/inst/img/accredited_official_statistics_logo_english_hq.png",
                         startRow = 1, startCol = 7, height = 400, width = 400, units = "px")
 
   # add hyperlinks for contents sheet
@@ -173,7 +173,7 @@ output_data_xlsx_check <- function(
 
   ##### check for existing file and sheet #####
 
-  out_file_name <- paste0(out_path, "/", out_name, ".xlsx")
+  out_file_name <- paste0("/", out_name, ".xlsx")
 
   if (out_type == "pub") {
     if ((file.exists(out_file_name) == TRUE) & (replace_wb == FALSE)) {
@@ -286,7 +286,7 @@ output_data_diag_xlsx <- function(data_in,
 
   ##### check for existing file and sheet #####
 
-  out_file_name <- paste0(out_path, "/", out_name, ".xlsx")
+  out_file_name <- paste0("\\", out_name, ".xlsx")
 
   if (file.exists(out_file_name) == FALSE) {
     # create workbook

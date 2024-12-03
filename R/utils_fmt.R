@@ -95,8 +95,8 @@ pub_a11y_prep <- function(pub_date,
   )
 
   notes_df <- data.frame(
-    "Footnote number" = "[note 1]",
-    "Footnote text" = "Results for respondents only. This is estimated to account for around 90 to 100% of all sales of Sitka spruce and Scots pine in each of the years shown in the table."
+    "Footnote number" = c("[note 1]"),
+    "Footnote text" = c("Results for respondents only. This is estimated to account for around 90 to 100% of all sales of Sitka spruce and Scots pine in each of the years shown in the table.")
   ,
   check.names = FALSE
   )
@@ -106,42 +106,41 @@ pub_a11y_prep <- function(pub_date,
                 "Sitka spruce: Seedlings" = "Sitka spruce: Seedlings",
                 "Sitka spruce: VP" = "Sitka spruce: VP",
                 "Sitka spruce: Total" = "Sitka spruce: Total",
-                "Scots pine: Seedlings" = "Scots pine: Seedling",
+                "Scots pine: Seedlings" = "Scots pine: Seedlings",
                 "Total" = "Total"),
     tables2 = c("Planting year" = "year",
                 "Sitka spruce: Seedlings" = "Sitka spruce: Seedlings",
                 "Sitka spruce: VP" = "Sitka spruce: VP",
                 "Sitka spruce: Total" = "Sitka spruce: Total",
-                "Scots pine: Seedlings" = "Scots pine: Seedling",
+                "Scots pine: Seedlings" = "Scots pine: Seedlings",
                 "Total" = "Total"),
     tables3 = c("Planting year" = "year",
                 "Sitka spruce: Seedlings" = "Sitka spruce: Seedlings",
                 "Sitka spruce: VP" = "Sitka spruce: VP",
                 "Sitka spruce: Total" = "Sitka spruce: Total",
-                "Scots pine: Seedlings" = "Scots pine: Seedling",
+                "Scots pine: Seedlings" = "Scots pine: Seedlings",
                 "Total" = "Total"),
     tables4 = c("Planting year" = "year",
                 "Sitka spruce: Seedlings" = "Sitka spruce: Seedlings",
                 "Sitka spruce: VP" = "Sitka spruce: VP",
                 "Sitka spruce: Total" = "Sitka spruce: Total",
-                "Scots pine: Seedlings" = "Scots pine: Seedling",
+                "Scots pine: Seedlings" = "Scots pine: Seedlings",
                 "Total" = "Total"),
     tables5 = c("Planting year" = "year",
                 "Sitka spruce: Seedlings" = "Sitka spruce: Seedlings",
                 "Sitka spruce: VP" = "Sitka spruce: VP",
                 "Sitka spruce: Total" = "Sitka spruce: Total",
-                "Scots pine: Seedlings" = "Scots pine: Seedling",
+                "Scots pine: Seedlings" = "Scots pine: Seedlings",
                 "Total" = "Total"),
     tables6 = c("Planting year" = "year",
                 "Sitka spruce: Seedlings" = "Sitka spruce: Seedlings",
                 "Sitka spruce: VP" = "Sitka spruce: VP",
                 "Sitka spruce: Total" = "Sitka spruce: Total",
-                "Scots pine: Seedlings" = "Scots pine: Seedling",
+                "Scots pine: Seedlings" = "Scots pine: Seedlings",
                 "Total" = "Total")
   )
 
   blank_cells <- c(rep(NA_character_, 9))
-  )
 
   out_list <- list(cover_list = cover_list,
                    contents_df = contents_df,
