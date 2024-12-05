@@ -11,8 +11,10 @@ output_nursery(
   pub_year,
   latest_year,
   out_path,
+  out_name_doc,
   pub_date,
-  next_update
+  next_update,
+  stat_name
 )
 }
 \arguments{
@@ -22,11 +24,19 @@ output_nursery(
 
 \item{nursery_names}{List of corrected nursery names}
 
+\item{pub_year}{tbd}
+
+\item{latest_year}{tbd}
+
 \item{out_path}{Path to output folder.}
+
+\item{out_name_doc}{doc file name}
 
 \item{pub_date}{Publication date, string. Date format example: 6 October 2030.}
 
 \item{next_update}{Next update date, string. Date format example: 6 October 2030.}
+
+\item{stat_name}{Name of statistician}
 }
 \value{
 tbd

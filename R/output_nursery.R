@@ -4,13 +4,16 @@
 #' @param hist_data Name of previous historical time series of input data.
 #' @param nursery_names List of corrected nursery names
 #' @param out_path Path to output folder.
-#' @param out_doc doc file name
+#' @param out_name_doc doc file name
 #' @param pub_date Publication date, string. Date format example: 6 October 2030.
 #' @param next_update Next update date, string. Date format example: 6 October 2030.
+#' @param stat_name Name of statistician
+#' @param pub_year tbd
+#' @param latest_year tbd
 #'
-
 #' @importFrom magrittr "%>%"
-#' @importFrom dplyr filter mutate group_by summarise bind_rows pivot_wider
+#' @importFrom dplyr filter mutate group_by summarise bind_rows
+#' @importFrom tidyr pivot_wider
 #' @importFrom readr read_rds write_rds
 #' @importFrom purrr map
 #'
@@ -21,7 +24,8 @@
 
 output_nursery <- function(dir_path, hist_data, nursery_names,
                            pub_year, latest_year, out_path,
-                           pub_date, next_update) {
+                           out_name_doc, pub_date, next_update,
+                           stat_name) {
   returns <- read_returns(dir_path)
   nurserys <- read_nursery_names(nursery_names)
   backseries <- read_rds(hist_data)
@@ -162,6 +166,10 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
                  replace_wb = TRUE,
                  rnd_no_dec = c(rep(FALSE, 6)),
                  a11y_obj = ns_a11y_obj)
+
+  ref_year <- lubridate::year(pub_date) - 2
+  current_year <- lubridate::year(pub_date)
+  prev_year <- lubridate::year(pub_date) - 1
 
   # Word document for QA
   rmarkdown::render("./inst/Rmd/report.Rmd", output_file = paste0(out_path, "/", out_name_doc, "_", pub_date, ".docx"), quiet = TRUE)
