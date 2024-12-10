@@ -269,17 +269,17 @@ all_gb_pct <- returns %>%
 
 # Key findings
 
--   A total of `r round_fmt_rmd(all_scotland_im_n, 1)` million plants (`r percent(all_scotland_im_pct)`) derived from improved nursery stock were sold to Scotland in `r planting_year(ref_year)`.
+-   A total of `r frpubutils::round_fmt_rmd(all_scotland_im_n, 1)` million plants (`r percent(all_scotland_im_pct)`) derived from improved nursery stock were sold to Scotland in `r latest_year`.
 
--   Of all sales in Great Britain in `r planting_year(ref_year)`, `r round_fmt_rmd(all_gb_im_n, 1)` million plants (`r percent(all_gb_im_pct)`) were derived from improved nursery stock, `r perc_chg_text(all_gb_diff)` of `r percent(abs(all_gb_pct))` (or `r round_fmt_rmd(abs(all_gb_diff), 1)` million plants) compared with the previous year.
+-   Of all sales in Great Britain in `r latest_year`, `r round_fmt_rmd(all_gb_im_n, 1)` million plants (`r percent(all_gb_im_pct)`) were derived from improved nursery stock, `r perc_chg_text(all_gb_diff)` of `r percent(abs(all_gb_pct))` (or `r round_fmt_rmd(abs(all_gb_diff), 1)` million plants) compared with the previous year.
 
 \newpage
 
 # Sales of nursery stock to Scotland
 
-An estimated total of `r round_fmt_rmd(all_scotland_n, 1)` million Sitka spruce and Scots pine plants were sold to Scotland in `r planting_year(ref_year)` (Table 1), comprising `r round_fmt_rmd(scotland_sitka_n, 1)` million Sitka spruce plants and `r round_fmt_rmd(scotland_scots_n, 1)` million Scots pine plants. This represents `r get_direction((scotland_sitka_pct * 100))` in sales of Sitka spruce (`r percent(scotland_sitka_pct)`) and `r get_direction((scotland_scots_pct * 100))` in sales of Scots pine (`r percent(scotland_scots_pct)`) from the previous year.
+An estimated total of `r round_fmt_rmd(all_scotland_n, 1)` million Sitka spruce and Scots pine plants were sold to Scotland in `r latest_year` (Table 1), comprising `r round_fmt_rmd(scotland_sitka_n, 1)` million Sitka spruce plants and `r round_fmt_rmd(scotland_scots_n, 1)` million Scots pine plants. This represents `r get_direction((scotland_sitka_pct * 100))` in sales of Sitka spruce (`r percent(scotland_sitka_pct)`) and `r get_direction((scotland_scots_pct * 100))` in sales of Scots pine (`r percent(scotland_scots_pct)`) from the previous year.
 
-A total of `r round_fmt_rmd(all_scotland_im_n, 1)` million plants (`r percent(all_scotland_im_pct)`) derived from improved nursery stock were sold to Scotland in `r planting_year(current_year)`, `r get_perc_chg_text(all_scotland_im_ac)` of `r percent(all_scotland_im_ac)` compared with `r planting_year(ref_year)`.
+A total of `r round_fmt_rmd(all_scotland_im_n, 1)` million plants (`r percent(all_scotland_im_pct)`) derived from improved nursery stock were sold to Scotland in `r , `r get_perc_chg_text(all_scotland_im_ac)` of `r percent(all_scotland_im_ac)` compared with `r latest_year`.
 
 #### Table 1: Summary table, Scotland, `r planting_year(ref_year- 1)`  to `r planting_year(current_year)`
 
@@ -319,8 +319,8 @@ rbind(table1, table1_sitka_tot, table1_tot) %>%
   mutate(volume_total = round_safe(volume_total, 1),
          volume = round_safe(volume, 1),
          pct_improved = round_safe(pct_improved*100, 1)) %>% 
-  rename(paste0(`Total stock sold in ', planting_year(ref_year), ' (million plants)`) = 2,
-         `Improved stock sold in ', planting_year(ref_year), ' (million plants)`) = 3,
+  rename(paste0(`Total stock sold in ', latest_year, ' (million plants)`) = 2,
+         `Improved stock sold in ', latest_year, ' (million plants)`) = 3,
          `Proportion improved (%)` = 4)  %>%
   gt(rowname_col = "label")
 
@@ -355,7 +355,7 @@ returns %>%
 
 Figure 1 presents the sales of improved nursery stock to Scotland from `r planting_year(first_year)` to `r planting_year(current_year)` (planting seasons).
 
-#### Table 2: Sales of improved nursery stock, Scotland, `r planting_year(ref_year - 10)` to `r planting_year(ref_year)`
+#### Table 2: Sales of improved nursery stock, Scotland, `r planting_year(ref_year - 10)` to `r latest_year`
 
 ```{r}
 #| echo: false
@@ -398,7 +398,7 @@ A total of `r round_fmt_rmd(all_gb_im_n, 1)` million plants (`r percent(all_gb_i
 
 
 
-#### Table 3: Summary table, Great Britain, `r planting_year(ref_year)`
+#### Table 3: Summary table, Great Britain, `r latest_year`
 
 ```{r}
 #| echo: false
@@ -435,8 +435,8 @@ rbind(table3, table3_sitka_tot, table3_tot) %>%
   mutate(volume_total = round_safe(volume_total, 1),
          volume = round_safe(volume, 1),
          pct_improved = round_safe(pct_improved*100, 1)) %>% 
-  rename(paste0(`Total stock sold in ', planting_year(ref_year), ' (million plants)` = 2,),
-         paste0(`Improved stock sold in ', planting_year(ref_year), ' (million plants)`) = 3,
+  rename(paste0(`Total stock sold in ', latest_year, ' (million plants)` = 2,),
+         paste0(`Improved stock sold in ', latest_year, ' (million plants)`) = 3,
          `Proportion improved (%)` = 4)  %>%
   gt(rowname_col = "label")
 ```
@@ -462,11 +462,11 @@ returns %>%
        subtitle = "Improved stock (million plants)")
 ```
 
-Figure 2 shows the volume/quantity improved stock sold in Great Britain, from  2005/06 to `r planting_year(ref_year)`
+Figure 2 shows the volume/quantity improved stock sold in Great Britain, from  2005/06 to `r latest_year`
 
 Since the 2005/06 planting season, improved Sitka spruce seedlings have reported more than a two-fold increase in sales. Sales of improved Sitka spruce VP and improved Scots pine seedlings have both remained relatively constant throughout.
 
-#### Table 4: Sales of improved nursery stock, Great Britain, `r planting_year(ref_year - 10)` to `r planting_year(ref_year)`
+#### Table 4: Sales of improved nursery stock, Great Britain, `r planting_year(ref_year - 10)` to `r latest_year`
 
 ```{r}
 #| echo: false

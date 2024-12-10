@@ -17,6 +17,7 @@ Imports:
     dplyr,
     fs,
     flextable,
-    officer
+    officer,
+    frpubutils
 Encoding: UTF-8
 RoxygenNote: 7.3.2
