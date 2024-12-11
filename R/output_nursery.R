@@ -8,8 +8,7 @@
 #' @param pub_date Publication date, string. Date format example: 6 October 2030.
 #' @param next_update Next update date, string. Date format example: 6 October 2030.
 #' @param stat_name Name of statistician
-#' @param pub_year tbd
-#' @param latest_year tbd
+#' @param ref_year tbd
 #'
 #' @importFrom magrittr "%>%"
 #' @importFrom dplyr filter mutate group_by summarise bind_rows
@@ -23,16 +22,15 @@
 
 
 output_nursery <- function(dir_path, hist_data, nursery_names,
-                           pub_year, latest_year, out_path,
-                           out_name_doc, pub_date, next_update,
-                           stat_name) {
+                           ref_year, out_path,
+                           out_name_doc, pub_date, next_update,stat_name) {
   returns <- read_returns(dir_path)
   nurserys <- read_nursery_names(nursery_names)
   backseries <- read_rds(hist_data)
 
   returns <- bind_rows(returns, backseries)
 
-  returns <- fix_returns(returns, nurserys)
+  returns <- fix_returns(returns, nurserys) %>% drop_na(id)
 
   write_rds(returns, paste0(out_path, "/", "nursery_survey-", Sys.Date(), ".rds"))
 
@@ -150,7 +148,10 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
                                                   round_safe,
                                                   digits = 1))
 
-  latest_year = planting_year(lubridate::year(pub_date) - 2)
+  latest_year = planting_year(ref_year - 2)
+  previous_year = planting_year(ref_year - 3)
+  first_year = planting_year(min(returns$year))
+  ten_ago = planting_year(ref_year - 11)
 
   ns_a11y_obj <- pub_a11y_prep(pub_date = pub_date,
                               next_update = next_update)
@@ -167,14 +168,13 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
                  rnd_no_dec = c(rep(FALSE, 6)),
                  a11y_obj = ns_a11y_obj)
 
-  ref_year <- lubridate::year(pub_date) - 2
-  current_year <- lubridate::year(pub_date)
-  prev_year <- lubridate::year(pub_date) - 1
+
+
 
   # Word document for QA
   rmarkdown::render("./inst/Rmd/report.Rmd", output_file = paste0(out_path, "/", out_name_doc, "_", pub_date, ".docx"), quiet = TRUE)
 
-  print("Progress: ---------- TPI COMPLETE ----------")
+  print("Progress: ---------- Nursery Survey COMPLETE ----------")
 }
 
 

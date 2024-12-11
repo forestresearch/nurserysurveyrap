@@ -50,8 +50,7 @@ The data in this release have been obtained from a voluntary survey of nursery b
 
 "Improved nursery stock" refers to genetically improved Sitka spruce and Scots pine stock raised from seed of seed orchard origin and by vegetative propagation of parent material derived from controlled crosses. These trees are predicted to grow faster and produce better timber than unimproved stock.
 
-Data for the planting year October `r (ref_year)` to September `r (ref_year + 1)` are published for the first time in this release. Data for earlier years are unchanged from those previously released. For further details, see [Forest Research's revisions policy](https://www.forestresearch.gov.uk/tools-and-resources/statistics/about-our-statistics/code-of-practice/quality-of-official-statistics/).
-
+Data for the planting year October `r (ref_year - 2)` to September `r (ref_year - 1)` are published for the first time in this release. Data for earlier years are unchanged from those previously released. For further details, see [Forest Research's revisions policy](https://www.forestresearch.gov.uk/tools-and-resources/statistics/about-our-statistics/code-of-practice/quality-of-official-statistics/).
 
 ```{r load packages}
 #| include: false
@@ -75,86 +74,86 @@ use_afcharts()
 
 # 
 all_scotland_im_n <- returns %>% 
-  filter(year == current_year,
+  filter(year == ref_year - 2,
          country_sold_to == "Scotland",
          gi == TRUE) %>% 
-  summarise(volume = sum(volume, na.rm = TRUE)) %>% 
-  pull(volume)
+  summarise(volume = sum(volume/1000000, na.rm = TRUE)) %>% 
+  pull(volume) %>% frpubutils::round_fmt_rmd(., 1)
 
 # 
 all_scotland_im_pct <- returns %>% 
-  filter(year == current_year,
+  filter(year == ref_year - 2,
          country_sold_to == "Scotland") %>% 
   group_by(gi) %>% 
-  summarise(volume = sum(volume, na.rm = TRUE)) %>% 
+  summarise(volume = sum(volume/1000000, na.rm = TRUE)) %>% 
   ungroup() %>% 
-  mutate(prop_pct = volume/sum(volume, na.rm = TRUE)) %>% 
+  mutate(prop_pct = (volume/sum(volume, na.rm = TRUE)) * 100) %>% 
   filter(gi == TRUE) %>% 
-  pull(prop_pct)
+  pull(prop_pct) %>% frpubutils::round_safe(., 0)
 
 # Annual change:
 all_scotland_im_ac <- returns %>% 
-  filter(year %in% c(prev_year,
-                     current_year),
+  filter(year %in% c(ref_year - 3,
+                     ref_year - 2),
          gi == TRUE,
          country_sold_to == "Scotland") %>% 
   group_by(year) %>% 
   summarise(volume = sum(volume, na.rm = TRUE)) %>% 
   ungroup() %>% 
-  mutate(ac_pct = (volume/lag(volume)) - 1) %>% 
-  filter(year == current_year) %>% 
-  pull(ac_pct)
+  mutate(ac_pct = ((volume/lag(volume)) - 1) * 100) %>% 
+  filter(year == ref_year - 2) %>% 
+  pull(ac_pct) %>% frpubutils::round_safe(., 0)
 
 # 
 all_scotland_n <- returns %>% 
-  filter(year == current_year,
+  filter(year == ref_year - 2,
          country_sold_to == "Scotland") %>% 
-  summarise(volume = sum(volume, na.rm = TRUE)) %>% 
-  pull(volume)
+  summarise(volume = sum(volume, na.rm = TRUE)/1000000) %>% 
+  pull(volume) %>% frpubutils::round_fmt_rmd(., 1)
 
 # 
 scotland_sitka_n <- returns %>%
-  filter(year == current_year,
+  filter(year == ref_year - 2,
          country_sold_to == "Scotland",
          tree_sp == "Sitka spruce") %>%
-  summarise(volume = sum(volume, na.rm = TRUE)) %>%
-  pull(volume)
+  summarise(volume = sum(volume, na.rm = TRUE)/1000000) %>%
+  pull(volume) %>% frpubutils::round_fmt_rmd(., 1)
 
 #
 scotland_sitka_pct <- returns %>%
-  filter(year %in% c(prev_year,
-                     current_year),
+  filter(year %in% c(ref_year - 3,
+                     ref_year - 2),
          country_sold_to == "Scotland",
          tree_sp == "Sitka spruce") %>%
   group_by(year) %>%
   summarise(volume = sum(volume, na.rm = TRUE)) %>%
   ungroup() %>%
   arrange(year) %>%
-  mutate(change_pct = (volume/lag(volume)) - 1) %>%
-  filter(year == current_year) %>%
-  pull(change_pct)
+  mutate(change_pct = ((volume/lag(volume)) - 1) * 100) %>%
+  filter(year == ref_year - 2) %>%
+  pull(change_pct) %>% frpubutils::round_safe(., 0)
 
 #
 scotland_scots_n <- returns %>%
-  filter(year == current_year,
+  filter(year == ref_year - 2,
          country_sold_to == "Scotland",
          tree_sp == "Scots pine") %>%
-  summarise(volume = sum(volume, na.rm = TRUE)) %>%
-  pull(volume)
+  summarise(volume = sum(volume, na.rm = TRUE)/1000000) %>%
+  pull(volume) %>% frpubutils::round_fmt_rmd(., 1)
 
 # 
 scotland_scots_pct <- returns %>%
-  filter(year %in% c(prev_year,
-                     current_year),
+  filter(year %in% c(ref_year - 3,
+                     ref_year - 2),
          country_sold_to == "Scotland",
          tree_sp == "Scots pine") %>%
   group_by(year) %>%
   summarise(volume = sum(volume, na.rm = TRUE)) %>%
   ungroup() %>%
   arrange(year) %>%
-  mutate(change_pct = (volume/lag(volume)) - 1) %>%
-  filter(year == current_year) %>%
-  pull(change_pct)
+  mutate(change_pct = ((volume/lag(volume)) - 1) * 100) %>%
+  filter(year == ref_year - 2) %>%
+  pull(change_pct) %>% frpubutils::round_safe(., 0)
 ```
 
 ```{r kf-summary-gb}
@@ -162,78 +161,78 @@ scotland_scots_pct <- returns %>%
 
 #
 all_gb_im_n <- returns %>% 
-  filter(year == current_year,
+  filter(year == ref_year - 2,
          gi == TRUE) %>% 
-  summarise(volume = sum(volume, na.rm = TRUE)) %>% 
-  pull(volume)
+  summarise(volume = sum(volume/1000000, na.rm = TRUE)) %>% 
+  pull(volume) %>% frpubutils::round_fmt_rmd(., 1)
 
 # 
 all_gb_im_pct <- returns %>% 
-  filter(year == current_year) %>% 
+  filter(year == ref_year - 2) %>% 
   group_by(gi) %>% 
   summarise(volume = sum(volume, na.rm = TRUE)) %>% 
   ungroup() %>% 
-  mutate(prop_pct = volume/sum(volume, na.rm = TRUE)) %>% 
+  mutate(prop_pct = volume/sum(volume, na.rm = TRUE) * 100) %>% 
   filter(gi == TRUE) %>% 
-  pull(prop_pct)
+  pull(prop_pct) %>% frpubutils::round_safe(., 0)
 
 # Annual change:
 all_gb_im_ac <- returns %>% 
-  filter(year %in% c(prev_year,
-                     current_year),
+  filter(year %in% c(ref_year - 3,
+                     ref_year - 2),
          gi == TRUE) %>% 
   group_by(year) %>% 
   summarise(volume = sum(volume, na.rm = TRUE)) %>% 
   ungroup() %>% 
-  mutate(ac_pct = (volume/lag(volume)) - 1) %>% 
-  filter(year == current_year) %>% 
-  pull(ac_pct)
+  mutate(ac_pct = ((volume/lag(volume)) - 1) * 100) %>% 
+  filter(year == ref_year - 2) %>% 
+  pull(ac_pct) %>% frpubutils::round_safe(., 0)
 
 # 
 all_gb_n <- returns %>% 
-  filter(year == current_year) %>% 
-  summarise(volume = sum(volume, na.rm = TRUE)) %>% 
-  pull(volume)
+  filter(year == ref_year - 2) %>% 
+  summarise(volume = sum(volume, na.rm = TRUE)/1000000) %>% 
+  pull(volume) %>% frpubutils::round_fmt_rmd(., 1)
 
 # 
 gb_sitka_n <- returns %>%
-  filter(year == current_year,
+  filter(year == ref_year - 2,
          tree_sp == "Sitka spruce") %>%
-  summarise(volume = sum(volume, na.rm = TRUE)) %>%
-  pull(volume)
+  summarise(volume = sum(volume, na.rm = TRUE)/1000000) %>%
+  pull(volume) %>% frpubutils::round_fmt_rmd(., 1)
 
 #
 gb_sitka_pct <- returns %>%
-  filter(year %in% c(prev_year,
-                     current_year),
+  filter(year %in% c(ref_year - 3,
+                     ref_year - 2),
          tree_sp == "Sitka spruce") %>%
   group_by(year) %>%
   summarise(volume = sum(volume, na.rm = TRUE)) %>%
   ungroup() %>%
   arrange(year) %>%
-  mutate(change_pct = (volume/lag(volume)) - 1) %>%
-  filter(year == current_year) %>%
-  pull(change_pct)
+  mutate(change_pct = ((volume/lag(volume)) - 1) * 100) %>%
+  filter(year == ref_year - 2) %>%
+  pull(change_pct) %>% frpubutils::round_safe(., 0)
 
 #
 gb_scots_n <- returns %>%
-  filter(year == current_year,
+  filter(year == ref_year - 2,
          tree_sp == "Scots pine") %>%
-  summarise(volume = sum(volume, na.rm = TRUE)) %>%
-  pull(volume)
+  summarise(volume = sum(volume, na.rm = TRUE)/1000000) %>%
+  pull(volume) %>% frpubutils::round_fmt_rmd(., 1)
 
 # 
 gb_scots_pct <- returns %>%
-  filter(year %in% c(prev_year,
-                     current_year),
+  filter(year %in% c(ref_year - 3,
+                     ref_year - 2),
          tree_sp == "Scots pine") %>%
   group_by(year) %>%
   summarise(volume = sum(volume, na.rm = TRUE)) %>%
   ungroup() %>%
   arrange(year) %>%
-  mutate(change_pct = (volume/lag(volume)) - 1) %>%
-  filter(year == current_year) %>%
-  pull(change_pct)
+  mutate(change_pct = ((volume/lag(volume)) - 1) * 100) %>%
+  filter(year == ref_year - 2) %>%
+  pull(change_pct) %>% frpubutils::round_safe(., 0)
 
 # 
 all_gb_diff <- returns %>% 
@@ -241,13 +240,13 @@ all_gb_diff <- returns %>%
   group_by(year) %>% 
   summarise(volume = sum(volume, na.rm = TRUE)) %>% 
   ungroup() %>% 
-  filter(year %in% c(prev_year,
-                     current_year)) %>% 
+  filter(year %in% c(ref_year - 3,
+                     ref_year - 2)) %>% 
   arrange(year) %>% 
-  mutate(diff = volume - lag(volume),
+  mutate(diff = (volume - lag(volume))/1000000,
          pct = diff/volume) %>% 
-  filter(year == current_year) %>% 
-  pull(diff)
+  filter(year == ref_year - 2) %>% 
+  pull(diff) %>% frpubutils::round_fmt_rmd(., 1)
 
 # 
 all_gb_pct <- returns %>% 
@@ -255,40 +254,40 @@ all_gb_pct <- returns %>%
   group_by(year) %>% 
   summarise(volume = sum(volume, na.rm = TRUE)) %>% 
   ungroup() %>% 
-  filter(year %in% c(prev_year,
-                     current_year)) %>% 
+  filter(year %in% c(ref_year - 3,
+                     ref_year - 2)) %>% 
   arrange(year) %>% 
   mutate(diff = volume - lag(volume),
          pct = diff/volume) %>% 
-  filter(year == current_year) %>% 
-  pull(pct)
+  filter(year == ref_year - 2) %>% 
+  pull(pct) %>% frpubutils::round_safe(., 0)
 
 
 ```
 
-
 # Key findings
 
--   A total of `r frpubutils::round_fmt_rmd(all_scotland_im_n, 1)` million plants (`r percent(all_scotland_im_pct)`) derived from improved nursery stock were sold to Scotland in `r latest_year`.
+-   A total of `r all_scotland_im_n` million plants (`r paste0(all_scotland_im_pct, " %")`) derived from improved nursery stock were sold to Scotland in `r latest_year`.
 
--   Of all sales in Great Britain in `r latest_year`, `r round_fmt_rmd(all_gb_im_n, 1)` million plants (`r percent(all_gb_im_pct)`) were derived from improved nursery stock, `r perc_chg_text(all_gb_diff)` of `r percent(abs(all_gb_pct))` (or `r round_fmt_rmd(abs(all_gb_diff), 1)` million plants) compared with the previous year.
+-   Of all sales in Great Britain in `r latest_year`, `r all_gb_im_n` million plants (`r paste0(all_gb_im_pct, "%")`) were derived from improved nursery stock, `r frpubutils::perc_chg_text(all_gb_im_ac)` (or `r all_gb_diff` million plants) compared with the previous year.
 
 \newpage
 
+
 # Sales of nursery stock to Scotland
 
-An estimated total of `r round_fmt_rmd(all_scotland_n, 1)` million Sitka spruce and Scots pine plants were sold to Scotland in `r latest_year` (Table 1), comprising `r round_fmt_rmd(scotland_sitka_n, 1)` million Sitka spruce plants and `r round_fmt_rmd(scotland_scots_n, 1)` million Scots pine plants. This represents `r get_direction((scotland_sitka_pct * 100))` in sales of Sitka spruce (`r percent(scotland_sitka_pct)`) and `r get_direction((scotland_scots_pct * 100))` in sales of Scots pine (`r percent(scotland_scots_pct)`) from the previous year.
+An estimated total of `r all_scotland_n` million Sitka spruce and Scots pine plants were sold to Scotland in `r latest_year` (Table 1), comprising `r scotland_sitka_n` million Sitka spruce plants and `r scotland_scots_n` million Scots pine plants. This represents `r frpubutils::perc_chg_text(scotland_sitka_pct)` in sales of Sitka spruce and `r frpubutils::perc_chg_text(scotland_scots_pct)` in sales of Scots pine from the previous year.
 
-A total of `r round_fmt_rmd(all_scotland_im_n, 1)` million plants (`r percent(all_scotland_im_pct)`) derived from improved nursery stock were sold to Scotland in `r , `r get_perc_chg_text(all_scotland_im_ac)` of `r percent(all_scotland_im_ac)` compared with `r latest_year`.
+A total of `r all_scotland_im_n` million plants (`r paste0(all_scotland_im_pct, " %")`) derived from improved nursery stock were sold to Scotland in `r latest_year`, `r frpubutils::perc_chg_text(all_scotland_im_ac)` compared with `r previous_year`.
 
-#### Table 1: Summary table, Scotland, `r planting_year(ref_year- 1)`  to `r planting_year(current_year)`
+#### Table 1: Summary table, Scotland, `r latest_year`
 
 ```{r}
 #| echo: false
 #| message: false
 table1 = returns %>% 
   filter(country_sold_to == "Scotland",
-         year %in% c(prev_year, current_year)) %>% 
+         year %in% c(ref_year - 3, ref_year - 2)) %>% 
   mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>% 
   group_by(year, label, gi) %>% 
   summarise(volume = sum(volume/1000000))
@@ -307,30 +306,27 @@ table1_tot = table1 %>%
 
 rbind(table1, table1_sitka_tot, table1_tot) %>%
   group_by(year, label) %>%
-  mutate(pct_improved = volume/sum(volume),
+  mutate(pct_improved = (volume/sum(volume)) * 100,
          volume_total = sum(volume)) %>% 
   ungroup() %>% 
   group_by(label, gi) %>% 
   mutate(volume_lag = lag(volume)) %>% 
   ungroup() %>% 
-  filter(year == current_year,
+  filter(year == ref_year - 2,
          gi == TRUE) %>% 
   select(label, volume_total, volume, pct_improved) %>%
-  mutate(volume_total = round_safe(volume_total, 1),
-         volume = round_safe(volume, 1),
-         pct_improved = round_safe(pct_improved*100, 1)) %>% 
-  rename(paste0(`Total stock sold in ', latest_year, ' (million plants)`) = 2,
-         `Improved stock sold in ', latest_year, ' (million plants)`) = 3,
-         `Proportion improved (%)` = 4)  %>%
+  mutate(volume_total = frpubutils::round_safe(volume_total, 1),
+         volume = frpubutils::round_safe(volume, 1),
+         pct_improved = frpubutils::round_safe(pct_improved, 1)) %>%
+  rename_at(2, ~paste0("Total stock sold in ", latest_year, " (million plants)")) %>%
+  rename_at(3, ~paste0("Improved stock sold in ", latest_year, " (million plants)")) %>%
+  rename_at(4, ~"Proportion improved (%)")  %>%
   gt(rowname_col = "label")
 
-
+ 
 
 ```
-
-
-
-#### Figure 1: Sales of improved nursery stock, Scotland, 2005/06 to `r planting_year(current_year)`
+#### Figure 1: Sales of improved nursery stock, Scotland, `r first_year`r to `r latest_year` 
 
 ```{r}
 #| echo: false
@@ -351,148 +347,4 @@ returns %>%
        y = NULL,
        subtitle = "Improved stock (million plants)")
 
-```
-
-Figure 1 presents the sales of improved nursery stock to Scotland from `r planting_year(first_year)` to `r planting_year(current_year)` (planting seasons).
-
-#### Table 2: Sales of improved nursery stock, Scotland, `r planting_year(ref_year - 10)` to `r latest_year`
-
-```{r}
-#| echo: false
-#| message: false
-t2 = returns %>% 
-  filter(country_sold_to == "Scotland",
-         gi == TRUE) %>% 
-  mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>% 
-  summarise(volume = sum(volume/1000000, na.rm = TRUE), .by = c(year, label))
-
-t2_tots = t2 %>%
-  group_by(year) %>%
-  summarise(volume = sum(volume, na.rm = TRUE)) %>%
-  mutate(label = "Total")
-
-t2_sitka_tots = t2 %>%
-  filter(label != "Scots pine: Seedlings") %>%
-  group_by(year) %>%
-  summarise(volume = sum(volume, na.rm = TRUE)) %>%
-  mutate(label = "Sitka spruce: Total")
-
-table2 = rbind(t2, t2_sitka_tots, t2_tots)
-
-table2 %>%
-  pivot_wider(names_from = "label",
-              values_from = "volume") %>% 
-  arrange(year) %>%
-  mutate(across(where(is.numeric), ~round_safe(.x, 1)),
-         year = planting_year(year)) %>%
-  gt(rowname_col = "year") %>%
-  tab_stubhead("Planting year")
-```
-
-
-# Sales of nursery stock in Great Britain
-
-An estimated total of `r round_fmt_rmd(all_gb_n, 1)` million Sitka spruce and Scots pine plants were sold to Scotland in `r planting_year(current_year)` (Table 1), comprising `r round_fmt_rmd(gb_sitka_n, 1)` million Sitka spruce plants and `r round_fmt_rmd(gb_scots_n, 1)` million Scots pine plants. This represents `r perc_chg_txt((gb_sitka_pct * 100))` in sales of Sitka spruce (`r percent(gb_sitka_pct)`) and `r perc_chg_txt((gb_scots_pct * 100))` in sales of Scots pine (`r percent(gb_scots_pct)`) from the previous year.
-
-A total of `r round_fmt_rmd(all_gb_im_n, 1)` million plants (`r percent(all_gb_im_pct)`) derived from improved nursery stock were sold to Scotland in `r planting_year(current_year)`, `r perc_chg_txt(all_gb_im_ac)` of `r percent(all_gb_im_ac)` compared with `r planting_year(prev_year)`.
-
-
-
-#### Table 3: Summary table, Great Britain, `r latest_year`
-
-```{r}
-#| echo: false
-#| message: false
-table3 = returns %>% 
-  filter(year %in% c(prev_year, current_year)) %>% 
-  mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>% 
-  group_by(year, label, gi) %>% 
-  summarise(volume = sum(volume/1000000))
-
-
-table3_sitka_tot = table1 %>%
-  filter(label != "Scots pine: Seedlings") %>%
-  group_by(year, gi) %>%
-  summarise(volume = sum(volume)) %>%
-  mutate(label = "Sitka spruce: Total")
-
-table3_tot = table1 %>%
-  group_by(year, gi) %>%
-  summarise(volume = sum(volume)) %>%
-  mutate(label = "Total")
-
-rbind(table3, table3_sitka_tot, table3_tot) %>%
-  group_by(year, label) %>%
-  mutate(pct_improved = volume/sum(volume),
-         volume_total = sum(volume)) %>% 
-  ungroup() %>% 
-  group_by(label, gi) %>% 
-  mutate(volume_lag = lag(volume)) %>% 
-  ungroup() %>% 
-  filter(year == current_year,
-         gi == TRUE) %>% 
-  select(label, volume_total, volume, pct_improved) %>%
-  mutate(volume_total = round_safe(volume_total, 1),
-         volume = round_safe(volume, 1),
-         pct_improved = round_safe(pct_improved*100, 1)) %>% 
-  rename(paste0(`Total stock sold in ', latest_year, ' (million plants)` = 2,),
-         paste0(`Improved stock sold in ', latest_year, ' (million plants)`) = 3,
-         `Proportion improved (%)` = 4)  %>%
-  gt(rowname_col = "label")
-```
-
-#### Figure 2: Sales of improved nursery stock, Great Britain, 2005/06 to `r planting_year(current_year)`
-
-```{r}
-#| echo: false
-#| message: false
-
-returns %>% 
-  filter(gi == TRUE) %>% 
-  mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
-  summarise(volume = sum(volume/1000000, na.rm = TRUE), .by = c(year, label)) %>% 
-  ggplot(aes(year, volume, colour = label, group = label)) +
-  geom_line(linewidth = 2) +
-  scale_x_continuous(labels = planting_year) +
-  scale_y_continuous(breaks = seq(0, 60, 10),
-                     expand = expansion(mult = c(0, 0)),
-                     limits = c(0, 60)) +
-  labs(x = NULL,
-       y = NULL,
-       subtitle = "Improved stock (million plants)")
-```
-
-Figure 2 shows the volume/quantity improved stock sold in Great Britain, from  2005/06 to `r latest_year`
-
-Since the 2005/06 planting season, improved Sitka spruce seedlings have reported more than a two-fold increase in sales. Sales of improved Sitka spruce VP and improved Scots pine seedlings have both remained relatively constant throughout.
-
-#### Table 4: Sales of improved nursery stock, Great Britain, `r planting_year(ref_year - 10)` to `r latest_year`
-
-```{r}
-#| echo: false
-#| message: false
-t4 = returns %>% 
-  filter(gi == TRUE) %>% 
-  mutate(label = paste0(tree_sp, ": ", prod_method)) %>%
-  summarise(volume = sum(volume/1000000, na.rm = TRUE), .by = c(year, label))
-
-t4_tots = t4 %>%
-  group_by(year) %>%
-  summarise(volume = sum(volume, na.rm = TRUE)) %>%
-  mutate(label = "Total")
-
-t4_sitka_tots = t4 %>%
-  filter(label != "Scots pine: Seedlings") %>%
-  group_by(year) %>%
-  summarise(volume = sum(volume, na.rm = TRUE)) %>%
-  mutate(label = "Sitka spruce: Total")
-
-rbind(t4, t4_sitka_tots, t4_tots) %>%
-  pivot_wider(names_from = "label",
-              values_from = "volume") %>% 
-  arrange(year) %>%
-  mutate(across(where(is.numeric), ~round_safe(.x, 1)),
-         year = planting_year(year)) %>%
-  gt(rowname_col = "year") %>%
-  tab_stubhead("Planting year")
 ```
