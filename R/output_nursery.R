@@ -38,7 +38,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
     filter(country_sold_to == "Scotland") %>%
     mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
     group_by(year, label) %>%
-    summarise(volume = round_safe(sum(volume/1000000), 5))
+    summarise(volume = frpubutils::round_safe(sum(volume/1000000), 5))
 
   s1_sitka_tots <- s1_subs %>%
     filter(label != "Scots pine: Seedlings") %>%
@@ -61,7 +61,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
     filter(country_sold_to == "Scotland", gi == TRUE) %>%
     mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
     group_by(year, label) %>%
-    summarise(volume = round_safe(sum(volume/1000000), 5))
+    summarise(volume = frpubutils::round_safe(sum(volume/1000000), 5))
 
   s2_sitka_tots <- s2_subs %>%
     filter(label != "Scots pine: Seedlings") %>%
@@ -87,7 +87,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
   s4_subs <- returns  %>%
     mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
     group_by(year, label) %>%
-    summarise(volume = round_safe(sum(volume/1000000), 5))
+    summarise(volume = frpubutils::round_safe(sum(volume/1000000), 5))
 
   s4_sitka_tots <- s4_subs %>%
     filter(label != "Scots pine: Seedlings") %>%
@@ -110,7 +110,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
     filter(gi == TRUE) %>%
     mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
     group_by(year, label) %>%
-    summarise(volume = round_safe(sum(volume/1000000), 5))
+    summarise(volume = frpubutils::round_safe(sum(volume/1000000), 5))
 
   s5_sitka_tots <- s5_subs %>%
     filter(label != "Scots pine: Seedlings") %>%
@@ -145,13 +145,129 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
 
   pub_tables_rnd <- map(pub_tables, .f = ~ .x %>%
                                  dplyr::mutate_if(is.numeric,
-                                                  round_safe,
+                                                  frpubutils::round_safe,
                                                   digits = 1))
 
   latest_year = planting_year(ref_year - 2)
   previous_year = planting_year(ref_year - 3)
   first_year = planting_year(min(returns$year))
   ten_ago = planting_year(ref_year - 11)
+
+  table1 = returns %>%
+    filter(country_sold_to == "Scotland",
+           year %in% c(ref_year - 3, ref_year - 2)) %>%
+    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    group_by(year, label, gi) %>%
+    summarise(volume = sum(volume/1000000))
+
+
+  table1_sitka_tot = table1 %>%
+    filter(label != "Scots pine: Seedlings") %>%
+    group_by(year, gi) %>%
+    summarise(volume = sum(volume)) %>%
+    mutate(label = "Sitka spruce: Total")
+
+  table1_tot = table1 %>%
+    group_by(year, gi) %>%
+    summarise(volume = sum(volume)) %>%
+    mutate(label = "Total")
+
+  table1 <- rbind(table1, table1_sitka_tot, table1_tot) %>%
+    group_by(year, label) %>%
+    mutate(pct_improved = (volume/sum(volume)) * 100,
+           volume_total = sum(volume)) %>%
+    ungroup() %>%
+    group_by(label, gi) %>%
+    mutate(volume_lag = lag(volume)) %>%
+    ungroup() %>%
+    filter(year == ref_year - 2,
+           gi == TRUE) %>%
+    select(label, volume_total, volume, pct_improved) %>%
+    mutate(volume_total = frpubutils::round_safe(volume_total, 1),
+           volume = frpubutils::round_safe(volume, 1),
+           pct_improved = frpubutils::round_safe(pct_improved, 1))
+
+  t2 = returns %>%
+    filter(country_sold_to == "Scotland",
+           year >= (max(year) - 9),
+           gi == TRUE) %>%
+    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    summarise(volume = sum(volume/1000000, na.rm = TRUE), .by = c(year, label))
+
+  t2_tots = t2 %>%
+    group_by(year) %>%
+    summarise(volume = sum(volume, na.rm = TRUE)) %>%
+    mutate(label = "Total")
+
+  t2_sitka_tots = t2 %>%
+    filter(label != "Scots pine: Seedlings") %>%
+    group_by(year) %>%
+    summarise(volume = sum(volume, na.rm = TRUE)) %>%
+    mutate(label = "Sitka spruce: Total")
+
+  table2 = rbind(t2, t2_sitka_tots, t2_tots) %>%
+    pivot_wider(names_from = "label",
+                values_from = "volume") %>%
+    arrange(year) %>%
+    mutate(across(where(is.numeric), ~ frpubutils::round_safe(.x, 1)),
+           year = planting_year(year))
+
+  table3 = returns %>%
+    filter(year %in% c(ref_year - 3, ref_year - 2)) %>%
+    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    group_by(year, label, gi) %>%
+    summarise(volume = sum(volume/1000000))
+
+
+  table3_sitka_tot = table3 %>%
+    filter(label != "Scots pine: Seedlings") %>%
+    group_by(year, gi) %>%
+    summarise(volume = sum(volume)) %>%
+    mutate(label = "Sitka spruce: Total")
+
+  table3_tot = table3 %>%
+    group_by(year, gi) %>%
+    summarise(volume = sum(volume)) %>%
+    mutate(label = "Total")
+
+  table3 <- rbind(table3, table3_sitka_tot, table3_tot) %>%
+    group_by(year, label) %>%
+    mutate(pct_improved = (volume/sum(volume)) * 100,
+           volume_total = sum(volume)) %>%
+    ungroup() %>%
+    group_by(label, gi) %>%
+    mutate(volume_lag = lag(volume)) %>%
+    ungroup() %>%
+    filter(year == ref_year - 2,
+           gi == TRUE) %>%
+    select(label, volume_total, volume, pct_improved) %>%
+    mutate(volume_total = frpubutils::round_safe(volume_total, 1),
+           volume = frpubutils::round_safe(volume, 1),
+           pct_improved = frpubutils::round_safe(pct_improved, 1))
+
+  t4 = returns %>%
+    filter(year >= (max(year) - 9),
+           gi == TRUE) %>%
+    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    summarise(volume = sum(volume/1000000, na.rm = TRUE), .by = c(year, label))
+
+  t4_tots = t4 %>%
+    group_by(year) %>%
+    summarise(volume = sum(volume, na.rm = TRUE)) %>%
+    mutate(label = "Total")
+
+  t4_sitka_tots = t4 %>%
+    filter(label != "Scots pine: Seedlings") %>%
+    group_by(year) %>%
+    summarise(volume = sum(volume, na.rm = TRUE)) %>%
+    mutate(label = "Sitka spruce: Total")
+
+  table4 = rbind(t4, t4_sitka_tots, t4_tots) %>%
+    pivot_wider(names_from = "label",
+                values_from = "volume") %>%
+    arrange(year) %>%
+    mutate(across(where(is.numeric), ~ frpubutils::round_safe(.x, 1)),
+           year = planting_year(year))
 
   ns_a11y_obj <- pub_a11y_prep(pub_date = pub_date,
                               next_update = next_update)
@@ -167,6 +283,8 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
                  replace_wb = TRUE,
                  rnd_no_dec = c(rep(FALSE, 6)),
                  a11y_obj = ns_a11y_obj)
+
+  ns_figs <- ns_figures(returns, latest_year)
 
 
 

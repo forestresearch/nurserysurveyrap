@@ -278,73 +278,145 @@ all_gb_pct <- returns %>%
 
 An estimated total of `r all_scotland_n` million Sitka spruce and Scots pine plants were sold to Scotland in `r latest_year` (Table 1), comprising `r scotland_sitka_n` million Sitka spruce plants and `r scotland_scots_n` million Scots pine plants. This represents `r frpubutils::perc_chg_text(scotland_sitka_pct)` in sales of Sitka spruce and `r frpubutils::perc_chg_text(scotland_scots_pct)` in sales of Scots pine from the previous year.
 
-A total of `r all_scotland_im_n` million plants (`r paste0(all_scotland_im_pct, " %")`) derived from improved nursery stock were sold to Scotland in `r latest_year`, `r frpubutils::perc_chg_text(all_scotland_im_ac)` compared with `r previous_year`.
+A total of `r all_scotland_im_n` million plants (`r paste0(all_scotland_im_pct, " %")`) derived from improved nursery stock were sold to Scotland in `r latest_year`, `r frpubutils::perc_chg_text(all_scotland_im_ac)` compared with `r previous_year` (Table 2).
 
 #### Table 1: Summary table, Scotland, `r latest_year`
 
-```{r}
-#| echo: false
-#| message: false
-table1 = returns %>% 
-  filter(country_sold_to == "Scotland",
-         year %in% c(ref_year - 3, ref_year - 2)) %>% 
-  mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>% 
-  group_by(year, label, gi) %>% 
-  summarise(volume = sum(volume/1000000))
+```{r table 1, echo = FALSE, message = FALSE}
 
 
-table1_sitka_tot = table1 %>%
-  filter(label != "Scots pine: Seedlings") %>%
-  group_by(year, gi) %>%
-  summarise(volume = sum(volume)) %>%
-  mutate(label = "Sitka spruce: Total")
+  
+table1 <- table1 %>%
+  frpubutils::ft_tbl_fmtd(col_names = c("Plant", paste0("Total stock sold in ", latest_year, " (million plants)"),
+                                        paste0("Improved stock sold in ", latest_year, " (million plants)"),
+                                        "Proportion improved (%)"),
+                          round_it = FALSE) %>%
+  flextable::bold(i = c(4,5), j = 1:4)
 
-table1_tot = table1 %>%
-  group_by(year, gi) %>%
-  summarise(volume = sum(volume)) %>%
-  mutate(label = "Total")
 
-rbind(table1, table1_sitka_tot, table1_tot) %>%
-  group_by(year, label) %>%
-  mutate(pct_improved = (volume/sum(volume)) * 100,
-         volume_total = sum(volume)) %>% 
-  ungroup() %>% 
-  group_by(label, gi) %>% 
-  mutate(volume_lag = lag(volume)) %>% 
-  ungroup() %>% 
-  filter(year == ref_year - 2,
-         gi == TRUE) %>% 
-  select(label, volume_total, volume, pct_improved) %>%
-  mutate(volume_total = frpubutils::round_safe(volume_total, 1),
-         volume = frpubutils::round_safe(volume, 1),
-         pct_improved = frpubutils::round_safe(pct_improved, 1)) %>%
-  rename_at(2, ~paste0("Total stock sold in ", latest_year, " (million plants)")) %>%
-  rename_at(3, ~paste0("Improved stock sold in ", latest_year, " (million plants)")) %>%
-  rename_at(4, ~"Proportion improved (%)")  %>%
-  gt(rowname_col = "label")
 
- 
 
 ```
+
+`r table1`
+<br>
+
+Note:
+
+1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
+
+\newpage
 #### Figure 1: Sales of improved nursery stock, Scotland, `r first_year`r to `r latest_year` 
+
+```{r fig1, dpi = 250, fig.width = 8, fig.height = 4, warning = FALSE, message = FALSE}
+ns_figs$fig1
+```
+
+Figure 1 presents the sales of improved nursery stock to Scotland from `r first_year` to `r latest_year` (planting seasons).
+
+#### Table 2: Sales of improved nursery stock, Scotland, `r ten_ago` to `r latest_year`
+
+```{r table 2, echo = FALSE, message = FALSE}
+
+
+  
+table2 <- table2 %>%
+  frpubutils::ft_tbl_fmtd(col_names = c("Planting year", "Sitka spruce: seedlings", "Sitka spruce: VP", "Sitka spruce: Total", "Scots pine: Seedlings", "Total",
+                          round_it = FALSE))
+
+
+
+
+```
+
+`r table2`
+<br>
+
+Note:
+
+1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
+
+\newpage
+
+# Sales of nursery stock in Great Britain
+
+An estimated total of `r all_gb_n` million Sitka spruce and Scots pine plants were sold in Great Britain in `r latest_year` (Table 3), comprising `r gb_sitka_n` million Sitka spruce plants and `r gb_scots_n` million Scots pine plants. This represents `r frpubutils::perc_chg_text(gb_sitka_pct)` in sales of Sitka spruce (`r paste0(gb_sitka_pct, "%")`) and `r frpubutils::perc_chg_text(gb_scots_pct)` in sales of Scots pine (`r paste0(gb_scots_pct, "%")`) from the previous year.
+
+A total of `r all_gb_im_n` million plants (`r paste0(all_gb_im_pct, "%")`) derived from improved nursery stock were sold in Great Britain in `r latest_year`, `r frpubutils::perc_chg_text(all_gb_im_ac)` compared with `r previous_year`.
+
+
+
+#### Table 3: Summary table, Great Britain, `r latest_year`
+```{r table 3, echo = FALSE, message = FALSE}
+
+
+  
+table3 <- table3 %>%
+  frpubutils::ft_tbl_fmtd(col_names = c("Plant", paste0("Total stock sold in ", latest_year, " (million plants)"),
+                                        paste0("Improved stock sold in ", latest_year, " (million plants)"),
+                                        "Proportion improved (%)"),
+                          round_it = FALSE) %>%
+  flextable::bold(i = c(4,5), j = 1:4)
+
+
+
+
+```
+
+`r table3`
+<br>
+
+Note:
+
+1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
+
+\newpage
+
+Figure 2 shows the total sales for all improved stock sold in Great Britain, from  `r first_year` to `r latest_year`
+
+Since the 2005/06 planting season, improved Sitka spruce seedlings have reported more than a two-fold increase in sales. Sales of improved Sitka spruce VP and improved Scots pine seedlings have both remained relatively constant throughout.
+
+#### Figure 2: Sales of improved nursery stock, Great Britain, 2005/06 to `r latest_year`
 
 ```{r}
 #| echo: false
 #| message: false
 
 returns %>% 
-  filter(country_sold_to == "Scotland",
-         gi == TRUE) %>% 
-  mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>% 
-  summarise(volume = sum(volume, na.rm = TRUE), .by = c(year, label)) %>%
-  ggplot(aes(year, volume/1000000, colour = label, group = label)) +
+  filter(gi == TRUE) %>% 
+  mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+  summarise(volume = sum(volume/1000000, na.rm = TRUE), .by = c(year, label)) %>% 
+  ggplot(aes(year, volume, colour = label, group = label)) +
   geom_line(linewidth = 2) +
   scale_x_continuous(labels = planting_year) +
-  scale_y_continuous(breaks = seq(0, 50, 10),
+  scale_y_continuous(breaks = seq(0, 60, 10),
                      expand = expansion(mult = c(0, 0)),
                      limits = c(0, 60)) +
   labs(x = NULL,
        y = NULL,
        subtitle = "Improved stock (million plants)")
+```
+
+
+
+#### Table 4: Sales of improved nursery stock, Great Britain, `r ten_ago` to `r latest_year`
+
+```{r table 4, echo = FALSE, message = FALSE}
+
+
+  
+table4 <- table4 %>%
+  frpubutils::ft_tbl_fmtd(col_names = c("Planting year", "Sitka spruce: seedlings", "Sitka spruce: VP", "Sitka spruce: Total", "Scots pine: Seedlings", "Total",
+                          round_it = FALSE))
+
+
+
 
 ```
+
+`r table4`
+<br>
+
+Note:
+
+1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.

@@ -27,14 +27,12 @@ pub_a11y_prep <- function(pub_date,
            reporting_year),
     "Contents",
     "Notes",
-    paste0("Table S1: Sales of nursery stock, Scotland, 2005/06 to ",
-           reporting_year),
-    paste0("Table S2: Sales of improved nursery stock, Scotland, 2005/06 to ", reporting_year),
-    paste0("Table S3: Percentage of nursery stock sold that is genetically improved, Scotland, 2005/05 to", reporting_year),
-    paste0("Table S4: Sales of nursery stock, Great Britain, 2005/06 to ",
-           reporting_year),
-    paste0("Table S5: Sales of improved nursery stock, Great Britain, 2005/06 to ", reporting_year),
-    paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/05 to", reporting_year)
+    paste0("Table S1: Sales of nursery stock, Scotland, 2005/06 to ", reporting_year, " [note 1]"),
+    paste0("Table S2: Sales of improved nursery stock, Scotland, 2005/06 to ", reporting_year, " [note 1]"),
+    paste0("Table S3: Percentage of nursery stock sold that is genetically improved, Scotland, 2005/05 to", reporting_year, " [note 1]"),
+    paste0("Table S4: Sales of nursery stock, Great Britain, 2005/06 to ", reporting_year, " [note 1]"),
+    paste0("Table S5: Sales of improved nursery stock, Great Britain, 2005/06 to ", reporting_year, " [note 1]"),
+    paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/05 to", reporting_year, " [note 1]")
   )
 
   custom_rows <- list(
@@ -274,4 +272,75 @@ ft_header_label <- function(in_table, var_names, label_names, sup_vals = NULL) {
 
   return(in_table)
 
+}
+
+#' Create list of NS publication ready figures
+#'
+#' @param returns compiled data
+#' @param latest_year latest year of data
+#'
+#' @importFrom magrittr "%>%"
+#' @importFrom dplyr select arrange mutate case_when
+#' @import ggplot2
+#' @importFrom tidyr pivot_longer
+#' @importFrom stringr str_extract
+#' @importFrom scales date_format
+#'
+#' @return List containing publication ready figures
+#' @export
+#'
+ns_figures <- function(returns,
+                        latest_year) {
+
+  # load formatting for ggplot2
+  library(afcharts) # TODO check how to run without this
+  afcharts::use_afcharts()
+
+  fig1 = returns %>%
+    filter(country_sold_to == "Scotland",
+           gi == TRUE) %>%
+    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    summarise(volume = sum(volume, na.rm = TRUE), .by = c(year, label)) %>%
+    ggplot(aes(year, volume/1000000, colour = label, group = label)) +
+    geom_line(linewidth = 1) +
+    afcharts::theme_af(legend = "bottom") +
+    afcharts::scale_colour_discrete_af(labels = c(
+      "Scots pine: Seedlings",
+      "Sitka spruce: Seedlings",
+      "Sitka spruce: VP"
+    )) +
+    scale_x_continuous(labels = planting_year) +
+    scale_y_continuous(limits = c(0, 10 * ceiling(max(max(returns$volume), max(returns$volume)) / 10)),
+                       breaks = seq(0, 10 * ceiling(max(max(returns$volume), max(returns$volume)) / 10), 10),
+                       expand = c(0, 0)) +
+    labs(x = NULL,
+         y = NULL,
+         subtitle = "Improved stock (million plants)")
+
+  fig2 = returns %>%
+    filter(country_sold_to == "Scotland",
+           gi == TRUE) %>%
+    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    summarise(volume = sum(volume, na.rm = TRUE), .by = c(year, label)) %>%
+    ggplot(aes(year, volume/1000000, colour = label, group = label)) +
+    geom_line(linewidth = 1) +
+    afcharts::theme_af(legend = "bottom") +
+    afcharts::scale_colour_discrete_af(labels = c(
+      "Scots pine: Seedlings",
+      "Sitka spruce: Seedlings",
+      "Sitka spruce: VP"
+    )) +
+    scale_x_continuous(labels = planting_year) +
+    scale_y_continuous(limits = c(0, 10 * ceiling(max(max(returns$volume), max(returns$volume)) / 10)),
+                       breaks = seq(0, 10 * ceiling(max(max(returns$volume), max(returns$volume)) / 10), 10),
+                       expand = c(0, 0)) +
+    labs(x = NULL,
+         y = NULL,
+         subtitle = "Improved stock (million plants)")
+
+
+  return(fig_list = list(
+    fig1 = fig1,
+    fig2 = fig2
+  ))
 }
