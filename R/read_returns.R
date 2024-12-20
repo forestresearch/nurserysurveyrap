@@ -7,7 +7,6 @@
 #'
 #' @param dir_path Path to search for spreadsheets.
 #'
-#' @importFrom magrittr %>%
 #' @importFrom purrr map_dfr
 #' @importFrom readxl read_xlsx
 #' @importFrom dplyr mutate select recode
@@ -16,8 +15,8 @@
 #' @export
 #'
 read_returns <- function(dir_path) {
-  dir_path %>%
-    files_matching("\\.xlsx$") %>%
+  dir_path |>
+    files_matching("\\.xlsx$") |>
     purrr::map_dfr(read_return)
 }
 
@@ -25,7 +24,6 @@ read_returns <- function(dir_path) {
 #'
 #' @return Tibble with disaggregated country and genetically improved stock variables.
 #'
-#' @importFrom magrittr "%>%"
 #' @importFrom purrr map_dfr
 #' @importFrom readxl read_xlsx
 #' @importFrom dplyr mutate select recode
@@ -33,17 +31,17 @@ read_returns <- function(dir_path) {
 #' @export
 #'
 read_return <- function(file_path) {
-  invisible(readxl::read_xlsx(path = file_path, sheet = "return")) %>%
+  invisible(readxl::read_xlsx(path = file_path, sheet = "return")) |>
     with_pivot("country_sold_to", "volume_thousand",
                function (x) {
-                 x %>% mutate("E&W" = GB - Scotland) %>%
+                 x |> mutate("E&W" = GB - Scotland) |>
                    select(!GB)
-               }) %>%
+               }) |>
     with_pivot("stock_type", "volume_thousand",
                function (x) {
-                 x %>% mutate("Non-GI" = Total - GI) %>%
+                 x |> mutate("Non-GI" = Total - GI) |>
                    select(!Total)
-               }) %>%
+               }) |>
     mutate(
       gi = recode(stock_type, "GI" = TRUE, "Non-GI" = FALSE),
       year = as.integer(year),

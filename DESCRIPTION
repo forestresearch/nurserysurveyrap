@@ -18,6 +18,8 @@ Imports:
     fs,
     flextable,
     officer,
-    frpubutils
+    frpubutils,
+    a11ytables,
+    afcharts
 Encoding: UTF-8
 RoxygenNote: 7.3.2
