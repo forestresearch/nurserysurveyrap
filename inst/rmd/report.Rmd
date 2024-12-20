@@ -1,6 +1,5 @@
 ---
-title: 'Nursery Survey: Estimates of sales of improved nursery stock by forest nurseries
-  in Great Britain'
+title: "Nursery Survey"
 output:
   word_document:
     reference_docx: fr_rep_template.docx
@@ -10,7 +9,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#### Nursery Survey: Estimates of sales of improved nursery stock by forest nurseries in Great Britain
+##### `r ref_year`
 
 <br>
 
@@ -18,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ###### `r pub_date`
 
 #### Coverage:
-##### Great Britain
+###### Great Britain
 
 #### Geographical breakdown:
 ###### Great Britain and Scotland
@@ -51,6 +50,8 @@ The data in this release have been obtained from a voluntary survey of nursery b
 "Improved nursery stock" refers to genetically improved Sitka spruce and Scots pine stock raised from seed of seed orchard origin and by vegetative propagation of parent material derived from controlled crosses. These trees are predicted to grow faster and produce better timber than unimproved stock.
 
 Data for the planting year October `r (ref_year - 2)` to September `r (ref_year - 1)` are published for the first time in this release. Data for earlier years are unchanged from those previously released. For further details, see [Forest Research's revisions policy](https://www.forestresearch.gov.uk/tools-and-resources/statistics/about-our-statistics/code-of-practice/quality-of-official-statistics/).
+
+\newpage
 
 ```{r load packages}
 #| include: false
@@ -304,15 +305,24 @@ table1 <- table1 %>%
 Note:
 
 1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
-
 \newpage
-#### Figure 1: Sales of improved nursery stock, Scotland, `r first_year`r to `r latest_year` 
-
-```{r fig1, dpi = 250, fig.width = 8, fig.height = 4, warning = FALSE, message = FALSE}
-ns_figs$fig1
-```
 
 Figure 1 presents the sales of improved nursery stock to Scotland from `r first_year` to `r latest_year` (planting seasons).
+
+#### Figure 1: Sales of improved nursery stock, Scotland, `r first_year` to `r latest_year` 
+
+Improved stock (million plants)
+
+```{r fig1, dpi = 250, fig.width = 8, fig.height = 4, warning = FALSE, message = FALSE, echo=FALSE}
+ns_figs$fig1
+```
+<br>
+
+Note:
+
+1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
+
+\newpage
 
 #### Table 2: Sales of improved nursery stock, Scotland, `r ten_ago` to `r latest_year`
 
@@ -369,7 +379,6 @@ table3 <- table3 %>%
 Note:
 
 1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
-
 \newpage
 
 Figure 2 shows the total sales for all improved stock sold in Great Britain, from  `r first_year` to `r latest_year`
@@ -378,26 +387,16 @@ Since the 2005/06 planting season, improved Sitka spruce seedlings have reported
 
 #### Figure 2: Sales of improved nursery stock, Great Britain, 2005/06 to `r latest_year`
 
-```{r}
-#| echo: false
-#| message: false
+Improved stock (million plants)
 
-returns %>% 
-  filter(gi == TRUE) %>% 
-  mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
-  summarise(volume = sum(volume/1000000, na.rm = TRUE), .by = c(year, label)) %>% 
-  ggplot(aes(year, volume, colour = label, group = label)) +
-  geom_line(linewidth = 2) +
-  scale_x_continuous(labels = planting_year) +
-  scale_y_continuous(breaks = seq(0, 60, 10),
-                     expand = expansion(mult = c(0, 0)),
-                     limits = c(0, 60)) +
-  labs(x = NULL,
-       y = NULL,
-       subtitle = "Improved stock (million plants)")
+```{r fig2, dpi = 250, fig.width = 8, fig.height = 4, warning = FALSE, message = FALSE, echo=FALSE}
+ns_figs$fig2
 ```
+<br>
+Note:
 
-
+1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
+\newpage
 
 #### Table 4: Sales of improved nursery stock, Great Britain, `r ten_ago` to `r latest_year`
 

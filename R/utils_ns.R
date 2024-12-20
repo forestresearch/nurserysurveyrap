@@ -65,3 +65,23 @@ with_pivot <- function(x, names_from, values_from, action) {
                  names_transform = function(x) type.convert(x, as.is = TRUE))
 }
 
+
+#' Check for disaggregation error corrections
+#'
+#' @author Daniel Braby
+#'
+#' @description runs check of compiled time series data to identify where disaggregation error updates have occured
+#'
+#' @param returns dataset.
+#'
+#' @importFrom magrittr "%>%"
+
+#'
+#' @return Message
+#' @export
+
+
+check_returns <- function(returns) {
+    if_else(any(returns$volume < 0), "A disaggregation error has been corrected. Run View(returns) and sort by volume to identify which cases were affected.", "All is well.")
+    }
+

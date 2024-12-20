@@ -296,6 +296,27 @@ ns_figures <- function(returns,
   library(afcharts) # TODO check how to run without this
   afcharts::use_afcharts()
 
+  next_ten <- function(x) { 10*ceiling(x/10) }
+
+  gb_next_10 <- returns %>% filter(gi == TRUE) %>%
+    mutate(label = paste(tree_sp, prod_method)) %>%
+    group_by(label, year) %>%
+    summarise(volume = sum(volume/1000000)) %>%
+    ungroup() %>%
+    slice_max(volume) %>%
+    pull(volume) %>%
+    next_ten()
+
+  sc_next_10 <- returns %>% filter(country_sold_to == "Scotland",
+                                   gi == TRUE) %>%
+    mutate(label = paste(tree_sp, prod_method)) %>%
+    group_by(label, year) %>%
+    summarise(volume = sum(volume/1000000)) %>%
+    ungroup() %>%
+    slice_max(volume) %>%
+    pull(volume) %>%
+    next_ten()
+
   fig1 = returns %>%
     filter(country_sold_to == "Scotland",
            gi == TRUE) %>%
@@ -310,12 +331,12 @@ ns_figures <- function(returns,
       "Sitka spruce: VP"
     )) +
     scale_x_continuous(labels = planting_year) +
-    scale_y_continuous(limits = c(0, 10 * ceiling(max(max(returns$volume), max(returns$volume)) / 10)),
-                       breaks = seq(0, 10 * ceiling(max(max(returns$volume), max(returns$volume)) / 10), 10),
-                       expand = c(0, 0)) +
+    scale_y_continuous(breaks = seq(0, sc_next_10, 10),
+                       expand = expansion(mult = c(0, 0)),
+                       limits = c(0, sc_next_10)) +
     labs(x = NULL,
          y = NULL,
-         subtitle = "Improved stock (million plants)")
+         colour = NULL)
 
   fig2 = returns %>%
     filter(country_sold_to == "Scotland",
@@ -331,12 +352,12 @@ ns_figures <- function(returns,
       "Sitka spruce: VP"
     )) +
     scale_x_continuous(labels = planting_year) +
-    scale_y_continuous(limits = c(0, 10 * ceiling(max(max(returns$volume), max(returns$volume)) / 10)),
-                       breaks = seq(0, 10 * ceiling(max(max(returns$volume), max(returns$volume)) / 10), 10),
-                       expand = c(0, 0)) +
+    scale_y_continuous(breaks = seq(0, gb_next_10, 10),
+                       expand = expansion(mult = c(0, 0)),
+                       limits = c(0, gb_next_10)) +
     labs(x = NULL,
          y = NULL,
-         subtitle = "Improved stock (million plants)")
+         colour = NULL)
 
 
   return(fig_list = list(

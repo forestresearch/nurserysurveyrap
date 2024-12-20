@@ -30,7 +30,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
 
   returns <- bind_rows(returns, backseries)
 
-  returns <- fix_returns(returns, nurserys) %>% drop_na(id)
+  returns <- fix_returns(returns, nurserys)
 
   write_rds(returns, paste0(out_path, "/", "nursery_survey-", Sys.Date(), ".rds"))
 
