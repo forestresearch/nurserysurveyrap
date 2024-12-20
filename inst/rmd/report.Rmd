@@ -419,3 +419,44 @@ table4 <- table4 %>%
 Note:
 
 1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
+
+\newpage
+
+# Annex
+
+## Introduction
+
+This annex provides background information on the nursery survey statistics presented in this release. It covers the data sources and methodology used to produce the statistics, information on quality measures and on any revisions to 
+historic data and links to further information.
+
+## Glossary
+
+### Conifers
+
+### Great Britain (GB)
+
+### Improved nursery stock
+
+### Planting year
+
+### Scots pine
+
+### Seed orchard
+
+### Seedling
+
+### Sitka spruce
+
+### Vegetative propogation (VP)
+
+## Data sources and methodology
+
+## Quality
+
+## Revisions
+
+## Further information
+
+## Release Schedule
+
+## Official Statistics

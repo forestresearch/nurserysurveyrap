@@ -32,6 +32,8 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
 
   returns <- fix_returns(returns, nurserys)
 
+check_returns(returns)
+
   write_rds(returns, paste0(out_path, "/", "nursery_survey-", Sys.Date(), ".rds"))
 
   s1_subs <- returns %>%
