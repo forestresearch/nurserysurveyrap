@@ -76,8 +76,8 @@ nurserysurveyrap::output_nursery(dir_path = r"(Z:\IFOS\Statistics\Data\Nursery S
                                  out_path = r"(Z:\IFOS\Statistics\Data\Nursery Survey)",
                                  out_name_doc = "nursery-survey",
                                  pub_date = "2024-10-17",
-                                 next_update = "2025-11-16,
-stat_name = "Daniel Braby")
+                                 next_update = "2025-11-16",
+                                 stat_name = "Daniel Braby")
 ```
 
 

@@ -291,7 +291,10 @@ check_returns(returns)
 
 
   # Word document for QA
-  rmarkdown::render("./inst/Rmd/report.Rmd", output_file = paste0(out_path, "/", out_name_doc, "_", pub_date, ".docx"), quiet = TRUE)
+
+  rmd_ns_file <- system.file("rmd", "report.Rmd", package = "nurserysurveyrap")
+
+  rmarkdown::render(rmd_ns_file, output_file = paste0(out_path, "/", out_name_doc, "_", pub_date, ".docx"), quiet = TRUE)
 
   print("Progress: ---------- Nursery Survey COMPLETE ----------")
 }
