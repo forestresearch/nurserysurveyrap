@@ -48,7 +48,6 @@ names_diff <- function(new, old) {
 #' @param dir_path Directory path.
 #' @param regex Matching criteria.
 #'
-#' @importFrom magrittr "%>%"
 #' @importFrom fs dir_info
 #' @importFrom tidyr pivot_longer pivot_wider
 #'
@@ -57,10 +56,10 @@ names_diff <- function(new, old) {
 
 
 with_pivot <- function(x, names_from, values_from, action) {
-  x %>%
-    pivot_wider(names_from = all_of(names_from), values_from = all_of(values_from)) %>%
-    action() %>%
-    pivot_longer(names_diff(., x), names_to = names_from, values_to = values_from,
+  x |>
+    tidyr::pivot_wider(names_from = all_of(names_from), values_from = all_of(values_from)) |>
+    action() |>
+    tidyr::pivot_longer(names_diff(., x), names_to = names_from, values_to = values_from,
                  names_sep = switch(length(names_from) > 1, "_", NA),
                  names_transform = function(x) type.convert(x, as.is = TRUE))
 }
@@ -74,8 +73,6 @@ with_pivot <- function(x, names_from, values_from, action) {
 #'
 #' @param returns dataset.
 #'
-#' @importFrom magrittr "%>%"
-
 #'
 #' @return Message
 #' @export
