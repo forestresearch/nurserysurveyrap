@@ -8,8 +8,7 @@ output_nursery(
   dir_path,
   hist_data,
   nursery_names,
-  pub_year,
-  latest_year,
+  ref_year,
   out_path,
   out_name_doc,
   pub_date,
@@ -24,9 +23,7 @@ output_nursery(
 
 \item{nursery_names}{List of corrected nursery names}
 
-\item{pub_year}{tbd}
-
-\item{latest_year}{tbd}
+\item{ref_year}{tbd}
 
 \item{out_path}{Path to output folder.}
 
