@@ -29,7 +29,6 @@ files_matching <- function(dir_path, regex) {
 #' @param regex Matching criteria.
 #'
 #' @importFrom fs dir_info
-#' @importFrom lubridate set_diff
 #'
 #' @return File paths.
 #' @export
@@ -50,7 +49,6 @@ names_diff <- function(new, old) {
 #' @param regex Matching criteria.
 #'
 #' @importFrom fs dir_info
-#' @importFrom magrittr "%>%"
 #' @importFrom tidyr pivot_longer pivot_wider
 #'
 #' @return File paths.
@@ -59,7 +57,7 @@ names_diff <- function(new, old) {
 
 with_pivot <- function(x, names_from, values_from, action) {
   x %>%
-    tidyr::pivot_wider(names_from = all_of(names_from), values_from = all_of(values_from)) |>
+    tidyr::pivot_wider(names_from = all_of(names_from), values_from = all_of(values_from)) %>%
     action() %>%
     tidyr::pivot_longer(names_diff(., x), names_to = names_from, values_to = values_from,
                  names_sep = switch(length(names_from) > 1, "_", NA),

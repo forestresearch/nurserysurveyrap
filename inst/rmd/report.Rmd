@@ -422,41 +422,80 @@ Note:
 
 \newpage
 
-# Annex
+#Annex
 
 ## Introduction
 
-This annex provides background information on the nursery survey statistics presented in this release. It covers the data sources and methodology used to produce the statistics, information on quality measures and on any revisions to 
-historic data and links to further information.
+This annex provides background information on the nursery survey statistics presented in this release. It covers the data sources and methodology used to produce the statistics, information on quality measures and on any revisions to historic data and links to further information.
 
 ## Glossary
 
-### Conifers
+### Conifers 
+
+Trees with needles and cones, such as spruce, pine and larch.
 
 ### Great Britain (GB)
+England, Scotland and Wales. 
 
-### Improved nursery stock
+### Improved nursery stock 
+
+Genetically improved Sitka spruce and Scots pine stock raised from seed of seed orchard origin and by vegetative propagation of parent material derived from controlled crosses. Further detailed information is provided on page 6 of this release.
 
 ### Planting year
 
+Twelve month period running from 1st October to 30th September.
+
 ### Scots pine
+
+Species of coniferous tree, native to Great Britain.
 
 ### Seed orchard
 
+Orchard where trees are grown for seed production rather than timber.
+
 ### Seedling
+
+Young tree grown from seed, prior to being transplanted or planted out in the forest.
 
 ### Sitka spruce
 
-### Vegetative propogation (VP)
+Species of coniferous tree, not native to Great Britain.
+
+### Vegetative propagation (VP)
+
+Reproduction by cuttings, layering or grafting and not involving fertilisation.
 
 ## Data sources and methodology
 
+The figures in this release have been obtained from a voluntary survey of nursery businesses in Great Britain, run on behalf of Scottish Forestry. The survey was set up to monitor the level of use of improved nursery stock in Scotland annually.
+
+The results relate to respondents only; no estimates have been made for non-respondents to the survey or for businesses not covered by the survey. It is estimated that the respondents in 2012/13 have accounted for around 90% of all sales of Sitka spruce and Scots pine, whilst respondents in other years have accounted for around 95-100% of total sales.
+
 ## Quality
+
+For the `r latest_year` survey, questionnaires were issued to a total of 14 nurseries (including one Forestry England and one Forestry and Land Scotland nursery). A total of 13 responses were received, giving a response rate of 93%.
+
+Further information on the quality of our statistics can be found in our quality report.
+
 
 ## Revisions
 
+Figures for the planting year `r latest_year` are published for the first time in this release.
+
+Our revisions policy sets out how revisions and errors to Forest Research statistics are dealt with.
+
 ## Further information
 
-## Release Schedule
+The assistance of the Confederation of Forest Industries (Confor) and the nursery trade in the running of this survey and the provision of data are gratefully acknowledged.
+
+Figures in tables have been independently rounded, so may not add to the totals shown.
+
+## Release schedule
+`r next_update`
 
 ## Official Statistics
+
+This is an Official Statistics publication. For more information about Official Statistics see the UK Statistics Authority.
+
+
+
