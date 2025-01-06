@@ -12,7 +12,6 @@
 #'
 #' @importFrom dplyr filter mutate group_by summarise bind_rows
 #' @importFrom tidyr pivot_wider
-#' @importFrom readr read_rds write_rds
 #' @importFrom purrr map
 #' @importFrom magrittr "%>%"
 #'
@@ -26,7 +25,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
                            out_name_doc, pub_date, next_update,stat_name) {
   returns <- read_returns(dir_path)
   nurserys <- read_nursery_names(nursery_names)
-  backseries <- read_rds(hist_data)
+  backseries <- readRDS(hist_data)
 
   returns <- bind_rows(returns, backseries)
 
@@ -34,7 +33,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
 
 check_returns(returns)
 
-  write_rds(returns, paste0(out_path, "/", "nursery_survey-", Sys.Date(), ".rds"))
+  saveRDS(returns, paste0(out_path, "/", "nursery_survey-", Sys.Date(), ".rds"))
 
   s1_subs <- returns %>%
     filter(country_sold_to == "Scotland") %>%
