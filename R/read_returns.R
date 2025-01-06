@@ -21,7 +21,7 @@ read_return <- function(file_path) {
                    dplyr::select(!Total)
                }) |>
     dplyr::mutate(
-      gi = recode(stock_type, "GI" = TRUE, "Non-GI" = FALSE),
+      gi = dplyr::recode(stock_type, "GI" = TRUE, "Non-GI" = FALSE),
       year = as.integer(year),
       nursery_ref = as.integer(nursery_ref),
       volume = volume_thousand * 1000,
