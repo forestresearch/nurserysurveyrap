@@ -8,6 +8,7 @@
 #' @param regex Matching criteria.
 #'
 #' @importFrom fs dir_info
+#' @importFrom magrittr "%>%"
 #'
 #' @return File paths.
 #' @export
