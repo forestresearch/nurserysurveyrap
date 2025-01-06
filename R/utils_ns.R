@@ -50,6 +50,7 @@ names_diff <- function(new, old) {
 #'
 #' @importFrom fs dir_info
 #' @importFrom tidyr pivot_longer pivot_wider
+#' @importFrom magrittr "%>%"
 #'
 #' @return File paths.
 #' @export

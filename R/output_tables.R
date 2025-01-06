@@ -24,6 +24,7 @@
 #' @importFrom purrr map2 map map_lgl
 #' @importFrom dplyr rename all_of if_else mutate pull
 #' @importFrom tibble tibble
+#' @importFrom magrittr %>%
 #' @import a11ytables
 #'
 #' @export
@@ -77,7 +78,7 @@ output_pub_tab <- function(in_data,
   }
 
   in_data <- purrr::map2(in_data, pub_a11y_other$table_colnames,
-                         ~ .x |> dplyr::rename(dplyr::all_of(.y)))
+                         ~ .x %>% dplyr::rename(dplyr::all_of(.y)))
 
   # Combine components into a11ytable object
   a11ytable_prepd <-
@@ -100,8 +101,8 @@ output_pub_tab <- function(in_data,
                           ~  which((purrr::map_lgl(.x, is.numeric)) & (names(.x) != "Year")))
 
   num_start_row <- tibble::tibble(extra_row = purrr::map_lgl(in_data,
-                                                             ~ any(grepl( "note", names(.x)))) + !is.na(a11ytable_prepd$blank_cells[4:(length(in_data) + 3)])) |> # check which tables have note in column name or note on blank cells (both take up one row between them)
-    dplyr::mutate(start_row = dplyr::if_else(extra_row == 1, 4, 3)) |> # 4 and 3 assume only one row for sources and one row for custom notes
+                                                             ~ any(grepl( "note", names(.x)))) + !is.na(a11ytable_prepd$blank_cells[4:(length(in_data) + 3)])) %>% # check which tables have note in column name or note on blank cells (both take up one row between them)
+    dplyr::mutate(start_row = dplyr::if_else(extra_row == 1, 4, 3)) %>% # 4 and 3 assume only one row for sources and one row for custom notes
     dplyr::pull(start_row)
 
   # add commas to thousands columns, except year variable
@@ -359,6 +360,7 @@ output_data_diag_xlsx <- function(data_in,
 #'
 #' @importFrom dplyr rename_with
 #' @importFrom openxlsx modifyBaseFont createStyle writeData addStyle writeDataTable setColWidths
+#' @importFrom magrittr "%>%"
 #'
 #' @return out_wb - Workbook object
 #'
@@ -444,11 +446,11 @@ format_ts_diag <- function(data_in,
   ##### add data and text notes #####
 
   # add total column to input table and set year variable as first column
-  data_in_tot <- data_in |> dplyr::arrange(!!year_var)
+  data_in_tot <- data_in %>% dplyr::arrange(!!year_var)
   data_in_tot$Total <- rowSums(data_in_tot[, c(2:ncol(data_in_tot))], na.rm = TRUE)
 
   if (is.null(data_out_names) == FALSE) {
-    data_in_tot_nm <- data_in_tot |> dplyr::rename_with(~ data_out_names, dplyr::all_of(colnames(data_in)))
+    data_in_tot_nm <- data_in_tot %>% dplyr::rename_with(~ data_out_names, dplyr::all_of(colnames(data_in)))
   } else {
     data_in_tot_nm <- data_in_tot
   }
@@ -485,7 +487,7 @@ format_ts_diag <- function(data_in,
     data_in_tot5 <- perc_oftotal_nyr(data_in, year_var = year_var, nyear = 5)
 
     if (is.null(data_out_names) == FALSE) {
-      data_in_tot5_nm <- data_in_tot5 |> dplyr::rename_with(~ data_out_names, dplyr::all_of(colnames(data_in)))
+      data_in_tot5_nm <- data_in_tot5 %>% dplyr::rename_with(~ data_out_names, dplyr::all_of(colnames(data_in)))
     } else {
       data_in_tot5_nm <- data_in_tot5
     }
@@ -515,7 +517,7 @@ format_ts_diag <- function(data_in,
     data_in_perc5 <- perc_change_5yr(data_in_tot, year_var = year_var)
 
     if (is.null(data_out_names) == FALSE) {
-      data_in_perc5_nm <- data_in_perc5 |> dplyr::rename_with(~ data_out_names, dplyr::all_of(colnames(data_in)))
+      data_in_perc5_nm <- data_in_perc5 %>% dplyr::rename_with(~ data_out_names, dplyr::all_of(colnames(data_in)))
     } else {
       data_in_perc5_nm <- data_in_perc5
     }

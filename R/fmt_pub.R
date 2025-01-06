@@ -250,6 +250,7 @@ ft_theme_pub <- function(in_table,
 #' @param sup_vals Vector containing superscript text to be added to end of column label, can be blank for columns that don't need superscript (i.e. "").
 #'
 #' @importFrom flextable compose ncol_keys as_paragraph as_sup
+#' @importFrom magrittr "%>%"
 #'
 #' @return Flextable
 #' @export
@@ -265,7 +266,7 @@ ft_header_label <- function(in_table, var_names, label_names, sup_vals = NULL) {
   }
 
   for (i in 1:length(var_names)) {
-    in_table <- in_table |> flextable::compose(i = 1, j = var_names[i], part = "header",
+    in_table <- in_table %>% flextable::compose(i = 1, j = var_names[i], part = "header",
                                                 value = flextable::as_paragraph(label_names[i], flextable::as_sup(sup_vals[i])))
   }
 
@@ -283,6 +284,7 @@ ft_header_label <- function(in_table, var_names, label_names, sup_vals = NULL) {
 #' @importFrom tidyr pivot_longer
 #' @importFrom stringr str_extract
 #' @importFrom scales date_format
+#' @importFrom magrittr "%>%"
 #'
 #' @return List containing publication ready figures
 #' @export
@@ -296,30 +298,30 @@ ns_figures <- function(returns,
 
   next_ten <- function(x) { 10*ceiling(x/10) }
 
-  gb_next_10 <- returns |> filter(gi == TRUE) |>
-    mutate(label = paste(tree_sp, prod_method)) |>
-    group_by(label, year) |>
-    summarise(volume = sum(volume/1000000)) |>
-    ungroup() |>
-    slice_max(volume) |>
-    pull(volume) |>
+  gb_next_10 <- returns %>% filter(gi == TRUE) %>%
+    mutate(label = paste(tree_sp, prod_method)) %>%
+    group_by(label, year) %>%
+    summarise(volume = sum(volume/1000000)) %>%
+    ungroup() %>%
+    slice_max(volume) %>%
+    pull(volume) %>%
     next_ten()
 
-  sc_next_10 <- returns |> filter(country_sold_to == "Scotland",
-                                   gi == TRUE) |>
-    mutate(label = paste(tree_sp, prod_method)) |>
-    group_by(label, year) |>
-    summarise(volume = sum(volume/1000000)) |>
-    ungroup() |>
-    slice_max(volume) |>
-    pull(volume) |>
+  sc_next_10 <- returns %>% filter(country_sold_to == "Scotland",
+                                   gi == TRUE) %>%
+    mutate(label = paste(tree_sp, prod_method)) %>%
+    group_by(label, year) %>%
+    summarise(volume = sum(volume/1000000)) %>%
+    ungroup() %>%
+    slice_max(volume) %>%
+    pull(volume) %>%
     next_ten()
 
-  fig1 = returns |>
+  fig1 = returns %>%
     filter(country_sold_to == "Scotland",
-           gi == TRUE) |>
-    mutate(label = paste(tree_sp, prod_method, sep = ": ")) |>
-    summarise(volume = sum(volume, na.rm = TRUE), .by = c(year, label)) |>
+           gi == TRUE) %>%
+    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    summarise(volume = sum(volume, na.rm = TRUE), .by = c(year, label)) %>%
     ggplot(aes(year, volume/1000000, colour = label, group = label)) +
     geom_line(linewidth = 1) +
     afcharts::theme_af(legend = "bottom") +
@@ -336,11 +338,11 @@ ns_figures <- function(returns,
          y = NULL,
          colour = NULL)
 
-  fig2 = returns |>
+  fig2 = returns %>%
     filter(country_sold_to == "Scotland",
-           gi == TRUE) |>
-    mutate(label = paste(tree_sp, prod_method, sep = ": ")) |>
-    summarise(volume = sum(volume, na.rm = TRUE), .by = c(year, label)) |>
+           gi == TRUE) %>%
+    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    summarise(volume = sum(volume, na.rm = TRUE), .by = c(year, label)) %>%
     ggplot(aes(year, volume/1000000, colour = label, group = label)) +
     geom_line(linewidth = 1) +
     afcharts::theme_af(legend = "bottom") +

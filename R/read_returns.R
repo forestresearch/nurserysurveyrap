@@ -5,21 +5,22 @@
 #' @importFrom purrr map_dfr
 #' @importFrom readxl read_xlsx
 #' @importFrom dplyr mutate select recode
+#' @importFrom magrittr "%>%"
 #'
 #' @export
 #'
 read_return <- function(file_path) {
-  invisible(readxl::read_xlsx(path = file_path, sheet = "return")) |>
+  invisible(readxl::read_xlsx(path = file_path, sheet = "return")) %>%
     with_pivot("country_sold_to", "volume_thousand",
                function (x) {
-                 x |> dplyr::mutate("E&W" = GB - Scotland) |>
+                 x %>% dplyr::mutate("E&W" = GB - Scotland) %>%
                    dplyr::select(!GB)
-               }) |>
+               }) %>%
     with_pivot("stock_type", "volume_thousand",
                function (x) {
-                 x |> dplyr::mutate("Non-GI" = Total - GI) |>
+                 x %>% dplyr::mutate("Non-GI" = Total - GI) %>%
                    dplyr::select(!Total)
-               }) |>
+               }) %>%
     dplyr::mutate(
       gi = dplyr::recode(stock_type, "GI" = TRUE, "Non-GI" = FALSE),
       year = as.integer(year),
@@ -39,13 +40,14 @@ read_return <- function(file_path) {
 #' @param dir_path Path to search for spreadsheets.
 #'
 #' @importFrom purrr map_dfr
+#' @importFrom magrittr "%>%"
 #'
 #' @return Combined tibble of reports.
 #' @export
 #'
 read_returns <- function(dir_path) {
-  dir_path |>
-    files_matching("\\.xlsx$") |>
+  dir_path %>%
+    files_matching("\\.xlsx$") %>%
     purrr::map_dfr(read_return)
 }
 
