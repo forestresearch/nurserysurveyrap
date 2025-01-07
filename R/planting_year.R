@@ -6,7 +6,7 @@
 #'
 #' @param date Date to get the planting year from.
 #'
-#' @importFrom lubridate year interval make_date
+#' @importFrom lubridate year interval make_date month
 #'
 #' @return Planting year interval.
 #' @export
@@ -14,7 +14,7 @@
 
 
 in_planting_year <- function(date) {
-  ending_year <- lubridate::year(date) + ifelse(month(date) >= 10, 1, 0)
+  ending_year <- lubridate::year(date) + ifelse(lubridate::month(date) >= 10, 1, 0)
   lubridate::interval(lubridate::make_date(ending_year - 1, 10, 1),
            lubridate::make_date(ending_year, 9, 30))
 }
@@ -39,14 +39,17 @@ to_planting_year <- function(year) {
 #'
 #' @param year Year to convert to planting year interval.
 #'
+#' @importFrom lubridate int_start int_end year
+#' @importFrom stringr str_sub
+#'
 #' @return Planting year text.
 #' @export
 #'
 
 planting_year <- function(year) {
   interval <- to_planting_year(year)
-  interval_f <- function(f) as.character(year(f(interval)))
-  start <- interval_f(int_start)
-  end <- interval_f(int_end)
+  interval_f <- function(f) as.character(lubridate::year(f(interval)))
+  start <- interval_f(lubridate::int_start)
+  end <- interval_f(lubridate::int_end)
   paste(start, "/", stringr::str_sub(end, -2), sep = "")
 }

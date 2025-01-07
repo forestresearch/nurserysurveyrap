@@ -9,6 +9,11 @@ URL: http://github.com/forestresearch/nurserysurveyrap.com
 BugReports: http://github.com/forestresearch/nurseysurveyrap/issues.com
 Imports: 
     lubridate,
+    openxlsx,
+    ggplot2,
+    scales,
+    stringr,
+    tibble,
     magrittr,
     purrr,
     readr,
