@@ -10,7 +10,7 @@
 #' @param stat_name Name of statistician
 #' @param ref_year tbd
 #'
-#' @importFrom dplyr dplyr::filter dplyr::mutate dplyr::group_by dplyr::summarise bind_rows
+#' @importFrom dplyr filter mutate group_by summarise bind_rows
 #' @importFrom tidyr pivot_wider
 #' @importFrom purrr map
 #' @importFrom magrittr "%>%"
