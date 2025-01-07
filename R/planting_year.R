@@ -14,9 +14,9 @@
 
 
 in_planting_year <- function(date) {
-  ending_year <- year(date) + ifelse(month(date) >= 10, 1, 0)
-  interval(make_date(ending_year - 1, 10, 1),
-           make_date(ending_year, 9, 30))
+  ending_year <- lubridate::year(date) + ifelse(month(date) >= 10, 1, 0)
+  lubridate::interval(lubridate::make_date(ending_year - 1, 10, 1),
+           lubridate::make_date(ending_year, 9, 30))
 }
 
 #' Get the planting year interval that is represented by a given year.
@@ -30,7 +30,7 @@ in_planting_year <- function(date) {
 #'
 
 to_planting_year <- function(year) {
-  in_planting_year(make_date(year, 10, 1))
+  in_planting_year(lubridate::make_date(year, 10, 1))
 }
 
 #' Get the planting year as text.

@@ -10,7 +10,7 @@
 #' @param stat_name Name of statistician
 #' @param ref_year tbd
 #'
-#' @importFrom dplyr filter mutate group_by summarise bind_rows
+#' @importFrom dplyr dplyr::filter dplyr::mutate dplyr::group_by dplyr::summarise bind_rows
 #' @importFrom tidyr pivot_wider
 #' @importFrom purrr map
 #' @importFrom magrittr "%>%"
@@ -25,59 +25,59 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
                            out_name_doc, pub_date, next_update,stat_name) {
   returns <- read_returns(dir_path)
   nurserys <- read_nursery_names(nursery_names)
-  backseries <- readRDS(hist_data)
+  backseries <- readr::read_rds(hist_data)
 
-  returns <- bind_rows(returns, backseries)
+  returns <- dplyr::bind_rows(returns, backseries)
 
   returns <- fix_returns(returns, nurserys)
 
-check_returns(returns)
+  check_returns(returns)
 
-  saveRDS(returns, paste0(out_path, "/", "nursery_survey-", Sys.Date(), ".rds"))
+  readr::write_rds(returns, paste0(out_path, "/", "nursery_survey-", Sys.Date(), ".rds"))
 
   s1_subs <- returns %>%
-    filter(country_sold_to == "Scotland") %>%
-    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
-    group_by(year, label) %>%
-    summarise(volume = frpubutils::round_safe(sum(volume/1000000), 5))
+    dplyr::filter(country_sold_to == "Scotland") %>%
+    dplyr::mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    dplyr::group_by(year, label) %>%
+    dplyr::summarise(volume = frpubutils::round_safe(sum(volume/1000000), 5))
 
   s1_sitka_tots <- s1_subs %>%
-    filter(label != "Scots pine: Seedlings") %>%
-    group_by(year) %>%
-    summarise(volume = sum(volume)) %>%
-    mutate(label = "Sitka spruce: Total")
+    dplyr::filter(label != "Scots pine: Seedlings") %>%
+    dplyr::group_by(year) %>%
+    dplyr::summarise(volume = sum(volume)) %>%
+    dplyr::mutate(label = "Sitka spruce: Total")
 
   s1_tots <- s1_subs  %>%
-    group_by(year) %>%
-    summarise(volume = sum(volume)) %>%
-    mutate(label = "Total")
+    dplyr::group_by(year) %>%
+    dplyr::summarise(volume = sum(volume)) %>%
+    dplyr::mutate(label = "Total")
 
 
-  s1 <- bind_rows(s1_subs, s1_sitka_tots, s1_tots) %>%
-    pivot_wider(values_from = 'volume', names_from = 'label')
+  s1 <- dplyr::bind_rows(s1_subs, s1_sitka_tots, s1_tots) %>%
+    tidyr::pivot_wider(values_from = 'volume', names_from = 'label')
 
 
 
   s2_subs <- returns %>%
-    filter(country_sold_to == "Scotland", gi == TRUE) %>%
-    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
-    group_by(year, label) %>%
-    summarise(volume = frpubutils::round_safe(sum(volume/1000000), 5))
+    dplyr::filter(country_sold_to == "Scotland", gi == TRUE) %>%
+    dplyr::mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    dplyr::group_by(year, label) %>%
+    dplyr::summarise(volume = frpubutils::round_safe(sum(volume/1000000), 5))
 
   s2_sitka_tots <- s2_subs %>%
-    filter(label != "Scots pine: Seedlings") %>%
-    group_by(year) %>%
-    summarise(volume = sum(volume)) %>%
-    mutate(label = "Sitka spruce: Total")
+    dplyr::filter(label != "Scots pine: Seedlings") %>%
+    dplyr::group_by(year) %>%
+    dplyr::summarise(volume = sum(volume)) %>%
+    dplyr::mutate(label = "Sitka spruce: Total")
 
   s2_tots <- s2_subs  %>%
-    group_by(year) %>%
-    summarise(volume = sum(volume)) %>%
-    mutate(label = "Total")
+    dplyr::group_by(year) %>%
+    dplyr::summarise(volume = sum(volume)) %>%
+    dplyr::mutate(label = "Total")
 
 
-  s2 <- bind_rows(s2_subs, s2_sitka_tots, s2_tots) %>%
-    pivot_wider(values_from = 'volume', names_from = 'label')
+  s2 <- dplyr::bind_rows(s2_subs, s2_sitka_tots, s2_tots) %>%
+    tidyr::pivot_wider(values_from = 'volume', names_from = 'label')
 
 
 
@@ -86,47 +86,47 @@ check_returns(returns)
 
 
   s4_subs <- returns  %>%
-    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
-    group_by(year, label) %>%
-    summarise(volume = frpubutils::round_safe(sum(volume/1000000), 5))
+    dplyr::mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    dplyr::group_by(year, label) %>%
+    dplyr::summarise(volume = frpubutils::round_safe(sum(volume/1000000), 5))
 
   s4_sitka_tots <- s4_subs %>%
-    filter(label != "Scots pine: Seedlings") %>%
-    group_by(year) %>%
-    summarise(volume = sum(volume)) %>%
-    mutate(label = "Sitka spruce: Total")
+    dplyr::filter(label != "Scots pine: Seedlings") %>%
+    dplyr::group_by(year) %>%
+    dplyr::summarise(volume = sum(volume)) %>%
+    dplyr::mutate(label = "Sitka spruce: Total")
 
   s4_tots <- s4_subs  %>%
-    group_by(year) %>%
-    summarise(volume = sum(volume)) %>%
-    mutate(label = "Total")
+    dplyr::group_by(year) %>%
+    dplyr::summarise(volume = sum(volume)) %>%
+    dplyr::mutate(label = "Total")
 
 
-  s4 <- bind_rows(s4_subs, s4_sitka_tots, s4_tots) %>%
-    pivot_wider(values_from = 'volume', names_from = 'label')
+  s4 <- dplyr::bind_rows(s4_subs, s4_sitka_tots, s4_tots) %>%
+    tidyr::pivot_wider(values_from = 'volume', names_from = 'label')
 
 
 
   s5_subs <- returns %>%
-    filter(gi == TRUE) %>%
-    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
-    group_by(year, label) %>%
-    summarise(volume = frpubutils::round_safe(sum(volume/1000000), 5))
+    dplyr::filter(gi == TRUE) %>%
+    dplyr::mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    dplyr::group_by(year, label) %>%
+    dplyr::summarise(volume = frpubutils::round_safe(sum(volume/1000000), 5))
 
   s5_sitka_tots <- s5_subs %>%
-    filter(label != "Scots pine: Seedlings") %>%
-    group_by(year) %>%
-    summarise(volume = sum(volume)) %>%
-    mutate(label = "Sitka spruce: Total")
+    dplyr::filter(label != "Scots pine: Seedlings") %>%
+    dplyr::group_by(year) %>%
+    dplyr::summarise(volume = sum(volume)) %>%
+    dplyr::mutate(label = "Sitka spruce: Total")
 
   s5_tots <- s5_subs  %>%
-    group_by(year) %>%
-    summarise(volume = sum(volume)) %>%
-    mutate(label = "Total")
+    dplyr::group_by(year) %>%
+    dplyr::summarise(volume = sum(volume)) %>%
+    dplyr::mutate(label = "Total")
 
 
-  s5 <- bind_rows(s5_subs, s5_sitka_tots, s5_tots) %>%
-    pivot_wider(values_from = 'volume', names_from = 'label')
+  s5 <- dplyr::bind_rows(s5_subs, s5_sitka_tots, s5_tots) %>%
+    tidyr::pivot_wider(values_from = 'volume', names_from = 'label')
 
 
 
@@ -144,7 +144,7 @@ check_returns(returns)
     tables6 = s6
   )
 
-  pub_tables_rnd <- map(pub_tables, .f = ~ .x %>%
+  pub_tables_rnd <- purrr::map(pub_tables, .f = ~ .x %>%
                                  dplyr::mutate_if(is.numeric,
                                                   frpubutils::round_safe,
                                                   digits = 1))
@@ -155,119 +155,119 @@ check_returns(returns)
   ten_ago = planting_year(ref_year - 11)
 
   table1 = returns %>%
-    filter(country_sold_to == "Scotland",
+    dplyr::filter(country_sold_to == "Scotland",
            year %in% c(ref_year - 3, ref_year - 2)) %>%
-    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
-    group_by(year, label, gi) %>%
-    summarise(volume = sum(volume/1000000))
+    dplyr::mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    dplyr::group_by(year, label, gi) %>%
+    dplyr::summarise(volume = sum(volume/1000000))
 
 
   table1_sitka_tot = table1 %>%
-    filter(label != "Scots pine: Seedlings") %>%
-    group_by(year, gi) %>%
-    summarise(volume = sum(volume)) %>%
-    mutate(label = "Sitka spruce: Total")
+    dplyr::filter(label != "Scots pine: Seedlings") %>%
+    dplyr::group_by(year, gi) %>%
+    dplyr::summarise(volume = sum(volume)) %>%
+    dplyr::mutate(label = "Sitka spruce: Total")
 
   table1_tot = table1 %>%
-    group_by(year, gi) %>%
-    summarise(volume = sum(volume)) %>%
-    mutate(label = "Total")
+    dplyr::group_by(year, gi) %>%
+    dplyr::summarise(volume = sum(volume)) %>%
+    dplyr::mutate(label = "Total")
 
-  table1 <- rbind(table1, table1_sitka_tot, table1_tot) %>%
-    group_by(year, label) %>%
-    mutate(pct_improved = (volume/sum(volume)) * 100,
+  table1 <- dplyr::bind_rows(table1, table1_sitka_tot, table1_tot) %>%
+    dplyr::group_by(year, label) %>%
+    dplyr::mutate(pct_improved = (volume/sum(volume)) * 100,
            volume_total = sum(volume)) %>%
-    ungroup() %>%
-    group_by(label, gi) %>%
-    mutate(volume_lag = lag(volume)) %>%
-    ungroup() %>%
-    filter(year == ref_year - 2,
+    dplyr::ungroup() %>%
+    dplyr::group_by(label, gi) %>%
+    dplyr::mutate(volume_lag = lag(volume)) %>%
+    dplyr::ungroup() %>%
+    dplyr::filter(year == ref_year - 2,
            gi == TRUE) %>%
     select(label, volume_total, volume, pct_improved) %>%
-    mutate(volume_total = frpubutils::round_safe(volume_total, 1),
+    dplyr::mutate(volume_total = frpubutils::round_safe(volume_total, 1),
            volume = frpubutils::round_safe(volume, 1),
            pct_improved = frpubutils::round_safe(pct_improved, 1))
 
   t2 = returns %>%
-    filter(country_sold_to == "Scotland",
+    dplyr::filter(country_sold_to == "Scotland",
            year >= (max(year) - 9),
            gi == TRUE) %>%
-    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
-    summarise(volume = sum(volume/1000000, na.rm = TRUE), .by = c(year, label))
+    dplyr::mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    dplyr::summarise(volume = sum(volume/1000000, na.rm = TRUE), .by = c(year, label))
 
   t2_tots = t2 %>%
-    group_by(year) %>%
-    summarise(volume = sum(volume, na.rm = TRUE)) %>%
-    mutate(label = "Total")
+    dplyr::group_by(year) %>%
+    dplyr::summarise(volume = sum(volume, na.rm = TRUE)) %>%
+    dplyr::mutate(label = "Total")
 
   t2_sitka_tots = t2 %>%
-    filter(label != "Scots pine: Seedlings") %>%
-    group_by(year) %>%
-    summarise(volume = sum(volume, na.rm = TRUE)) %>%
-    mutate(label = "Sitka spruce: Total")
+    dplyr::filter(label != "Scots pine: Seedlings") %>%
+    dplyr::group_by(year) %>%
+    dplyr::summarise(volume = sum(volume, na.rm = TRUE)) %>%
+    dplyr::mutate(label = "Sitka spruce: Total")
 
-  table2 = rbind(t2, t2_sitka_tots, t2_tots) %>%
-    pivot_wider(names_from = "label",
+  table2 = dplyr::bind_rows(t2, t2_sitka_tots, t2_tots) %>%
+    tidyr::pivot_wider(names_from = "label",
                 values_from = "volume") %>%
-    arrange(year) %>%
-    mutate(across(where(is.numeric), ~ frpubutils::round_safe(.x, 1)),
+    dplyr::arrange(year) %>%
+    dplyr::mutate(dplyr::across(dplyr::where(is.numeric), ~ frpubutils::round_safe(.x, 1)),
            year = planting_year(year))
 
   table3 = returns %>%
-    filter(year %in% c(ref_year - 3, ref_year - 2)) %>%
-    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
-    group_by(year, label, gi) %>%
-    summarise(volume = sum(volume/1000000))
+    dplyr::filter(year %in% c(ref_year - 3, ref_year - 2)) %>%
+    dplyr::mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    dplyr::group_by(year, label, gi) %>%
+    dplyr::summarise(volume = sum(volume/1000000))
 
 
   table3_sitka_tot = table3 %>%
-    filter(label != "Scots pine: Seedlings") %>%
-    group_by(year, gi) %>%
-    summarise(volume = sum(volume)) %>%
-    mutate(label = "Sitka spruce: Total")
+    dplyr::filter(label != "Scots pine: Seedlings") %>%
+    dplyr::group_by(year, gi) %>%
+    dplyr::summarise(volume = sum(volume)) %>%
+    dplyr::mutate(label = "Sitka spruce: Total")
 
   table3_tot = table3 %>%
-    group_by(year, gi) %>%
-    summarise(volume = sum(volume)) %>%
-    mutate(label = "Total")
+    dplyr::group_by(year, gi) %>%
+    dplyr::summarise(volume = sum(volume)) %>%
+    dplyr::mutate(label = "Total")
 
-  table3 <- rbind(table3, table3_sitka_tot, table3_tot) %>%
-    group_by(year, label) %>%
-    mutate(pct_improved = (volume/sum(volume)) * 100,
+  table3 <- dplyr::bind_rows(table3, table3_sitka_tot, table3_tot) %>%
+    dplyr::group_by(year, label) %>%
+    dplyr::mutate(pct_improved = (volume/sum(volume)) * 100,
            volume_total = sum(volume)) %>%
-    ungroup() %>%
-    group_by(label, gi) %>%
-    mutate(volume_lag = lag(volume)) %>%
-    ungroup() %>%
-    filter(year == ref_year - 2,
+    dplyr::ungroup() %>%
+    dplyr::group_by(label, gi) %>%
+    dplyr::mutate(volume_lag = lag(volume)) %>%
+    dplyr::ungroup() %>%
+    dplyr::filter(year == ref_year - 2,
            gi == TRUE) %>%
     select(label, volume_total, volume, pct_improved) %>%
-    mutate(volume_total = frpubutils::round_safe(volume_total, 1),
+    dplyr::mutate(volume_total = frpubutils::round_safe(volume_total, 1),
            volume = frpubutils::round_safe(volume, 1),
            pct_improved = frpubutils::round_safe(pct_improved, 1))
 
   t4 = returns %>%
-    filter(year >= (max(year) - 9),
+    dplyr::filter(year >= (max(year) - 9),
            gi == TRUE) %>%
-    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
-    summarise(volume = sum(volume/1000000, na.rm = TRUE), .by = c(year, label))
+    dplyr::mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    dplyr::summarise(volume = sum(volume/1000000, na.rm = TRUE), .by = c(year, label))
 
   t4_tots = t4 %>%
-    group_by(year) %>%
-    summarise(volume = sum(volume, na.rm = TRUE)) %>%
-    mutate(label = "Total")
+    dplyr::group_by(year) %>%
+    dplyr::summarise(volume = sum(volume, na.rm = TRUE)) %>%
+    dplyr::mutate(label = "Total")
 
   t4_sitka_tots = t4 %>%
-    filter(label != "Scots pine: Seedlings") %>%
-    group_by(year) %>%
-    summarise(volume = sum(volume, na.rm = TRUE)) %>%
-    mutate(label = "Sitka spruce: Total")
+    dplyr::filter(label != "Scots pine: Seedlings") %>%
+    dplyr::group_by(year) %>%
+    dplyr::summarise(volume = sum(volume, na.rm = TRUE)) %>%
+    dplyr::mutate(label = "Sitka spruce: Total")
 
-  table4 = rbind(t4, t4_sitka_tots, t4_tots) %>%
-    pivot_wider(names_from = "label",
+  table4 = dplyr::bind_rows(t4, t4_sitka_tots, t4_tots) %>%
+    tidyr::pivot_wider(names_from = "label",
                 values_from = "volume") %>%
-    arrange(year) %>%
-    mutate(across(where(is.numeric), ~ frpubutils::round_safe(.x, 1)),
+    dplyr::arrange(year) %>%
+    dplyr::mutate(dplyr::across(dplyr::where(is.numeric), ~ frpubutils::round_safe(.x, 1)),
            year = planting_year(year))
 
   ns_a11y_obj <- pub_a11y_prep(pub_date = pub_date,

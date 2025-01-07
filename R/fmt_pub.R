@@ -298,64 +298,64 @@ ns_figures <- function(returns,
 
   next_ten <- function(x) { 10*ceiling(x/10) }
 
-  gb_next_10 <- returns %>% filter(gi == TRUE) %>%
-    mutate(label = paste(tree_sp, prod_method)) %>%
-    group_by(label, year) %>%
-    summarise(volume = sum(volume/1000000)) %>%
-    ungroup() %>%
-    slice_max(volume) %>%
-    pull(volume) %>%
+  gb_next_10 <- returns %>% dplyr::filter(gi == TRUE) %>%
+    dplyr::mutate(label = paste(tree_sp, prod_method)) %>%
+    dplyr::group_by(label, year) %>%
+    dplyr::summarise(volume = sum(volume/1000000)) %>%
+    dplyr::ungroup() %>%
+    dplyr::slice_max(volume) %>%
+    dplyr::pull(volume) %>%
     next_ten()
 
-  sc_next_10 <- returns %>% filter(country_sold_to == "Scotland",
+  sc_next_10 <- returns %>% dplyr::filter(country_sold_to == "Scotland",
                                    gi == TRUE) %>%
-    mutate(label = paste(tree_sp, prod_method)) %>%
-    group_by(label, year) %>%
-    summarise(volume = sum(volume/1000000)) %>%
-    ungroup() %>%
-    slice_max(volume) %>%
-    pull(volume) %>%
+    dplyr::mutate(label = paste(tree_sp, prod_method)) %>%
+    dplyr::group_by(label, year) %>%
+    dplyr::summarise(volume = sum(volume/1000000)) %>%
+    dplyr::ungroup() %>%
+    dplyr::slice_max(volume) %>%
+    dplyr::pull(volume) %>%
     next_ten()
 
   fig1 = returns %>%
-    filter(country_sold_to == "Scotland",
+    dplyr::filter(country_sold_to == "Scotland",
            gi == TRUE) %>%
-    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
-    summarise(volume = sum(volume, na.rm = TRUE), .by = c(year, label)) %>%
-    ggplot(aes(year, volume/1000000, colour = label, group = label)) +
-    geom_line(linewidth = 1) +
+    dplyr::mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    dplyr::summarise(volume = sum(volume, na.rm = TRUE), .by = c(year, label)) %>%
+    ggplot2::ggplot(aes(year, volume/1000000, colour = label, group = label)) +
+    ggplot2::geom_line(linewidth = 1) +
     afcharts::theme_af(legend = "bottom") +
     afcharts::scale_colour_discrete_af(labels = c(
       "Scots pine: Seedlings",
       "Sitka spruce: Seedlings",
       "Sitka spruce: VP"
     )) +
-    scale_x_continuous(labels = planting_year) +
-    scale_y_continuous(breaks = seq(0, sc_next_10, 10),
-                       expand = expansion(mult = c(0, 0)),
+    ggplot2::scale_x_continuous(labels = planting_year) +
+    ggplot2::scale_y_continuous(breaks = seq(0, sc_next_10, 10),
+                       expand = ggplot2::expansion(mult = c(0, 0)),
                        limits = c(0, sc_next_10)) +
-    labs(x = NULL,
+    ggplot2::labs(x = NULL,
          y = NULL,
          colour = NULL)
 
   fig2 = returns %>%
-    filter(country_sold_to == "Scotland",
+    dplyr::filter(country_sold_to == "Scotland",
            gi == TRUE) %>%
-    mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
-    summarise(volume = sum(volume, na.rm = TRUE), .by = c(year, label)) %>%
-    ggplot(aes(year, volume/1000000, colour = label, group = label)) +
-    geom_line(linewidth = 1) +
+    dplyr::mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
+    dplyr::summarise(volume = sum(volume, na.rm = TRUE), .by = c(year, label)) %>%
+    ggplot2::ggplot(aes(year, volume/1000000, colour = label, group = label)) +
+    ggplot2::geom_line(linewidth = 1) +
     afcharts::theme_af(legend = "bottom") +
     afcharts::scale_colour_discrete_af(labels = c(
       "Scots pine: Seedlings",
       "Sitka spruce: Seedlings",
       "Sitka spruce: VP"
     )) +
-    scale_x_continuous(labels = planting_year) +
-    scale_y_continuous(breaks = seq(0, gb_next_10, 10),
-                       expand = expansion(mult = c(0, 0)),
+    ggplot2::scale_x_continuous(labels = planting_year) +
+    ggplot2::scale_y_continuous(breaks = seq(0, gb_next_10, 10),
+                       expand = ggplot2::expansion(mult = c(0, 0)),
                        limits = c(0, gb_next_10)) +
-    labs(x = NULL,
+    ggplot2::labs(x = NULL,
          y = NULL,
          colour = NULL)
 

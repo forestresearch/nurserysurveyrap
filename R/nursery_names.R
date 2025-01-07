@@ -4,12 +4,12 @@
 #'
 #' @param path Path to the CSV file.
 #'
-#' @importFrom readr cols
+#' @importFrom readr read_csv
 #'
 #' @return Tibble with correct column types.
 #' @export
 
 
 read_nursery_names <- function(path) {
-  path %>% read.csv(.)
+  path %>% readr::read_csv()
 }
