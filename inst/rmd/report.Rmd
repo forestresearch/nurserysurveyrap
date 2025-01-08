@@ -60,11 +60,7 @@ library(afcharts)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-library(gt)
-library(sysfonts)
-library(showtext)
 library(lubridate)
-library(readr)
 
 use_afcharts()
 
