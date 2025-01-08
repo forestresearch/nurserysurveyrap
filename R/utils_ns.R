@@ -75,12 +75,13 @@ with_pivot <- function(x, names_from, values_from, action) {
 #'
 #' @param returns dataset.
 #'
+#' @importFrom dplyr if_else
 #'
 #' @return Message
 #' @export
 
 
 check_returns <- function(returns) {
-    if_else(any(returns$volume < 0), "A disaggregation error has been corrected. Run View(returns) and sort by volume to identify which cases were affected.", "All is well.")
+    dplyr::if_else(any(returns$volume < 0), "A disaggregation error has been corrected. Run View(returns) and sort by volume to identify which cases were affected.", "All is well.")
     }
 

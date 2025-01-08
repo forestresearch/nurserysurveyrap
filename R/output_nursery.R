@@ -275,7 +275,8 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
 
   options("openxlsx.dateFormat" = "dd-mmm-yy")
 
-  frpubutils::output_pub_tab(in_data = pub_tables,
+  frpubutils::output_pub_tab(
+                 in_data = pub_tables,
                  ref_year = latest_year,
                  pub_date = pub_date,
                  pkg_nm = "nurserysurveyrap",
