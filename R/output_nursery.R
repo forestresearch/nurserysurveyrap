@@ -2,22 +2,23 @@
 #'
 #' @param dir_path Path to folder containing all chapter input data files.
 #' @param hist_data Name of previous historical time series of input data.
-#' @param nursery_names List of corrected nursery names
+#' @param nursery_names List of corrected nursery names RD:what do you mean by corrected?
+#' @param ref_year tbd RD: needs to be updated
 #' @param out_path Path to output folder.
 #' @param out_name_doc doc file name
 #' @param pub_date Publication date, string. Date format example: 6 October 2030.
 #' @param next_update Next update date, string. Date format example: 6 October 2030.
 #' @param stat_name Name of statistician
-#' @param ref_year tbd
+
 #'
 #' @importFrom dplyr filter mutate group_by summarise bind_rows
 #' @importFrom tidyr pivot_wider
 #' @importFrom purrr map
 #' @importFrom magrittr "%>%"
 #'
-#' @return tbd
+#' @return tbd RD: needs to be updated
 #' @export
-#'
+#' RD: put the example here
 
 
 output_nursery <- function(dir_path, hist_data, nursery_names,
@@ -34,12 +35,12 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
   check_returns(returns)
 
   readr::write_rds(returns, paste0(out_path, "/", "nursery_survey-", Sys.Date(), ".rds"))
-
+#RD: There is a lot of repeated code for producing table s1, s2, s5 and s6. Put this in a function
   s1_subs <- returns %>%
     dplyr::filter(country_sold_to == "Scotland") %>%
     dplyr::mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
     dplyr::group_by(year, label) %>%
-    dplyr::summarise(volume = frpubutils::round_safe(sum(volume/1000000), 5))
+    dplyr::summarise(volume = frpubutils::round_safe(sum(volume/1000000), 5)) #RD: 1,000,000 is used quite a few times in the code. Recommend setting million <- 1000000 at the top and using this in calculations to avoid a typo
 
   s1_sitka_tots <- s1_subs %>%
     dplyr::filter(label != "Scots pine: Seedlings") %>%
@@ -153,10 +154,10 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
   previous_year = planting_year(ref_year - 3)
   first_year = planting_year(min(returns$year))
   ten_ago = planting_year(ref_year - 11)
-
+#RD: lots of repeated code for producing table 1-4. Put this in a function
   table1 = returns %>%
     dplyr::filter(country_sold_to == "Scotland",
-           year %in% c(ref_year - 3, ref_year - 2)) %>%
+           year %in% c(ref_year - 3, ref_year - 2)) %>% #RD: is this filtering for latest year and previous year? If so, replace that here
     dplyr::mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
     dplyr::group_by(year, label, gi) %>%
     dplyr::summarise(volume = sum(volume/1000000))
@@ -292,7 +293,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,
 
 
 
-  # Word document for QA
+  # Word document output RD: not just for QA as you can hopefully use this to update the report after QA and produce the final output
 
   rmd_ns_file <- system.file("rmd", "report.Rmd", package = "nurserysurveyrap")
 
