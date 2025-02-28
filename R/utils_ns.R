@@ -2,7 +2,7 @@
 #'
 #' @author Daniel Braby
 #'
-#' @description Return paths to files matching specified criteria.
+#' @description Return paths to files matching specified criteria. RD: I don't believe you need this line in any of these sections
 #'
 #' @param dir_path Directory path.
 #' @param regex Matching criteria.
@@ -19,7 +19,7 @@ files_matching <- function(dir_path, regex) {
 }
 
 
-
+RD: thisis repeated from above. Needs to be updated
 #' Recursively match file paths under directory.
 #'
 #' @author Daniel Braby
@@ -45,7 +45,7 @@ names_diff <- function(new, old) {
 #' @author Daniel Braby
 #'
 #' @description Bespoke pivot longer for Nursery Survey returns
-#'
+#'RS: update inputs
 #' @param dir_path Directory path.
 #' @param regex Matching criteria.
 #'
