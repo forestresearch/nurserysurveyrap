@@ -69,6 +69,7 @@ To reproduce the 2024 publication run the following:
 
 
 ```r
+RD: update file paths to their final locations. the backseries is not currently in the data folder
 nurserysurveyrap::output_nursery(dir_path = r"(Z:\IFOS\Statistics\Data\Nursery Survey\2022-23\4_Surveys returned)",
                                  hist_data = r"(Z:\IFOS\Statistics\Data\Nursery Survey\braby_dev\nursery\nursery_survey-2024-10-07.rds)",
                                  nursery_names = r"(Z:\IFOS\Statistics\Data\Nursery Survey\braby_dev\nursery\names.csv)",
