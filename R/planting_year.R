@@ -1,4 +1,3 @@
-RD: don't need two descriptions for each of the roxygen sections
 #' Date to planting year interval.
 #'
 #' @author Daniel Braby
