@@ -29,10 +29,10 @@ pub_a11y_prep <- function(pub_date,
     "Notes",
     paste0("Table S1: Sales of nursery stock, Scotland, 2005/06 to ", reporting_year, " [note 1]"),
     paste0("Table S2: Sales of improved nursery stock, Scotland, 2005/06 to ", reporting_year, " [note 1]"),
-    paste0("Table S3: Percentage of nursery stock sold that is genetically improved, Scotland, 2005/05 to", reporting_year, " [note 1]"),
+    paste0("Table S3: Percentage of nursery stock sold that is genetically improved, Scotland, 2005/05 to ", reporting_year, " [note 1]"),
     paste0("Table S4: Sales of nursery stock, Great Britain, 2005/06 to ", reporting_year, " [note 1]"),
     paste0("Table S5: Sales of improved nursery stock, Great Britain, 2005/06 to ", reporting_year, " [note 1]"),
-    paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/05 to", reporting_year, " [note 1]")
+    paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/05 to ", reporting_year, " [note 1]")
   )
 
   custom_rows <- list(
@@ -41,10 +41,10 @@ pub_a11y_prep <- function(pub_date,
     NA_character_,
     "Information: Units are millions of plants",
     "Information: Units are millions of plants",
+    "Information: Units are millions of plants", #RD: Table S3 is a percentage
     "Information: Units are millions of plants",
     "Information: Units are millions of plants",
-    "Information: Units are millions of plants",
-    "Information: Units are millions of plants"
+    "Information: Units are millions of plants" #RD: Table S6 is a percentage
   )
 #RD: need to include aother custom row to say Shorthand: VP = vegetative propagation.
   sources <- c(
@@ -83,11 +83,11 @@ pub_a11y_prep <- function(pub_date,
       paste0("Table S1: Sales of nursery stock, Scotland, 2005/06 to ",
              reporting_year),
       paste0("Table S2: Sales of improved nursery stock, Scotland, 2005/06 to ", reporting_year),
-      paste0("Table S3: Percentage of nursery stock sold that is genetically improved, Scotland, 2005/05 to", reporting_year),
+      paste0("Table S3: Percentage of nursery stock sold that is genetically improved, Scotland, 2005/05 to ", reporting_year),
       paste0("Table S4: Sales of nursery stock, Great Britain, 2005/06 to ",
              reporting_year),
       paste0("Table S5: Sales of improved nursery stock, Great Britain, 2005/06 to ", reporting_year),
-      paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/05 to", reporting_year
+      paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/05 to ", reporting_year
     )),
     check.names = FALSE
   )
@@ -159,7 +159,7 @@ pub_a11y_prep <- function(pub_date,
 #' Format table with custom flextable theme for publication Word document
 #'
 #' @param in_table Table (tibble or data frame) to be formatted
-#' @param round_it Boolean, default is TRUE. TRUE will round numbers in table to 0 decimal places, FALSE will not round.
+#' @param round_it Boolean, default is TRUE. TRUE will round numbers in table to 0 decimal places, FALSE will not round. #Why only 0 or all dp? In the current output it's not rounded at all. This should be rounded to at least 4 d.p.
 #' @param char_cols Vector containing index of column(s) that are character, can be length zero.
 #' @param num_cols Vector containing index of column(s) that are numeric, can be length zero.
 #'
