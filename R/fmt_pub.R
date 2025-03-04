@@ -46,7 +46,7 @@ pub_a11y_prep <- function(pub_date,
     "Information: Units are millions of plants",
     "Information: Units are millions of plants"
   )
-
+#RD: need to include aother custom row to say Shorthand: VP = vegetative propagation.
   sources <- c(
     rep(NA_character_, 3),
     "Forest Research",
