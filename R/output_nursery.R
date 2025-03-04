@@ -20,11 +20,11 @@
 #'
 
 
-output_nursery <- function(dir_path, hist_data, nursery_names, #RD: nursery_names can be removed as an input parameter as this is internal to the package now
+output_nursery <- function(dir_path, hist_data, nursery_names, 
                            ref_year, out_path,
                            out_name_doc, pub_date, next_update,stat_name) {
   returns <- read_returns(dir_path)
-  nurserys <- read_nursery_names(nursery_names) #RD: read this in from the package now
+  nurserys <- read_nursery_names(nursery_names) 
   backseries <- readr::read_rds(hist_data) 
 
   returns <- dplyr::bind_rows(returns, backseries)
