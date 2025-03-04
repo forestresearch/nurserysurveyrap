@@ -19,7 +19,7 @@
 fix_returns <- function(raw_returns, nursery_names) {
   fix_disaggregation_error <- function(df) {  #RD: this is a function defined within a function. Pull it out and define separately. Also rename df to something more informative
     disaggregation <- df %>% dplyr::filter(country_sold_to == "E&W", !gi) %>% dplyr::pull(volume)
-    df %>% dplyr::mutate(volume = volume + disaggregation *
+    df %>% dplyr::mutate(volume = volume + disaggregation * #RD:I don't think this is doing what it's supposed to. At this line we're assuming the values in disaggregation are matching with the correct corresponding rows df (raw_returns) but from what I can see it's not matching up correctly.
                     ifelse(gi, -1, 1) *
                     ifelse(country_sold_to == "E&W", -1, 1) *
                     ifelse(disaggregation < 0, 1, 0))
