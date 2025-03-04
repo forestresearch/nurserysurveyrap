@@ -8,7 +8,7 @@
 #' @param out_name_doc doc file name
 #' @param pub_date Publication date, string. Date format example: 6 October 2030.
 #' @param next_update Next update date, string. Date format example: 6 October 2030.
-#' @param stat_name Name of statistician
+#' @param stat_name Name of statistician # RD: to be updated
 
 #'
 #' @importFrom dplyr filter mutate group_by summarise bind_rows
