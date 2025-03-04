@@ -269,7 +269,7 @@ ft_header_label <- function(in_table, var_names, label_names, sup_vals = NULL) {
 
 }
 
-#' Create list of NS publication ready figures #RD:NS?
+#' Create list of NS publication ready figures 
 #'
 #' @param returns compiled data
 #' @param latest_year latest year of data
@@ -288,8 +288,8 @@ ns_figures <- function(returns,
                         latest_year) {
 
   # load formatting for ggplot2
-  library(afcharts) # TODO check how to run without this #RD:...
-  afcharts::use_afcharts() #RD:afcharts isn't listed in th roxygen info
+  library(afcharts) # TODO check how to run without this 
+  afcharts::use_afcharts() 
 
   next_ten <- function(x) { 10*ceiling(x/10) }
 
