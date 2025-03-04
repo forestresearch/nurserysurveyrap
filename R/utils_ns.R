@@ -82,6 +82,6 @@ with_pivot <- function(x, names_from, values_from, action) {
 
 
 check_returns <- function(returns) {
-    dplyr::if_else(any(returns$volume < 0), "A disaggregation error has been corrected. Run View(returns) and sort by volume to identify which cases were affected.", "All is well.")
+    dplyr::if_else(any(returns$volume < 0), "A disaggregation error has been corrected. Run View(returns) and sort by volume to identify which cases were affected.", "Data checked for disaggregation errors. None found.")
     }
 
