@@ -49,12 +49,7 @@ pub_a11y_prep <- function(pub_date,
 
   sources <- c(
     rep(NA_character_, 3),
-    "Forest Research",
-    "Forest Research",
-    "Forest Research",
-    "Forest Research",
-    "Forest Research",
-    "Forest Research"
+    rep("Forest Research", 6)
   )
 
   cover_list <- list(
@@ -274,7 +269,7 @@ ft_header_label <- function(in_table, var_names, label_names, sup_vals = NULL) {
 
 }
 
-#' Create list of NS publication ready figures
+#' Create list of NS publication ready figures #RD:NS?
 #'
 #' @param returns compiled data
 #' @param latest_year latest year of data
@@ -293,8 +288,8 @@ ns_figures <- function(returns,
                         latest_year) {
 
   # load formatting for ggplot2
-  library(afcharts) # TODO check how to run without this
-  afcharts::use_afcharts()
+  library(afcharts) # TODO check how to run without this #RD:...
+  afcharts::use_afcharts() #RD:afcharts isn't listed in th roxygen info
 
   next_ten <- function(x) { 10*ceiling(x/10) }
 
