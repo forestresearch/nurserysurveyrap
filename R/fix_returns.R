@@ -3,8 +3,6 @@
 #' @author Daniel Braby
 #'
 #'
-#' RD: dont need this second description
-#'
 #' @param returns The raw returns.
 #RD: include info on nursery_names input
 #'
