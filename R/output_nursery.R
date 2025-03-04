@@ -1,7 +1,7 @@
 #' Output Nursery Survey
 #'
 #' @param dir_path Path to folder containing all chapter input data files.
-#' @param hist_data Name of previous historical time series of input data.
+#' @param hist_data Name of previous historical time series of input data. RD: Create a separate folder to hold the backseries outside of the yer folders. save the backseries as part of the output function and append a date stamp in the file name then select the most recent one in each run
 #' @param nursery_names List of corrected nursery names RD:what do you mean by corrected?
 #' @param ref_year tbd RD: needs to be updated
 #' @param out_path Path to output folder.
