@@ -14,7 +14,7 @@
 #' @importFrom dplyr filter mutate group_by summarise bind_rows
 #' @importFrom tidyr pivot_wider
 #' @importFrom purrr map
-#' @importFrom magrittr "%>%"
+#' @importFrom magrittr "%>%" #RD: inlude frpubutils here
 #'
 #' @return tbd RD: needs to be updated
 #' @export
@@ -34,7 +34,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,  #RD: nursery_nam
 
   check_returns(returns) #RD: Rename this function to something more informative like print_message_on_dissagregation_check
 
-  readr::write_rds(returns, paste0(out_path, "/", "nursery_survey-", Sys.Date(), ".rds"))
+  readr::write_rds(returns, paste0(out_path, "/", "nursery_survey-", Sys.Date(), ".rds")) #RD:update to store this with the latest year in the name
 #RD: There is a lot of repeated code for producing table s1, s2, s5 and s6. Put this in a function
   s1_subs <- returns %>%
     dplyr::filter(country_sold_to == "Scotland") %>%
@@ -55,7 +55,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,  #RD: nursery_nam
 
 
   s1 <- dplyr::bind_rows(s1_subs, s1_sitka_tots, s1_tots) %>%
-    tidyr::pivot_wider(values_from = 'volume', names_from = 'label')
+    tidyr::pivot_wider(values_from = 'volume', names_from = 'label') #RD: re-order columns here to match last publication. This aplies to all tables s1-6. This will automatically applied when the creation of these tables is put into a function
 
 
 
@@ -83,7 +83,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,  #RD: nursery_nam
 
 
   s3 = s2/s1
-  s3$year <- s2$year
+  s3$year <- s2$year #Table s3 and s6 are currently outputting as decimal. The values need to be multiplied by 100 and rounded to 1 d.p.. In the output there should be a % at the end of each value
 
 
   s4_subs <- returns  %>%
@@ -131,7 +131,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,  #RD: nursery_nam
 
 
 
-  s6 = s5/s4
+  s6 = s5/s4  #Table s3 and s6 are currently outputting as decimal. The values need to be multiplied by 100 and rounded to 1 d.p.. In the output there should be a % at the end of each value
   s6$year <- s5$year
 
 
