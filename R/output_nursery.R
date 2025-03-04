@@ -32,7 +32,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,  #RD: nursery_nam
 
   returns <- fix_returns(returns, nurserys)
 
-  check_returns(returns)
+  check_returns(returns) #RD: Rename this function to something more informative like print_message_on_dissagregation_check
 
   readr::write_rds(returns, paste0(out_path, "/", "nursery_survey-", Sys.Date(), ".rds"))
 #RD: There is a lot of repeated code for producing table s1, s2, s5 and s6. Put this in a function
@@ -147,17 +147,19 @@ output_nursery <- function(dir_path, hist_data, nursery_names,  #RD: nursery_nam
 
   pub_tables_rnd <- purrr::map(pub_tables, .f = ~ .x %>%
                                  dplyr::mutate_if(is.numeric,
-                                                  frpubutils::round_safe,
+                                                  frpubutils::round_safe, #RD:list frpubutils in the roxygen info at the top
                                                   digits = 1))
-
+#RD:The planting_year function is for producing the date as text for the report but from this list only latest_year is used for this. 
+#  It would be useful to use these parameters so create them as objects to use throughout the functions then at the end of the script, just before the report, overwrite latest_year with the formatted version to use in the report
   latest_year = planting_year(ref_year - 2)
-  previous_year = planting_year(ref_year - 3)
+  previous_year = planting_year(ref_year - 3) 
   first_year = planting_year(min(returns$year))
-  ten_ago = planting_year(ref_year - 11)
-#RD: lots of repeated code for producing table 1-4. Put this in a function
+  ten_ago = planting_year(ref_year - 11) 
+  
+#RD: lots of repeated code for producing table 1-4. Put this in a function/s
   table1 = returns %>%
     dplyr::filter(country_sold_to == "Scotland",
-           year %in% c(ref_year - 3, ref_year - 2)) %>% #RD: is this filtering for latest year and previous year? If so, replace that here
+           year %in% c(ref_year - 3, ref_year - 2)) %>% #RD: is this filtering for latest_year and previous_year? If so, replace those parameters here.
     dplyr::mutate(label = paste(tree_sp, prod_method, sep = ": ")) %>%
     dplyr::group_by(year, label, gi) %>%
     dplyr::summarise(volume = sum(volume/1000000))
@@ -297,7 +299,7 @@ output_nursery <- function(dir_path, hist_data, nursery_names,  #RD: nursery_nam
 
   rmd_ns_file <- system.file("rmd", "report.Rmd", package = "nurserysurveyrap")
 
-  rmarkdown::render(rmd_ns_file, output_file = paste0(out_path, "/", out_name_doc, "_", pub_date, ".docx"), quiet = TRUE)
+  rmarkdown::render(rmd_ns_file, output_file = paste0(out_path, "/", out_name_doc, "_", pub_date, ".docx"), quiet = TRUE) 
 
   print("Progress: ---------- Nursery Survey COMPLETE ----------")
 }
