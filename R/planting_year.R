@@ -1,3 +1,4 @@
+RD: don't need two descriptions for each of the roxygen sections
 #' Date to planting year interval.
 #'
 #' @author Daniel Braby
@@ -12,7 +13,7 @@
 #' @export
 #'
 
-
+#RD: where is this function used?
 in_planting_year <- function(date) {
   ending_year <- lubridate::year(date) + ifelse(lubridate::month(date) >= 10, 1, 0)
   lubridate::interval(lubridate::make_date(ending_year - 1, 10, 1),
@@ -28,7 +29,7 @@ in_planting_year <- function(date) {
 #' @return Planting year interval.
 #' @export
 #'
-
+#RD: where is this function used?
 to_planting_year <- function(year) {
   in_planting_year(lubridate::make_date(year, 10, 1))
 }
