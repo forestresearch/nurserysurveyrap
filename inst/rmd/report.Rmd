@@ -269,7 +269,7 @@ all_gb_pct <- returns %>%
 -   Of all sales in Great Britain in `r latest_year`, `r all_gb_im_n` million plants (`r paste0(all_gb_im_pct, "%")`) were derived from improved nursery stock, `r frpubutils::perc_chg_text(all_gb_im_ac)` (or `r all_gb_diff` million plants) compared with the previous year.
 
 \newpage
-
+#RD:table of info on what improved stock etc is, is missing from this output
 
 # Sales of nursery stock to Scotland
 
