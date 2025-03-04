@@ -1,22 +1,23 @@
-#' Fix the returns that do not pass the validation test.
+#' Fix the returns that do not pass the validation test (disaggregation errors)
 #'
 #' @author Daniel Braby
 #'
 #'
-#' @description Fixes the disaggregation errors.
+#' RD: dont need this second description
 #'
 #' @param returns The raw returns.
+#RD: include info on nursery_names input
 #'
 #' @importFrom dplyr filter mutate select reframe pick everything inner_join
 #' @importFrom magrittr "%>%"
 #'
 #'
 #' @export
-
+#RD: what does this script output?
 
 
 fix_returns <- function(raw_returns, nursery_names) {
-  fix_disaggregation_error <- function(df) {
+  fix_disaggregation_error <- function(df) {  #RD: this is a function defined within a function. Pull it out and define separately. Also rename df to something more informative
     disaggregation <- df %>% dplyr::filter(country_sold_to == "E&W", !gi) %>% dplyr::pull(volume)
     df %>% dplyr::mutate(volume = volume + disaggregation *
                     ifelse(gi, -1, 1) *
