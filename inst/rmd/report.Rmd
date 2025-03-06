@@ -8,7 +8,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
+#RD: in the output there is a header with 'Parent Title (Source Title property)'. This needs to be updated
 ##### `r ref_year`
 
 <br>
