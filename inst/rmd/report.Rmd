@@ -28,10 +28,8 @@ knitr::opts_chunk$set(echo = TRUE)
 |                           Northern Research Station, Roslin, Midlothian, EH25 9SY 
 | Enquiries:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0300 067 5238
 |                           [statistics@forestresearch.gov.uk](mailto:statistics@forestresearch.gov.uk)
-| Statistician:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`r stat_name` 
 | Website:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[www.forestresearch.gov.uk/statistics](www.forestresearch.gov.uk/statistics)
 
-#### ![Image caption: Badge for Accredited Official Statistics](../img/accredited_official_statistics_logo_english_hq.png){width=18%}\ 
 
 \newpage
 
@@ -264,9 +262,9 @@ all_gb_pct <- returns %>%
 
 # Key findings
 
--   A total of `r all_scotland_im_n` million plants (`r paste0(all_scotland_im_pct, " %")`) derived from improved nursery stock were sold to Scotland in `r latest_year`.
+-   A total of `r all_scotland_im_n` million plants (`r paste0(all_scotland_im_pct, "%")`) derived from improved nursery stock were sold to Scotland in `r latest_year`.
 
--   Of all sales in Great Britain in `r latest_year`, `r all_gb_im_n` million plants (`r paste0(all_gb_im_pct, "%")`) were derived from improved nursery stock, `r frpubutils::perc_chg_text(all_gb_im_ac)` (or `r all_gb_diff` million plants) compared with the previous year.
+-   Of all sales in Great Britain in `r latest_year`, `r all_gb_im_n` million plants (`r paste0(all_gb_im_pct, "%")`) were derived from improved nursery stock, `r frpubutils::perc_chg_text(all_gb_im_ac)` (or `r all_gb_diff` million plants) compared with the previous year. #RD: the values in this second bullt point are different to those in the published report. why is there a difference? Also all_gb_diff is a negative value and prints with a minus on it in the output
 
 \newpage
 #RD:table of info on what improved stock etc is, is missing from this output
@@ -275,14 +273,14 @@ all_gb_pct <- returns %>%
 
 An estimated total of `r all_scotland_n` million Sitka spruce and Scots pine plants were sold to Scotland in `r latest_year` (Table 1), comprising `r scotland_sitka_n` million Sitka spruce plants and `r scotland_scots_n` million Scots pine plants. This represents `r frpubutils::perc_chg_text(scotland_sitka_pct)` in sales of Sitka spruce and `r frpubutils::perc_chg_text(scotland_scots_pct)` in sales of Scots pine from the previous year.
 
-A total of `r all_scotland_im_n` million plants (`r paste0(all_scotland_im_pct, " %")`) derived from improved nursery stock were sold to Scotland in `r latest_year`, `r frpubutils::perc_chg_text(all_scotland_im_ac)` compared with `r previous_year` (Table 2).
+A total of `r all_scotland_im_n` million plants (`r paste0(all_scotland_im_pct, "%")`) derived from improved nursery stock were sold to Scotland in `r latest_year`, `r frpubutils::perc_chg_text(all_scotland_im_ac)` compared with `r previous_year` (Table 2).
 
 #### Table 1: Summary table, Scotland, `r latest_year`
 
 ```{r table 1, echo = FALSE, message = FALSE}
 
 
-  
+  #RD: re-order rows to match published table
 table1 <- table1 %>%
   frpubutils::ft_tbl_fmtd(col_names = c("Plant", paste0("Total stock sold in ", latest_year, " (million plants)"),
                                         paste0("Improved stock sold in ", latest_year, " (million plants)"),
@@ -299,8 +297,8 @@ table1 <- table1 %>%
 <br>
 
 Note:
-
-1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
+#RD:can the footnotes be printed in a smaller text size?
+1.	Results for respondents only. This is estimated to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
 \newpage
 
 Figure 1 presents the sales of improved nursery stock to Scotland from `r first_year` to `r latest_year` (planting seasons).
@@ -316,11 +314,11 @@ ns_figs$fig1
 
 Note:
 
-1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
+1.	Results for respondents only. This is estimated to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
 
 \newpage
 
-#### Table 2: Sales of improved nursery stock, Scotland, `r ten_ago` to `r latest_year`
+#### Table 2: Sales of improved nursery stock (million plants), Scotland, `r ten_ago` to `r latest_year`
 
 ```{r table 2, echo = FALSE, message = FALSE}
 
@@ -340,18 +338,18 @@ table2 <- table2 %>%
 
 Note:
 
-1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
+1.	Results for respondents only. this is estimated to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
 
 \newpage
 
 # Sales of nursery stock in Great Britain
 
-An estimated total of `r all_gb_n` million Sitka spruce and Scots pine plants were sold in Great Britain in `r latest_year` (Table 3), comprising `r gb_sitka_n` million Sitka spruce plants and `r gb_scots_n` million Scots pine plants. This represents `r frpubutils::perc_chg_text(gb_sitka_pct)` in sales of Sitka spruce (`r paste0(gb_sitka_pct, "%")`) and `r frpubutils::perc_chg_text(gb_scots_pct)` in sales of Scots pine (`r paste0(gb_scots_pct, "%")`) from the previous year.
+An estimated total of `r all_gb_n` million Sitka spruce and Scots pine plants were sold in Great Britain in `r latest_year` (Table 3), comprising `r gb_sitka_n` million Sitka spruce plants and `r gb_scots_n` million Scots pine plants. This represents `r frpubutils::perc_chg_text(gb_sitka_pct)` in sales of Sitka spruce and `r frpubutils::perc_chg_text(gb_scots_pct)` in sales of Scots pine from the previous year.
+#RD: all_gb_im_n is a different value in the published report
+A total of `r all_gb_im_n` million plants (`r paste0(all_gb_im_pct, "%")` of all sales) derived from improved nursery stock were sold in Great Britain in `r latest_year`, `r frpubutils::perc_chg_text(all_gb_im_ac)` compared with `r previous_year`.
 
-A total of `r all_gb_im_n` million plants (`r paste0(all_gb_im_pct, "%")`) derived from improved nursery stock were sold in Great Britain in `r latest_year`, `r frpubutils::perc_chg_text(all_gb_im_ac)` compared with `r previous_year`.
 
-
-
+#RD: some of the values in this table are different to the values in Table 3 of the published report
 #### Table 3: Summary table, Great Britain, `r latest_year`
 ```{r table 3, echo = FALSE, message = FALSE}
 
@@ -374,10 +372,10 @@ table3 <- table3 %>%
 
 Note:
 
-1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
+1.	Results for respondents only. this is estimated to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
 \newpage
 
-Figure 2 shows the total sales for all improved stock sold in Great Britain, from  `r first_year` to `r latest_year`
+Figure 2 shows the total sales for all improved stock sold in Great Britain, from  `r first_year` to `r latest_year`.
 
 Since the 2005/06 planting season, improved Sitka spruce seedlings have reported more than a two-fold increase in sales. Sales of improved Sitka spruce VP and improved Scots pine seedlings have both remained relatively constant throughout.
 
@@ -391,7 +389,7 @@ ns_figs$fig2
 <br>
 Note:
 
-1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
+1.	Results for respondents only. this is estimated to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
 \newpage
 
 #### Table 4: Sales of improved nursery stock, Great Britain, `r ten_ago` to `r latest_year`
@@ -414,10 +412,10 @@ table4 <- table4 %>%
 
 Note:
 
-1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
+1.	Results for respondents only. this is estimated to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
 
 \newpage
-
+#RD: this heading hasn't printed correctly
 #Annex
 
 ## Introduction
@@ -469,15 +467,13 @@ The results relate to respondents only; no estimates have been made for non-resp
 
 ## Quality
 
-For the `r latest_year` survey, questionnaires were issued to a total of 14 nurseries (including one Forestry England and one Forestry and Land Scotland nursery). A total of 13 responses were received, giving a response rate of 93%.
-
-Further information on the quality of our statistics can be found in our quality report.
+For the `r latest_year` survey, questionnaires were issued to a total of 14 nurseries (including one Forestry England and one Forestry and Land Scotland nursery). A total of 13 responses were received, giving a response rate of 93%. #RD: put a note in the readme & desk instructions that this will need to be updated every year.
 
 
 ## Revisions
 
 Figures for the planting year `r latest_year` are published for the first time in this release.
-
+#RD: put a link on 'revisions policy'
 Our revisions policy sets out how revisions and errors to Forest Research statistics are dealt with.
 
 ## Further information
@@ -487,11 +483,11 @@ The assistance of the Confederation of Forest Industries (Confor) and the nurser
 Figures in tables have been independently rounded, so may not add to the totals shown.
 
 ## Release schedule
-`r next_update`
+`r next_update` #RD: change this to long date format
 
 ## Official Statistics
 
-This is an Official Statistics publication. For more information about Official Statistics see the UK Statistics Authority.
+This is an Official Statistics publication. For more information about Official Statistics see the UK Statistics Authority. #RD: put a link on 'UK Statistics Authority'
 
 
 
