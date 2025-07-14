@@ -7,13 +7,42 @@
 ns_figures(returns, latest_year)
 }
 \arguments{
-\item{returns}{compiled data}
+\item{returns}{A data frame containing compiled nursery survey returns data with columns:
+\describe{
+  \item{country_sold_to}{Country where stock was sold}
+  \item{gi}{Logical indicating if stock is genetically improved}
+  \item{tree_sp}{Tree species (e.g., "Sitka spruce", "Scots pine")}
+  \item{prod_method}{Production method (e.g., "Seedlings", "VP")}
+  \item{year}{Year of data}
+  \item{volume}{Volume of sales}
+}}
 
-\item{latest_year}{latest year of data}
+\item{latest_year}{Integer. The most recent year of data in the dataset.}
 }
 \value{
-List containing publication ready figures
+A list containing two ggplot2 figure objects:
+\describe{
+  \item{fig1}{Line graph showing sales of genetically improved nursery stock in Scotland}
+  \item{fig2}{Line graph showing sales of genetically improved nursery stock in Great Britain}
+}
 }
 \description{
-Create list of NS publication ready figures
+Generates publication-ready figures for the Nursery Survey publication showing
+sales of genetically improved nursery stock over time. Creates line graphs for
+both Scotland and Great Britain data using Forest Research's standard chart formatting.
+}
+\note{
+This function requires the afcharts package for Forest Research styling.
+The afcharts::use_afcharts() function is called within to apply theme settings.
+}
+\examples{
+\dontrun{
+# Assuming 'nursery_data' is your compiled returns data
+figures <- ns_figures(returns = nursery_data, latest_year = 2023)
+
+# Access individual figures
+scotland_fig <- figures$fig1
+gb_fig <- figures$fig2
+}
+
 }

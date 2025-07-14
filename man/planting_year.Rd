@@ -2,16 +2,51 @@
 % Please edit documentation in R/planting_year.R
 \name{planting_year}
 \alias{planting_year}
-\title{Get the planting year as text.}
+\title{Convert Year to Planting Year Text Format}
 \usage{
 planting_year(year)
 }
 \arguments{
-\item{year}{Year to convert to planting year interval.}
+\item{year}{Numeric. The starting year of the planting season. The planting
+year will run from October of this year to September of the following year.}
 }
 \value{
-Planting year text.
+Character string in planting year format "YYYY/YY".
 }
 \description{
-The interval \strong{starts} in the year that is specified.
+Converts a calendar year to the standard planting year text format used in
+UK forestry statistics. The planting year format shows both the starting and
+ending years of the planting season (e.g., "2023/24").
+}
+\details{
+The function creates the standard format used in forestry publications:
+\itemize{
+  \item **Format**: "YYYY/YY" (full start year, last two digits of end year)
+  \item **Example**: Input 2023 produces "2023/24"
+  \item **Coverage**: October 2023 to September 2024
+}
+
+This format is consistent with:
+\itemize{
+  \item Official forestry statistics publications
+  \item Nursery survey reporting periods
+  \item UK government statistical standards
+}
+}
+\examples{
+\dontrun{
+# Convert years to planting year format
+planting_year(2023)  # Returns "2023/24"
+planting_year(2024)  # Returns "2024/25"
+
+# Use in vectorized operations
+years <- c(2020, 2021, 2022, 2023)
+sapply(years, planting_year)
+# Returns c("2020/21", "2021/22", "2022/23", "2023/24")
+}
+
+}
+\seealso{
+\code{\link{to_planting_year}} for interval representation
+\code{\link{in_planting_year}} for date-based conversion
 }

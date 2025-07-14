@@ -2,7 +2,7 @@
 % Please edit documentation in R/output_nursery.R
 \name{output_nursery}
 \alias{output_nursery}
-\title{Output Nursery Survey}
+\title{Generate Nursery Survey Publication}
 \usage{
 output_nursery(
   dir_path,
@@ -12,32 +12,91 @@ output_nursery(
   out_path,
   out_name_doc,
   pub_date,
-  next_update,
-  stat_name
+  next_update
 )
 }
 \arguments{
-\item{dir_path}{Path to folder containing all chapter input data files.}
+\item{dir_path}{Character. Path to directory containing nursery survey return
+spreadsheets (.xlsx files). All Excel files in this directory will be processed.}
 
-\item{hist_data}{Name of previous historical time series of input data.}
+\item{hist_data}{Character. File path to the historical time series data (RDS format)
+containing previous years' nursery survey data for building the backseries.}
 
-\item{nursery_names}{List of corrected nursery names}
+\item{nursery_names}{Character. File path to CSV file containing standardized nursery
+names and reference numbers for data cleaning and consistency.}
 
-\item{ref_year}{tbd}
+\item{ref_year}{Numeric. The reference year for publication (e.g., 2024). Data will
+be processed for the planting year ending two years prior (ref_year - 2).}
 
-\item{out_path}{Path to output folder.}
+\item{out_path}{Character. Directory path where all outputs will be saved including
+Excel workbooks, Word documents, and updated RDS files.}
 
-\item{out_name_doc}{doc file name}
+\item{out_name_doc}{Character. Base name for the output Word document (without extension).
+Final filename will include publication date: "out_name_doc_pub_date.docx".}
 
-\item{pub_date}{Publication date, string. Date format example: 6 October 2030.}
+\item{pub_date}{Character. Publication date in "YYYY-MM-DD" format (e.g., "2024-10-17").
+Used for file naming and document metadata.}
 
-\item{next_update}{Next update date, string. Date format example: 6 October 2030.}
-
-\item{stat_name}{Name of statistician}
+\item{next_update}{Character. Next scheduled update date in "YYYY-MM-DD" format
+(e.g., "2025-11-16"). Used in publication metadata.}
 }
 \value{
-tbd
+Invisible NULL. The function produces the following outputs:
+\itemize{
+  \item **Excel workbook**: Accessible publication spreadsheet with 6 supplementary tables
+  \item **Word document**: QA report with tables, figures, and narrative text
+  \item **RDS file**: Updated time series data for future publication cycles
+  \item **Console message**: Confirmation of successful completion
+}
 }
 \description{
-Output Nursery Survey
+Main wrapper function for the Nursery Survey Reproducible Analytical Pipeline (RAP).
+Processes nursery survey returns, generates official statistics on improved nursery
+stock sales, and produces publication-ready outputs including Word documents and
+Excel spreadsheets for Quality Assurance.
+}
+\details{
+This function orchestrates the complete nursery survey pipeline:
+\itemize{
+  \item **Data Reading**: Processes all Excel returns in the specified directory
+  \item **Data Cleaning**: Applies standardized nursery names and fixes disaggregation errors
+  \item **Quality Assurance**: Validates data and identifies any corrections made
+  \item **Time Series**: Combines new data with historical backseries
+  \item **Analysis**: Generates statistics on sales volumes and improvement percentages
+  \item **Publication**: Creates accessible Excel workbook and Word document
+}
+
+The survey covers:
+\itemize{
+  \item **Species**: Sitka spruce and Scots pine
+  \item **Regions**: Scotland and Great Britain totals
+  \item **Stock Types**: Genetically improved (GI) and non-improved stock
+  \item **Production Methods**: Seedlings, transplants, and cuttings
+}
+
+Disaggregation error correction: The function automatically detects and corrects
+cases where nurseries report Scotland totals that don't match their Great Britain
+totals, typically occurring when "England & Wales" figures are negative.
+}
+\examples{
+\dontrun{
+# Generate 2024 nursery survey publication
+output_nursery(
+  dir_path = "Z:/IFOS/Statistics/Data/Nursery Survey/2022-23/4_Surveys returned",
+  hist_data = "Z:/IFOS/Statistics/Data/Nursery Survey/nursery_survey-2023-10-15.rds",
+  nursery_names = "Z:/IFOS/Statistics/Data/Nursery Survey/names.csv",
+  ref_year = 2024,
+  out_path = "Z:/IFOS/Statistics/Data/Nursery Survey",
+  out_name_doc = "nursery-survey",
+  pub_date = "2024-10-17",
+  next_update = "2025-11-16"
+)
+}
+
+}
+\seealso{
+\code{\link{read_returns}} for reading survey data
+\code{\link{fix_returns}} for data cleaning and error correction
+\code{\link{check_returns}} for quality assurance validation
+\code{\link{ns_figures}} for generating publication charts
 }

@@ -1,12 +1,19 @@
 Package: nurserysurveyrap
-Title: nurserysurveyrap
-Version: 0.0.0.9000
-Authors@R: 
-    person("Dan", "Braby", , "daniel.braby@forestresearch.gov.uk", role = c("cre", "aut"))
-Description: Read, analyse and report for our Nursery Survey.
-License: MIT
-URL: http://github.com/forestresearch/nurserysurveyrap.com
-BugReports: http://github.com/forestresearch/nurseysurveyrap/issues.com
+Title: Nursery Survey Reproducible Analytical Pipeline
+Version: 0.1.0
+Authors@R: c(
+    person("Dan", "Braby", email = "daniel.braby@forestresearch.gov.uk", 
+           role = c("aut", "cre")),
+    person("Forest Research", role = "cph")
+    )
+Description: Reproducible Analytical Pipeline (RAP) for processing UK nursery 
+    survey data on improved stock sales. Generates official statistics on 
+    genetically improved Sitka spruce and Scots pine sales to support forest 
+    policy and industry monitoring. Produces publication-ready reports and 
+    Excel workbooks following UK government statistical standards.
+License: GPL (>= 3)
+URL: https://github.com/forestresearch/nurserysurveyrap
+BugReports: https://github.com/forestresearch/nurserysurveyrap/issues
 Imports: 
     lubridate,
     openxlsx,
@@ -24,7 +31,7 @@ Imports:
     flextable,
     officer,
     frpubutils,
-    a11ytables,
+    aftables,
     afcharts
 Encoding: UTF-8
 RoxygenNote: 7.3.2

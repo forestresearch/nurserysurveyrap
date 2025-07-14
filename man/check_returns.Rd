@@ -2,19 +2,60 @@
 % Please edit documentation in R/utils_ns.R
 \name{check_returns}
 \alias{check_returns}
-\title{Check for disaggregation error corrections}
+\title{Check for Disaggregation Error Corrections}
 \usage{
 check_returns(returns)
 }
 \arguments{
-\item{returns}{dataset.}
+\item{returns}{Tibble. Processed nursery survey data, typically the output from
+\code{\link{fix_returns}}. Must contain a volume column.}
 }
 \value{
-Message
+Character string message:
+\itemize{
+  \item If negative volumes found: Instructions to review affected cases
+  \item If no negative volumes: Confirmation that all data is valid
+}
 }
 \description{
-runs check of compiled time series data to identify where disaggregation error updates have occured
+Validates nursery survey data to determine if disaggregation error corrections
+have been applied. Returns a message indicating whether any negative volumes
+are present, which would indicate that corrections were made during processing.
 }
-\author{
-Daniel Braby
+\details{
+Disaggregation errors in nursery surveys typically occur when:
+\itemize{
+  \item Nurseries report Scotland totals that exceed Great Britain totals
+  \item This results in negative "England & Wales" figures
+  \item The \code{\link{fix_returns}} function corrects these automatically
+  \item Corrections may result in some negative volume values
+}
+
+This function provides quality assurance by:
+\itemize{
+  \item Scanning all volume values for negatives
+  \item Alerting users when corrections have been applied
+  \item Suggesting manual review of affected cases
+}
+}
+\examples{
+\dontrun{
+# Check data after processing
+raw_data <- read_returns("data/nursery_returns/")
+nursery_names <- read_nursery_names("data/nursery_names.csv")
+corrected_data <- fix_returns(raw_data, nursery_names)
+
+# Validate the results
+message <- check_returns(corrected_data)
+print(message)
+
+# If corrections were made, review the data
+if (any(corrected_data$volume < 0)) {
+  View(corrected_data[order(corrected_data$volume), ])
+}
+}
+
+}
+\seealso{
+\code{\link{fix_returns}} for the function that applies corrections
 }

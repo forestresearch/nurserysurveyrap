@@ -28,7 +28,6 @@ knitr::opts_chunk$set(echo = TRUE)
 |                           Northern Research Station, Roslin, Midlothian, EH25 9SY 
 | Enquiries:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0300 067 5238
 |                           [statistics@forestresearch.gov.uk](mailto:statistics@forestresearch.gov.uk)
-| Statistician:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`r stat_name` 
 | Website:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[www.forestresearch.gov.uk/statistics](www.forestresearch.gov.uk/statistics)
 
 #### ![Image caption: Badge for Accredited Official Statistics](../img/accredited_official_statistics_logo_english_hq.png){width=18%}\ 
@@ -398,14 +397,9 @@ Note:
 
 ```{r table 4, echo = FALSE, message = FALSE}
 
-
-  
 table4 <- table4 %>%
   frpubutils::ft_tbl_fmtd(col_names = c("Planting year", "Sitka spruce: seedlings", "Sitka spruce: VP", "Sitka spruce: Total", "Scots pine: Seedlings", "Total",
                           round_it = FALSE))
-
-
-
 
 ```
 

@@ -1,11 +1,28 @@
 #' Prepare content and formatting lists for use with a11ytables for a publication Excel spreadsheet
 #'
+#' @description 
+#' This function prepares all the necessary components for creating an accessible Excel spreadsheet
+#' publication using a11ytables. It generates cover sheet information, table of contents, notes,
+#' and formatting specifications for nursery survey data tables.
+#'
 #' @param pub_date Publication date, string. Date format example: 6 October 2030.
 #' @param next_update Next update date, string. Date format example: 6 October 2030.
 #'
 #' @importFrom lubridate year
 #'
-#' @return List of cover, contents and note sheets for input to a11ytables and other formatting info.
+#' @return A list containing the following components:
+#' \describe{
+#'   \item{cover_list}{List containing publication information, further information links, and contact details}
+#'   \item{contents_df}{Data frame with sheet names and titles for the table of contents}
+#'   \item{notes_df}{Data frame containing footnotes used in the tables}
+#'   \item{tab_titles}{Character vector of sheet tab names}
+#'   \item{sheet_types}{Character vector specifying the type of each sheet}
+#'   \item{sheet_titles}{Character vector of full sheet titles}
+#'   \item{custom_rows}{List of custom row information for each sheet}
+#'   \item{sources}{Character vector of data sources for each sheet}
+#'   \item{table_colnames}{List of column name mappings for each table}
+#'   \item{blank_cells}{Character vector for handling blank cells}
+#' }
 #' @export
 
 
@@ -23,16 +40,16 @@ pub_a11y_prep <- function(pub_date,
                    "tables", "tables")
 
   sheet_titles <- c(
-    paste0("Nursery Survey, Great Britain, 2005/05 to ",
+    paste0("Nursery Survey, Great Britain, 2005/06 to ",
            reporting_year),
     "Contents",
     "Notes",
     paste0("Table S1: Sales of nursery stock, Scotland, 2005/06 to ", reporting_year, " [note 1]"),
     paste0("Table S2: Sales of improved nursery stock, Scotland, 2005/06 to ", reporting_year, " [note 1]"),
-    paste0("Table S3: Percentage of nursery stock sold that is genetically improved, Scotland, 2005/05 to", reporting_year, " [note 1]"),
+    paste0("Table S3: Percentage of nursery stock sold that is genetically improved, Scotland, 2005/06 to ", reporting_year, " [note 1]"),
     paste0("Table S4: Sales of nursery stock, Great Britain, 2005/06 to ", reporting_year, " [note 1]"),
     paste0("Table S5: Sales of improved nursery stock, Great Britain, 2005/06 to ", reporting_year, " [note 1]"),
-    paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/05 to", reporting_year, " [note 1]")
+    paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/06 to ", reporting_year, " [note 1]")
   )
 
   custom_rows <- list(
@@ -78,11 +95,11 @@ pub_a11y_prep <- function(pub_date,
       paste0("Table S1: Sales of nursery stock, Scotland, 2005/06 to ",
              reporting_year),
       paste0("Table S2: Sales of improved nursery stock, Scotland, 2005/06 to ", reporting_year),
-      paste0("Table S3: Percentage of nursery stock sold that is genetically improved, Scotland, 2005/05 to", reporting_year),
+      paste0("Table S3: Percentage of nursery stock sold that is genetically improved, Scotland, 2005/06 to ", reporting_year),
       paste0("Table S4: Sales of nursery stock, Great Britain, 2005/06 to ",
              reporting_year),
       paste0("Table S5: Sales of improved nursery stock, Great Britain, 2005/06 to ", reporting_year),
-      paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/05 to", reporting_year
+      paste0("Table S6: Percentage of nursery stock sold that is genetically improved, Great Britain, 2005/06 to ", reporting_year
     )),
     check.names = FALSE
   )
@@ -153,6 +170,11 @@ pub_a11y_prep <- function(pub_date,
 
 #' Format table with custom flextable theme for publication Word document
 #'
+#' @description
+#' Applies Forest Research's publication formatting standards to a flextable object.
+#' This includes font settings (Verdana 12pt), alternating row colors, borders,
+#' column alignment, and number formatting.
+#'
 #' @param in_table Table (tibble or data frame) to be formatted
 #' @param round_it Boolean, default is TRUE. TRUE will round numbers in table to 0 decimal places, FALSE will not round.
 #' @param char_cols Vector containing index of column(s) that are character, can be length zero.
@@ -162,7 +184,22 @@ pub_a11y_prep <- function(pub_date,
 #' @importFrom officer fp_border
 #' @importFrom purrr map_lgl
 #'
-#' @return Flextable
+#' @return A formatted flextable object with publication-ready styling
+#' 
+#' @examples
+#' \dontrun{
+#' # Create a simple data frame
+#' df <- data.frame(
+#'   Year = 2020:2023,
+#'   Sales = c(1234567, 2345678, 3456789, 4567890),
+#'   Category = c("A", "B", "C", "D")
+#' )
+#' 
+#' # Create flextable and apply theme
+#' ft <- flextable::flextable(df)
+#' ft_formatted <- ft_theme_pub(ft, round_it = TRUE, char_cols = 3, num_cols = 2)
+#' }
+#' 
 #' @export
 #'
 ft_theme_pub <- function(in_table,
@@ -237,17 +274,36 @@ ft_theme_pub <- function(in_table,
 #' @description
 #' Label flextable headings with option to contain superscript text at end of label. Arguments need to be provided for all flextable object ('in_table') columns.
 #' Can be used to label a flextable objects headings with no superscripts if 'sup_vals' argument is not used.
-#'
+#' When sup_vals is NULL (default), the function will simply relabel the headers without adding any superscripts.
 #'
 #' @param in_table Flextable
 #' @param var_names Vector containing names of columns in flextable
 #' @param label_names Vector containing new labels for column headings
-#' @param sup_vals Vector containing superscript text to be added to end of column label, can be blank for columns that don't need superscript (i.e. "").
+#' @param sup_vals Vector containing superscript text to be added to end of column label, can be blank for columns that don't need superscript (i.e. ""). Default is NULL.
 #'
 #' @importFrom flextable compose ncol_keys as_paragraph as_sup
 #' @importFrom magrittr "%>%"
 #'
-#' @return Flextable
+#' @return A flextable object with updated column headers
+#' 
+#' @examples
+#' \dontrun{
+#' # Create a simple flextable
+#' df <- data.frame(a = 1:3, b = 4:6, c = 7:9)
+#' ft <- flextable::flextable(df)
+#' 
+#' # Add labels without superscripts
+#' ft_labeled <- ft_header_label(ft, 
+#'                               var_names = c("a", "b", "c"),
+#'                               label_names = c("Column A", "Column B", "Column C"))
+#' 
+#' # Add labels with superscripts
+#' ft_labeled_sup <- ft_header_label(ft, 
+#'                                   var_names = c("a", "b", "c"),
+#'                                   label_names = c("Column A", "Column B", "Column C"),
+#'                                   sup_vals = c("1", "2", ""))
+#' }
+#' 
 #' @export
 #'
 ft_header_label <- function(in_table, var_names, label_names, sup_vals = NULL) {
@@ -271,24 +327,55 @@ ft_header_label <- function(in_table, var_names, label_names, sup_vals = NULL) {
 
 #' Create list of NS publication ready figures 
 #'
-#' @param returns compiled data
-#' @param latest_year latest year of data
+#' @description
+#' Generates publication-ready figures for the Nursery Survey publication showing
+#' sales of genetically improved nursery stock over time. Creates line graphs for
+#' both Scotland and Great Britain data using Forest Research's standard chart formatting.
 #'
-#' @importFrom dplyr select arrange mutate case_when
+#' @param returns A data frame containing compiled nursery survey returns data with columns:
+#'   \describe{
+#'     \item{country_sold_to}{Country where stock was sold}
+#'     \item{gi}{Logical indicating if stock is genetically improved}
+#'     \item{tree_sp}{Tree species (e.g., "Sitka spruce", "Scots pine")}
+#'     \item{prod_method}{Production method (e.g., "Seedlings", "VP")}
+#'     \item{year}{Year of data}
+#'     \item{volume}{Volume of sales}
+#'   }
+#' @param latest_year Integer. The most recent year of data in the dataset.
+#'
+#' @importFrom dplyr select arrange mutate case_when filter summarise group_by ungroup slice_max pull
 #' @import ggplot2
 #' @importFrom tidyr pivot_longer
 #' @importFrom stringr str_extract
 #' @importFrom scales date_format
 #' @importFrom magrittr "%>%"
 #'
-#' @return List containing publication ready figures
+#' @return A list containing two ggplot2 figure objects:
+#' \describe{
+#'   \item{fig1}{Line graph showing sales of genetically improved nursery stock in Scotland}
+#'   \item{fig2}{Line graph showing sales of genetically improved nursery stock in Great Britain}
+#' }
+#' 
+#' @note This function requires the afcharts package for Forest Research styling.
+#' The afcharts::use_afcharts() function is called within to apply theme settings.
+#' 
+#' @examples
+#' \dontrun{
+#' # Assuming 'nursery_data' is your compiled returns data
+#' figures <- ns_figures(returns = nursery_data, latest_year = 2023)
+#' 
+#' # Access individual figures
+#' scotland_fig <- figures$fig1
+#' gb_fig <- figures$fig2
+#' }
+#' 
 #' @export
 #'
 ns_figures <- function(returns,
                         latest_year) {
 
-  # load formatting for ggplot2
-  library(afcharts) # TODO check how to run without this 
+  # Apply Forest Research chart formatting
+  # Note: afcharts package is required for styling
   afcharts::use_afcharts() 
 
   next_ten <- function(x) { 10*ceiling(x/10) }

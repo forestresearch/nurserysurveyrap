@@ -12,8 +12,22 @@ pub_a11y_prep(pub_date, next_update)
 \item{next_update}{Next update date, string. Date format example: 6 October 2030.}
 }
 \value{
-List of cover, contents and note sheets for input to a11ytables and other formatting info.
+A list containing the following components:
+\describe{
+  \item{cover_list}{List containing publication information, further information links, and contact details}
+  \item{contents_df}{Data frame with sheet names and titles for the table of contents}
+  \item{notes_df}{Data frame containing footnotes used in the tables}
+  \item{tab_titles}{Character vector of sheet tab names}
+  \item{sheet_types}{Character vector specifying the type of each sheet}
+  \item{sheet_titles}{Character vector of full sheet titles}
+  \item{custom_rows}{List of custom row information for each sheet}
+  \item{sources}{Character vector of data sources for each sheet}
+  \item{table_colnames}{List of column name mappings for each table}
+  \item{blank_cells}{Character vector for handling blank cells}
+}
 }
 \description{
-Prepare content and formatting lists for use with a11ytables for a publication Excel spreadsheet
+This function prepares all the necessary components for creating an accessible Excel spreadsheet
+publication using a11ytables. It generates cover sheet information, table of contents, notes,
+and formatting specifications for nursery survey data tables.
 }

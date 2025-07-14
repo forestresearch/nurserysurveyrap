@@ -2,21 +2,48 @@
 % Please edit documentation in R/utils_ns.R
 \name{files_matching}
 \alias{files_matching}
-\title{Recursively match file paths under directory.}
+\title{Find Files Matching Pattern in Directory}
 \usage{
 files_matching(dir_path, regex)
 }
 \arguments{
-\item{dir_path}{Directory path.}
+\item{dir_path}{Character. Path to the directory to search. Search includes
+all subdirectories recursively.}
 
-\item{regex}{Matching criteria.}
+\item{regex}{Character. Regular expression pattern to match against file names.
+Use standard regex syntax (e.g., "\\.xlsx$" for Excel files).}
 }
 \value{
-File paths.
+Character vector of file paths matching the specified pattern.
+  Returns empty character vector if no matches found.
 }
 \description{
-Return paths to files matching specified criteria.
+Recursively searches a directory and returns paths to files matching a specified
+regular expression pattern. Useful for finding all files of a particular type
+(e.g., .xlsx files) within a directory structure.
 }
-\author{
-Daniel Braby
+\details{
+Common regex patterns:
+\itemize{
+  \item \code{"\\.xlsx$"} - Excel workbooks
+  \item \code{"\\.csv$"} - CSV files  
+  \item \code{"\\.rds$"} - R data files
+  \item \code{"^nursery.*\\.xlsx$"} - Excel files starting with "nursery"
+}
+}
+\examples{
+\dontrun{
+# Find all Excel files in directory
+excel_files <- files_matching("data/surveys/", "\\\\.xlsx$")
+
+# Find all CSV files
+csv_files <- files_matching("data/", "\\\\.csv$")
+
+# Find files with specific naming pattern
+nursery_files <- files_matching("data/", "^nursery_return.*\\\\.xlsx$")
+}
+
+}
+\seealso{
+\code{\link{read_returns}} for reading the found Excel files
 }

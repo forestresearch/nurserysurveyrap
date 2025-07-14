@@ -2,19 +2,62 @@
 % Please edit documentation in R/read_returns.R
 \name{read_returns}
 \alias{read_returns}
-\title{Read all descendant spreadsheets in a folder and bind the reports together.}
+\title{Read All Nursery Survey Returns from Directory}
 \usage{
 read_returns(dir_path)
 }
 \arguments{
-\item{dir_path}{Path to search for spreadsheets.}
+\item{dir_path}{Character. Path to directory containing nursery survey return
+spreadsheets. All .xlsx files in this directory and subdirectories will be processed.}
 }
 \value{
-Combined tibble of reports.
+A tibble combining all nursery survey returns with columns:
+\itemize{
+  \item \code{year} - Integer, survey year
+  \item \code{nursery_ref} - Integer, nursery reference number
+  \item \code{nursery_name} - Character, nursery name from spreadsheet
+  \item \code{tree_sp} - Character, tree species
+  \item \code{prod_method} - Character, production method
+  \item \code{country_sold_to} - Character, destination country
+  \item \code{gi} - Logical, genetically improved flag
+  \item \code{volume} - Numeric, number of plants
+  \item \code{stock_type} - Character, stock type classification
+}
 }
 \description{
-Reads in all Nursery Survey returns in a specified spreadsheet and compiles into a single dataframe
+Reads and combines all nursery survey returns from Excel spreadsheets in a 
+specified directory. This function processes all .xlsx files found recursively
+and compiles them into a single dataset for analysis.
 }
-\author{
-Dan Braby
+\details{
+The function:
+\itemize{
+  \item Searches recursively for all .xlsx files in the specified directory
+  \item Processes each file using \code{\link{read_return}}
+  \item Combines all returns into a single tibble
+  \item Maintains data structure consistency across all files
+}
+
+Expected directory structure:
+\itemize{
+  \item Contains Excel workbooks (.xlsx) with nursery survey returns
+  \item Each workbook must have a "return" sheet with standardized format
+  \item Files can be in subdirectories (recursive search)
+}
+}
+\examples{
+\dontrun{
+# Read all nursery returns from a directory
+all_returns <- read_returns("data/nursery_returns_2024/")
+
+# View summary
+summary(all_returns)
+table(all_returns$tree_sp, all_returns$prod_method)
+}
+
+}
+\seealso{
+\code{\link{read_return}} for reading individual returns
+\code{\link{files_matching}} for file discovery functionality
+\code{\link{fix_returns}} for subsequent data cleaning
 }

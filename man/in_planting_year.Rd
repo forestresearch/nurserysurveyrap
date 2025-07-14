@@ -2,19 +2,51 @@
 % Please edit documentation in R/planting_year.R
 \name{in_planting_year}
 \alias{in_planting_year}
-\title{Date to planting year interval.}
+\title{Convert Date to Planting Year Interval}
 \usage{
 in_planting_year(date)
 }
 \arguments{
-\item{date}{Date to get the planting year from.}
+\item{date}{Date object or character string (YYYY-MM-DD) representing the date
+to convert to a planting year interval.}
 }
 \value{
-Planting year interval.
+A lubridate interval object representing the planting year period.
 }
 \description{
-Planting years run from 1st October to 30th September the following year.
+Converts a specific date to its corresponding planting year interval. Planting
+years in UK forestry run from 1st October to 30th September the following year,
+aligning with the natural planting season cycle.
 }
-\author{
-Daniel Braby
+\details{
+The UK forestry planting year convention:
+\itemize{
+  \item **Start**: 1st October
+  \item **End**: 30th September (following year)
+  \item **Example**: 2023/24 planting year runs from 1 Oct 2023 to 30 Sep 2024
+}
+
+Date assignment logic:
+\itemize{
+  \item Dates from January-September belong to the planting year ending that year
+  \item Dates from October-December belong to the planting year ending the following year
+}
+}
+\examples{
+\dontrun{
+# Date in winter (planting season)
+winter_date <- as.Date("2024-01-15")
+planting_interval <- in_planting_year(winter_date)
+# Returns interval from 1 Oct 2023 to 30 Sep 2024
+
+# Date in autumn (start of new planting year)
+autumn_date <- as.Date("2024-11-01")
+planting_interval <- in_planting_year(autumn_date)
+# Returns interval from 1 Oct 2024 to 30 Sep 2025
+}
+
+}
+\seealso{
+\code{\link{to_planting_year}} for converting years to planting year intervals
+\code{\link{planting_year}} for getting text representation
 }

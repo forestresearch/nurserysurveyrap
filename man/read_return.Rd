@@ -2,13 +2,59 @@
 % Please edit documentation in R/read_returns.R
 \name{read_return}
 \alias{read_return}
-\title{Read a single nursery survey return from a spreadsheet.}
+\title{Read Individual Nursery Survey Return}
 \usage{
 read_return(file_path)
 }
+\arguments{
+\item{file_path}{Character. File path to the Excel workbook containing the 
+nursery survey return. Must contain a "return" sheet with the expected format.}
+}
 \value{
-Tibble with disaggregated country and genetically improved stock variables.
+A tibble with disaggregated nursery survey data containing:
+\itemize{
+  \item \code{year} - Integer, survey year
+  \item \code{nursery_ref} - Integer, nursery reference number
+  \item \code{tree_sp} - Character, tree species ("Sitka spruce" or "Scots pine")
+  \item \code{prod_method} - Character, production method ("Seedlings", "Transplants", "Cuttings")
+  \item \code{country_sold_to} - Character, destination country ("Scotland" or "E&W")
+  \item \code{gi} - Logical, TRUE for genetically improved stock, FALSE otherwise
+  \item \code{volume} - Numeric, number of plants (converted from thousands)
+  \item \code{stock_type} - Character, "GI" or "Non-GI"
+}
 }
 \description{
-Read a single nursery survey return from a spreadsheet.
+Reads and processes a single nursery survey return from an Excel spreadsheet.
+The function handles the specific data structure of nursery survey returns,
+disaggregating totals into component parts and standardizing variable names.
+}
+\details{
+The function performs several data transformations:
+\itemize{
+  \item **Country disaggregation**: Calculates "England & Wales" from Great Britain minus Scotland
+  \item **Stock type disaggregation**: Calculates "Non-GI" from Total minus Genetically Improved (GI)
+  \item **Variable standardization**: Creates boolean GI variable and converts units
+  \item **Data type conversion**: Ensures proper numeric and integer types
+}
+
+Expected spreadsheet structure:
+\itemize{
+  \item Sheet name: "return"
+  \item Columns include: year, nursery_ref, tree_sp, prod_method
+  \item Country columns: GB (Great Britain), Scotland
+  \item Stock type columns: Total, GI (Genetically Improved)
+  \item Volume data in thousands of plants
+}
+}
+\examples{
+\dontrun{
+# Read a single nursery return
+single_return <- read_return("path/to/nursery_return_2024.xlsx")
+head(single_return)
+}
+
+}
+\seealso{
+\code{\link{read_returns}} for reading multiple returns
+\code{\link{with_pivot}} for the pivoting functionality used internally
 }

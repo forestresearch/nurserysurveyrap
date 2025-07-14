@@ -16,8 +16,25 @@ ft_theme_pub(in_table, round_it = TRUE, char_cols, num_cols)
 \item{num_cols}{Vector containing index of column(s) that are numeric, can be length zero.}
 }
 \value{
-Flextable
+A formatted flextable object with publication-ready styling
 }
 \description{
-Format table with custom flextable theme for publication Word document
+Applies Forest Research's publication formatting standards to a flextable object.
+This includes font settings (Verdana 12pt), alternating row colors, borders,
+column alignment, and number formatting.
+}
+\examples{
+\dontrun{
+# Create a simple data frame
+df <- data.frame(
+  Year = 2020:2023,
+  Sales = c(1234567, 2345678, 3456789, 4567890),
+  Category = c("A", "B", "C", "D")
+)
+
+# Create flextable and apply theme
+ft <- flextable::flextable(df)
+ft_formatted <- ft_theme_pub(ft, round_it = TRUE, char_cols = 3, num_cols = 2)
+}
+
 }

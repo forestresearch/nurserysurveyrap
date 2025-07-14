@@ -13,12 +13,32 @@ ft_header_label(in_table, var_names, label_names, sup_vals = NULL)
 
 \item{label_names}{Vector containing new labels for column headings}
 
-\item{sup_vals}{Vector containing superscript text to be added to end of column label, can be blank for columns that don't need superscript (i.e. "").}
+\item{sup_vals}{Vector containing superscript text to be added to end of column label, can be blank for columns that don't need superscript (i.e. ""). Default is NULL.}
 }
 \value{
-Flextable
+A flextable object with updated column headers
 }
 \description{
 Label flextable headings with option to contain superscript text at end of label. Arguments need to be provided for all flextable object ('in_table') columns.
 Can be used to label a flextable objects headings with no superscripts if 'sup_vals' argument is not used.
+When sup_vals is NULL (default), the function will simply relabel the headers without adding any superscripts.
+}
+\examples{
+\dontrun{
+# Create a simple flextable
+df <- data.frame(a = 1:3, b = 4:6, c = 7:9)
+ft <- flextable::flextable(df)
+
+# Add labels without superscripts
+ft_labeled <- ft_header_label(ft, 
+                              var_names = c("a", "b", "c"),
+                              label_names = c("Column A", "Column B", "Column C"))
+
+# Add labels with superscripts
+ft_labeled_sup <- ft_header_label(ft, 
+                                  var_names = c("a", "b", "c"),
+                                  label_names = c("Column A", "Column B", "Column C"),
+                                  sup_vals = c("1", "2", ""))
+}
+
 }
