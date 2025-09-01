@@ -4,7 +4,7 @@
 #' The function handles the specific data structure of nursery survey returns,
 #' disaggregating totals into component parts and standardizing variable names.
 #'
-#' @param file_path Character. File path to the Excel workbook containing the 
+#' @param file_path Character. File path to the Excel workbook containing the
 #'   nursery survey return. Must contain a "return" sheet with the expected format.
 #'
 #' @details
@@ -61,13 +61,13 @@ read_return <- function(file_path) {
                  x %>% dplyr::mutate("E&W" = GB - Scotland) %>%
                    dplyr::select(!GB)
                }) %>%
-    with_pivot("stock_type", "volume_thousand",
+    with_pivot("volume_type", "volume_thousand",
                function (x) {
                  x %>% dplyr::mutate("Non-GI" = Total - GI) %>%
                    dplyr::select(!Total)
                }) %>%
     dplyr::mutate(
-      gi = dplyr::recode(stock_type, "GI" = TRUE, "Non-GI" = FALSE),
+      gi = dplyr::recode(volume_type, "GI" = TRUE, "Non-GI" = FALSE),
       year = as.integer(year),
       nursery_ref = as.integer(nursery_ref),
       volume = volume_thousand * 1000,
@@ -77,7 +77,7 @@ read_return <- function(file_path) {
 
 #' Read All Nursery Survey Returns from Directory
 #'
-#' Reads and combines all nursery survey returns from Excel spreadsheets in a 
+#' Reads and combines all nursery survey returns from Excel spreadsheets in a
 #' specified directory. This function processes all .xlsx files found recursively
 #' and compiles them into a single dataset for analysis.
 #'
@@ -120,7 +120,7 @@ read_return <- function(file_path) {
 #' \dontrun{
 #' # Read all nursery returns from a directory
 #' all_returns <- read_returns("data/nursery_returns_2024/")
-#' 
+#'
 #' # View summary
 #' summary(all_returns)
 #' table(all_returns$tree_sp, all_returns$prod_method)
