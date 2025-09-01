@@ -358,7 +358,7 @@ output_nursery <- function(dir_path,
     out_name_wb = paste0("nursery-survey_", pub_date),
     replace_wb = TRUE,
     rnd_no_dec = c(rep(FALSE, 6)),
-    a11y_obj = ns_a11y_obj)
+    af_obj = ns_a11y_obj)
 
   ns_figs <- ns_figures(returns, latest_year)
 
