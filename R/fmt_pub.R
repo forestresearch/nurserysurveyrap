@@ -79,7 +79,7 @@ pub_a11y_prep <- function(pub_date,
       paste0("Data period: Final data for ", reporting_year),
       paste0("Next update: ", next_update)),
     "Further information" = c(
-      "[Forestry Statistics publication (opens in a new window)](https://www.forestresearch.gov.uk/tools-and-resources/statistics/statistics-by-topic/other-topics/nursery-survey/)",
+      "[Nursery Survey publication (opens in a new window)](https://www.forestresearch.gov.uk/tools-and-resources/statistics/statistics-by-topic/other-topics/nursery-survey/)",
       "[Forest Research revisions policy for Official Statistics (opens in a new window)](https://cdn.forestresearch.gov.uk/2022/02/revisions_policy_k9zouvn-5.pdf)"),
     "Contact information" = c(
       "Forestry Information and Statistics team",
