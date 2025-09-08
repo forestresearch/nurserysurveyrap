@@ -448,8 +448,4 @@ ns_figures <- function(returns,
     fig1 = fig1,
     fig2 = fig2
   ))
-
-    # Apply date formatting
-  pub_date <- frpubutils::long_fmt_date(pub_date)
-  next_update <- frpubutils::long_fmt_date(next_update)
 }
