@@ -263,7 +263,7 @@ all_gb_pct <- returns %>%
 
 # Key findings
 
--   A total of `r all_scotland_im_n` million plants (`r paste0(all_scotland_im_pct, " %")`) derived from improved nursery stock were sold to Scotland in `r latest_year`.
+-   A total of `r all_scotland_im_n` million plants (`r paste0(all_scotland_im_pct, "%")`) derived from improved nursery stock were sold to Scotland in `r latest_year`.
 
 -   Of all sales in Great Britain in `r latest_year`, `r all_gb_im_n` million plants (`r paste0(all_gb_im_pct, "%")`) were derived from improved nursery stock, `r frpubutils::perc_chg_text(all_gb_im_ac)` (or `r all_gb_diff` million plants) compared with the previous year.
 
@@ -274,7 +274,7 @@ all_gb_pct <- returns %>%
 
 An estimated total of `r all_scotland_n` million Sitka spruce and Scots pine plants were sold to Scotland in `r latest_year` (Table 1), comprising `r scotland_sitka_n` million Sitka spruce plants and `r scotland_scots_n` million Scots pine plants. This represents `r frpubutils::perc_chg_text(scotland_sitka_pct)` in sales of Sitka spruce and `r frpubutils::perc_chg_text(scotland_scots_pct)` in sales of Scots pine from the previous year.
 
-A total of `r all_scotland_im_n` million plants (`r paste0(all_scotland_im_pct, " %")`) derived from improved nursery stock were sold to Scotland in `r latest_year`, `r frpubutils::perc_chg_text(all_scotland_im_ac)` compared with `r previous_year` (Table 2).
+A total of `r all_scotland_im_n` million plants (`r paste0(all_scotland_im_pct, "%")`) derived from improved nursery stock were sold to Scotland in `r latest_year`, `r frpubutils::perc_chg_text(all_scotland_im_ac)` compared with `r previous_year` (Table 2).
 
 #### Table 1: Summary table, Scotland, `r latest_year`
 
