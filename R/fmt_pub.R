@@ -71,6 +71,9 @@ pub_a11y_prep <- function(pub_date,
     rep("Forest Research", 6)
   )
 
+pub_date_fmt <- frpubutils::long_fmt_date(pub_date)
+next_update_fmt <- frpubutils::long_fmt_date(next_update)
+
   cover_list <- list(
     "Publication information" = c(
       paste0("Publication date: ", pub_date),
