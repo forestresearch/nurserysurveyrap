@@ -29,9 +29,7 @@
 pub_a11y_prep <- function(pub_date,
                           next_update) {
 
-  # Apply date formatting
-  pub_date <- frpubutils::long_fmt_date(pub_date)
-  next_update <- frpubutils::long_fmt_date(next_update)
+
 
   reporting_year <- planting_year(lubridate::year(pub_date) - 2)
 
@@ -450,4 +448,8 @@ ns_figures <- function(returns,
     fig1 = fig1,
     fig2 = fig2
   ))
+
+    # Apply date formatting
+  pub_date <- frpubutils::long_fmt_date(pub_date)
+  next_update <- frpubutils::long_fmt_date(next_update)
 }
