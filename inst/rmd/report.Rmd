@@ -459,7 +459,7 @@ The results relate to respondents only; no estimates have been made for non-resp
 
 ## Quality
 
-For the `r latest_year` survey, questionnaires were issued to a total of 14 nurseries (including one Forestry England and one Forestry and Land Scotland nursery). A total of 13 responses were received, giving a response rate of 93%.
+For the `r latest_year` survey, questionnaires were issued to a total of 14 nurseries (including one Forestry England and one Forestry and Land Scotland nursery). A total of 13 responses were received, giving a response rate of 100%.
 
 Further information on the quality of our statistics can be found in our [ quality report](https://www.forestresearch.gov.uk/tools-and-resources/statistics/about-our-statistics/quality-of-official-statistics/).
 
