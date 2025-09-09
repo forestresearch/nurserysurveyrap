@@ -327,7 +327,7 @@ Note:
   
 table2 <- table2 %>%
   frpubutils::ft_tbl_fmtd(col_names = c("Planting year", "Sitka spruce: seedlings", "Sitka spruce: VP", "Sitka spruce: Total", "Scots pine: Seedlings", "Total", 
-round_it = FALSE))
+                          round_it = FALSE))
 
 
 ```
@@ -397,7 +397,7 @@ Note:
 
 table4 <- table4 %>%
   frpubutils::ft_tbl_fmtd(col_names = c("Planting year", "Sitka spruce: seedlings", "Sitka spruce: VP", "Sitka spruce: Total", "Scots pine: Seedlings", "Total", 
-round_it = FALSE))
+                          round_it = FALSE))
 
 ```
 
