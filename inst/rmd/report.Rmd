@@ -463,7 +463,7 @@ For the `r latest_year` survey, questionnaires were issued to a total of 14 nurs
 
 Further information on the quality of our statistics can be found in our quality report.
 
-/newpage
+\newpage
 
 ## Revisions
 
