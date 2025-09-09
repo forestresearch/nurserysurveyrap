@@ -374,9 +374,7 @@ Note:
 1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
 \newpage
 
-Figure 2 shows the total sales for all improved stock sold in Great Britain, from  `r first_year` to `r latest_year`.
-
-Since the 2005/06 planting season, improved Sitka spruce seedlings have reported more than a two-fold increase in sales. Sales of improved Sitka spruce VP and improved Scots pine seedlings have both remained relatively constant throughout.
+Figure 2 shows the total sales for all improved stock sold in Great Britain, from  `r first_year` to `r latest_year`. Since the 2005/06 planting season, improved Sitka spruce seedlings have reported more than a two-fold increase in sales. Sales of improved Sitka spruce VP and improved Scots pine seedlings have both remained relatively constant throughout.
 
 #### Figure 2: Sales of improved nursery stock, Great Britain, 2005/06 to `r latest_year`
 
@@ -465,6 +463,7 @@ For the `r latest_year` survey, questionnaires were issued to a total of 14 nurs
 
 Further information on the quality of our statistics can be found in our quality report.
 
+/newpage
 
 ## Revisions
 
