@@ -248,18 +248,30 @@ output_nursery <- function(dir_path,
 
   table1 <- dplyr::bind_rows(table1, table1_sitka_tot, table1_tot) %>%
     dplyr::group_by(year, label) %>%
-    dplyr::mutate(pct_improved = (volume/sum(volume)) * 100,
-                  volume_total = sum(volume)) %>%
+    dplyr::mutate(
+      pct_improved = (volume / sum(volume)) * 100,
+      volume_total = sum(volume)
+    ) %>%
     dplyr::ungroup() %>%
     dplyr::group_by(label, gi) %>%
-    dplyr::mutate(volume_lag = lag(volume)) %>%
+    dplyr::mutate(volume_lag = dplyr::lag(volume)) %>%
     dplyr::ungroup() %>%
-    dplyr::filter(year == ref_year - 2,
-                  gi == TRUE) %>%
-    select(label, volume_total, volume, pct_improved) %>%
-    dplyr::mutate(volume_total = frpubutils::round_safe(volume_total, 1),
-                  volume = frpubutils::round_safe(volume, 1),
-                  pct_improved = frpubutils::round_safe(pct_improved, 1))
+    dplyr::filter(year == ref_year - 2, gi == TRUE) %>%
+    dplyr::select(label, volume_total, volume, pct_improved) %>%
+    dplyr::mutate(
+      volume_total = frpubutils::round_safe(volume_total, 1),
+      volume = frpubutils::round_safe(volume, 1),
+      pct_improved = frpubutils::round_safe(pct_improved, 1)
+    ) %>%
+    dplyr::slice(match(
+      c("Sitka spruce: Seedlings",
+        "Sitka spruce: VP",
+        "Sitka spruce: Total",
+        "Scots pine: Seedlings",
+        "Total"),
+      label
+    ))
+
 
   t2 = returns %>%
     dplyr::filter(country_sold_to == "Scotland",
@@ -283,8 +295,19 @@ output_nursery <- function(dir_path,
     tidyr::pivot_wider(names_from = "label",
                        values_from = "volume") %>%
     dplyr::arrange(year) %>%
-    dplyr::mutate(dplyr::across(dplyr::where(is.numeric), ~ frpubutils::round_safe(.x, 1)),
-                  year = planting_year(year))
+    dplyr::mutate(
+      dplyr::across(dplyr::where(is.numeric), ~ frpubutils::round_safe(.x, 1)),
+      year = planting_year(year)
+    ) %>%
+    dplyr::select(
+      year,
+      `Sitka spruce: Seedlings`,
+      `Sitka spruce: VP`,
+      `Sitka spruce: Total`,
+      `Scots pine: Seedlings`,
+      Total
+    )
+
 
   table3 = returns %>%
     dplyr::filter(year %in% c(ref_year - 3, ref_year - 2)) %>%
@@ -306,18 +329,30 @@ output_nursery <- function(dir_path,
 
   table3 <- dplyr::bind_rows(table3, table3_sitka_tot, table3_tot) %>%
     dplyr::group_by(year, label) %>%
-    dplyr::mutate(pct_improved = (volume/sum(volume)) * 100,
-                  volume_total = sum(volume)) %>%
+    dplyr::mutate(
+      pct_improved = (volume / sum(volume)) * 100,
+      volume_total = sum(volume)
+    ) %>%
     dplyr::ungroup() %>%
     dplyr::group_by(label, gi) %>%
     dplyr::mutate(volume_lag = lag(volume)) %>%
     dplyr::ungroup() %>%
-    dplyr::filter(year == ref_year - 2,
-                  gi == TRUE) %>%
-    select(label, volume_total, volume, pct_improved) %>%
-    dplyr::mutate(volume_total = frpubutils::round_safe(volume_total, 1),
-                  volume = frpubutils::round_safe(volume, 1),
-                  pct_improved = frpubutils::round_safe(pct_improved, 1))
+    dplyr::filter(year == ref_year - 2, gi == TRUE) %>%
+    dplyr::select(label, volume_total, volume, pct_improved) %>%
+    dplyr::mutate(
+      volume_total = frpubutils::round_safe(volume_total, 1),
+      volume = frpubutils::round_safe(volume, 1),
+      pct_improved = frpubutils::round_safe(pct_improved, 1)
+    ) %>%
+    dplyr::slice(match(
+      c("Sitka spruce: Seedlings",
+        "Sitka spruce: VP",
+        "Sitka spruce: Total",
+        "Scots pine: Seedlings",
+        "Total"),
+      label
+    ))
+
 
   t4 = returns %>%
     dplyr::filter(year >= (max(year) - 9),
@@ -340,8 +375,19 @@ output_nursery <- function(dir_path,
     tidyr::pivot_wider(names_from = "label",
                        values_from = "volume") %>%
     dplyr::arrange(year) %>%
-    dplyr::mutate(dplyr::across(dplyr::where(is.numeric), ~ frpubutils::round_safe(.x, 1)),
-                  year = planting_year(year))
+    dplyr::mutate(
+      dplyr::across(dplyr::where(is.numeric), ~ frpubutils::round_safe(.x, 1)),
+      year = planting_year(year)
+    ) %>%
+    dplyr::select(
+      year,
+      `Sitka spruce: Seedlings`,
+      `Sitka spruce: VP`,
+      `Sitka spruce: Total`,
+      `Scots pine: Seedlings`,
+      Total
+    )
+
 
   ns_a11y_obj <- pub_a11y_prep(pub_date = pub_date,
                                next_update = next_update)
