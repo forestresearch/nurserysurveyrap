@@ -306,8 +306,6 @@ Figure 1 presents the sales of improved nursery stock to Scotland from `r first_
 
 #### Figure 1: Sales of improved nursery stock, Scotland, `r first_year` to `r latest_year` 
 
-Improved stock (million plants)
-
 ```{r fig1, dpi = 250, fig.width = 8, fig.height = 4, warning = FALSE, message = FALSE, echo=FALSE}
 ns_figs$fig1 <- ns_figs$fig1 +
   annotate("text",
