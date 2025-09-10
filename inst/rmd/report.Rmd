@@ -306,7 +306,7 @@ Figure 1 presents the sales of improved nursery stock to Scotland from `r first_
 
 #### Figure 1: Sales of improved nursery stock, Scotland, `r first_year` to `r latest_year` 
 
-###### Improved stock (million plants)
+Improved stock (million plants)
 
 ```{r fig1, dpi = 250, fig.width = 8, fig.height = 4, warning = FALSE, message = FALSE, echo=FALSE}
 ns_figs$fig1
@@ -379,7 +379,7 @@ Figure 2 shows the total sales for all improved stock sold in Great Britain, fro
 
 #### Figure 2: Sales of improved nursery stock, Great Britain, 2005/06 to `r latest_year`
 
-###### Improved stock (million plants)
+Improved stock (million plants)
 
 ```{r fig2, dpi = 250, fig.width = 8, fig.height = 4, warning = FALSE, message = FALSE, echo=FALSE}
 ns_figs$fig2
