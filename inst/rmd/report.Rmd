@@ -323,7 +323,7 @@ Note:
 
 \newpage
 
-#### Table 2: Sales of improved nursery stock, Scotland, `r ten_ago` to `r latest_year`
+#### Table 2: Sales of improved nursery stock, Scotland (million plants), `r ten_ago` to `r latest_year`
 
 ```{r table 2, echo = FALSE, message = FALSE}
 
