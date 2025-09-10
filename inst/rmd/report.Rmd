@@ -309,7 +309,11 @@ Figure 1 presents the sales of improved nursery stock to Scotland from `r first_
 Improved stock (million plants)
 
 ```{r fig1, dpi = 250, fig.width = 8, fig.height = 4, warning = FALSE, message = FALSE, echo=FALSE}
-ns_figs$fig1
+ns_figs$fig1 <- ns_figs$fig1 +
+  annotate("text",
+           x = Inf, y = Inf,
+           label = af_text("Improved stock (million plants)"),
+           hjust = 1.05, vjust = 2, size = 3)
 ```
 <br>
 
