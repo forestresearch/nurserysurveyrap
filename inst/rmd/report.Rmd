@@ -39,6 +39,7 @@ Forest Research is the Research Agency of the Forestry Commission and is the lea
 The Agency aims to support and enhance forestry and its role in sustainable development by providing innovative, high quality scientific research, data, technical support and consultancy services.
 
 \newpage
+\newpage
 
 # Introduction
 
@@ -372,6 +373,8 @@ table3 <- table3 %>%
 Note:
 
 1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
+
+\newpage
 \newpage
 
 Figure 2 shows the total sales for all improved stock sold in Great Britain, from  `r first_year` to `r latest_year`. Since the 2005/06 planting season, improved Sitka spruce seedlings have reported more than a two-fold increase in sales. Sales of improved Sitka spruce VP and improved Scots pine seedlings have both remained relatively constant throughout.
