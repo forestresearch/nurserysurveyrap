@@ -338,7 +338,7 @@ table2 <- table2 %>%
 
 Note:
 
-1.	Results for respondents only. This is estimates to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
+1.	Results for respondents only. This is estimated to account for around 95 to 100% of all sales of Sitka spruce and Scots pine.
 
 \newpage
 
